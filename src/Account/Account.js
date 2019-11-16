@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import core from '@appboxo/js-sdk'
 
 import Confirm from '../components/Confirm.js'
 import Preloader from '../components/Preloader.js'
@@ -11,16 +12,25 @@ const Account = () => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    core.setOptions({
+      onLoginSuccess: () => {
+        console.log('login sucess')
+      },
+      onLoginFail: () => {
+        console.log('login failed')
+      },
+      onLoginFinish: () => {
+        setIsLoading(false)
+      }
+    })
+
     // Chech if logged in
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 2000);
+    core.login()
   }, []);
 
   const handleLogin = () => {
     setIsLoading(true)
-
-    // Login
+    core.login()
   }
 
   const handleClose = () => {
@@ -32,6 +42,7 @@ const Account = () => {
     setLoginStatus(false)
 
     // Logout
+    core.logout()
   }
 
   return (

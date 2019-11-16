@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
+import core from '@appboxo/js-sdk'
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,6 +11,10 @@ import Home from './Home/Home.js'
 
 
 function App() {
+  useEffect(() => {
+    console.log(core)
+  }, [])
+
   return (
     <Router>
       <Switch>

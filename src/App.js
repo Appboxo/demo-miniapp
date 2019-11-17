@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react'
 
-import core from '@appboxo/js-sdk'
+import appboxoSdk from '@appboxo/js-sdk'
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,24 +8,39 @@ import {
 } from 'react-router-dom';
 import Account from './Account/Account.js'
 import Home from './Home/Home.js'
-
+import AuthContext from './AuthContext.js'
 
 function App() {
+  const [loginStatus, setLoginStatus] = useState(false)
+
   useEffect(() => {
-    console.log(core)
+    appboxoSdk.getInitData()
+      .then((appData) => {
+        console.log(appData)
+
+        setLoginStatus(Boolean(appData.token))
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }, [])
 
   return (
-    <Router>
-      <Switch>
-        <Route path="/account">
-          <Account />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-    </Router>
+    <AuthContext.Provider value={{
+      loginStatus,
+      setLoginStatus
+    }}>
+      <Router>
+        <Switch>
+          <Route path="/account">
+            <Account />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
+    </AuthContext.Provider>
   );
 }
 

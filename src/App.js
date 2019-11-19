@@ -14,11 +14,11 @@ function App() {
   const [loginStatus, setLoginStatus] = useState(false)
 
   useEffect(() => {
-    appboxoSdk.getInitData()
+    appboxoSdk.sendPromise('AppBoxoWebAppGetInitData')
       .then((appData) => {
-        console.log(appData)
+        console.log('appData: ', appData)
 
-        setLoginStatus(Boolean(appData.token))
+        setLoginStatus(Boolean(appData.detail.data.token))
       })
       .catch((error) => {
         console.log(error)

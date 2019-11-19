@@ -1,7 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
-import { ReacComponent as SuccessIcon } from '../components/svgs/success-icon.svg'
-import { ReacComponent as ErrorIcon } from '../components/svgs/error-icon.svg'
+import { ReactComponent as SuccessIcon } from '../components/svgs/success-icon.svg'
+import { ReactComponent as ErrorIcon } from '../components/svgs/error-icon.svg'
 
 const LoginResponse = ({ isSuccessful, onTryAgain, onContinue }) => {
   return (

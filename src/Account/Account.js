@@ -85,7 +85,7 @@ const Account = () => {
     <section className="pane account">
       <h1>Account details</h1>
       <div className="account__email">
-        Email: <span>Unknown</span>
+        Status: <b>{loginStatus ? 'Logged in' : 'Not logged in'}</b>
       </div>
       {loginStatus ? (
         <>

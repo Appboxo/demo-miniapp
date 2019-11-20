@@ -14,14 +14,12 @@ function App() {
   const [loginStatus, setLoginStatus] = useState(false)
 
   useEffect(() => {
-    appboxoSdk.sendPromise('AppBoxoWebAppGetInitData')
+    appboxoSdk.getInitData()
       .then((appData) => {
-        console.log('appData: ', appData)
-
-        setLoginStatus(Boolean(appData.detail.data.token))
+        setLoginStatus(Boolean(appData.token))
       })
       .catch((error) => {
-        console.log(error)
+        console.log('Error getting web app init data: ', error)
       })
   }, [])
 

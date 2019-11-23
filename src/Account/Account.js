@@ -6,6 +6,7 @@ import Confirm from '../components/Confirm.js'
 import Preloader from '../components/Preloader.js'
 import LoginResponse from '../components/LoginResponse.js'
 import AuthContext from '../AuthContext.js'
+import LoggerContext from '../LoggerContext.js'
 
 
 import './Account.scss'
@@ -17,6 +18,7 @@ const LOGIN_NONE = ''
 const Account = () => {
   let history = useHistory();
   const { loginStatus, setLoginStatus } = React.useContext(AuthContext)
+  const { updateLogs } = React.useContext(LoggerContext)
 
   const [confirmOpen, setConfirmOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -26,14 +28,30 @@ const Account = () => {
     setIsLoading(true)
     setConfirmOpen(false)
     try {
+      updateLogs({
+        action: 'LOGIN_TO_DASHBOARD',
+        message: 'request sent',
+      })
       const token = await appboxoSdk.login()
       console.log('token: ', token)
 
       setLoginStatus(true)
 
+      updateLogs({
+        action: 'LOGIN_TO_DASHBOARD',
+        message: 'response received',
+        data: token
+      })
+
       setLoginResponseStatus(LOGIN_SUCCESS)
     } catch (error) {
       console.log(error)
+
+      updateLogs({
+        action: 'LOGIN_TO_DASHBOARD',
+        message: 'request failed',
+        data: error
+      })
 
       setLoginResponseStatus(LOGIN_FAILED)
     }
@@ -49,14 +67,29 @@ const Account = () => {
 
   const handleLogout = async () => {
     setIsLoading(true)
+    updateLogs({
+      action: 'LOGOUT',
+      message: 'request sent',
+    })
 
     // Logout
     try {
       await appboxoSdk.logout()
       console.log('Resolved')
       setLoginStatus(false)
+
+      updateLogs({
+        action: 'LOGOUT',
+        message: 'response received',
+      })
     } catch (error) {
       console.log('Logout error: ', error)
+
+      updateLogs({
+        action: 'LOGOUT',
+        message: 'request failed',
+        data: error
+      })
     }
 
     setIsLoading(false)
@@ -69,7 +102,12 @@ const Account = () => {
   }
 
   const handleGoBack = () => {
-    history.replace('/');
+    history.replace('/')
+
+    updateLogs({
+      action: 'REDIRECT',
+      message: 'to home'
+    })
   }
 
   return loginResponseStatus ? (
@@ -83,19 +121,25 @@ const Account = () => {
     </>
   ) : (
     <section className="pane account">
-      <h1>Account details</h1>
-      <div className="account__email">
-        Status: <b>{loginStatus ? 'Logged in' : 'Not logged in'}</b>
+      <div>
+        <h1>Account details</h1>
+        <div className="account__email">
+          Status: <b>{loginStatus ? 'Logged in' : 'Not logged in'}</b>
+        </div>
       </div>
-      {loginStatus ? (
-        <>
-          <button className="button account__back-btn" onClick={handleGoBack}>Back</button>
-          <br />
-          <button className="button button-light logout" onClick={handleLogout}>Logout</button>
-        </>
-      ) : (
-        <button className="button login" onClick={() => setConfirmOpen(true)}>Login</button>
-      )}
+      <div>
+        {loginStatus ? (
+          <>
+            <button className="button logout" onClick={handleLogout}>Logout</button>
+            <button className="button button-light" onClick={handleGoBack}>Back</button>
+          </>
+        ) : (
+          <>
+            <button className="button login" onClick={() => setConfirmOpen(true)}>Login</button>
+            <button className="button button-light" onClick={handleGoBack}>Back</button>
+          </>
+        )}
+      </div>
       {confirmOpen && <Confirm
         onClose={handleClose}
         onConfirm={handleLogin}

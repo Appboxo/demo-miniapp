@@ -9,17 +9,41 @@ import {
 import Account from './Account/Account.js'
 import Home from './Home/Home.js'
 import AuthContext from './AuthContext.js'
+import LoggerContext from './LoggerContext.js'
+import Logs from './components/Logs.js'
 
 function App() {
   const [loginStatus, setLoginStatus] = useState(false)
+  const [logsVisibility, setLogsVisibility] = useState(false)
+  const [logs, setLogs] = useState([])
+
+  const updateLogs = (newLog) => {
+    setLogs([...logs, newLog])
+  }
 
   useEffect(() => {
+    updateLogs({
+      action: 'AppBoxoWebAppGetInitData',
+      message: 'request sent'
+    })
     appboxoSdk.getInitData()
       .then((appData) => {
         setLoginStatus(Boolean(appData.token))
+
+        updateLogs({
+          action: 'AppBoxoWebAppGetInitData',
+          message: 'response received',
+          data: appData
+        })
       })
       .catch((error) => {
         console.log('Error getting web app init data: ', error)
+
+        updateLogs({
+          action: 'AppBoxoWebAppGetInitData',
+          message: 'request failed',
+          data: error
+        })
       })
   }, [])
 
@@ -28,16 +52,22 @@ function App() {
       loginStatus,
       setLoginStatus
     }}>
-      <Router>
-        <Switch>
-          <Route path="/account">
-            <Account />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
+      {!logsVisibility && <button className="show-logs-button" onClick={() => setLogsVisibility(true)}>Show Logs</button>}
+      <LoggerContext.Provider value={{
+        updateLogs
+      }}>
+        <Router>
+          <Switch>
+            <Route path="/account">
+              <Account />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </Router>
+      </LoggerContext.Provider>
+      {logsVisibility && <Logs logs={logs} onClose={() => setLogsVisibility(false)}/>}
     </AuthContext.Provider>
   );
 }

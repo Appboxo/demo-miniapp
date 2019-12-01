@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
 import { useHistory } from 'react-router-dom';
 
-import Confirm from '../components/Confirm.js'
 import Preloader from '../components/Preloader.js'
 import LoginResponse from '../components/LoginResponse.js'
 import AuthContext from '../AuthContext.js'
@@ -20,13 +19,11 @@ const Account = () => {
   const { loginStatus, setLoginStatus } = React.useContext(AuthContext)
   const { updateLogs } = React.useContext(LoggerContext)
 
-  const [confirmOpen, setConfirmOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [loginResponseStatus, setLoginResponseStatus] = useState(LOGIN_NONE)
 
   const handleLogin = async () => {
     setIsLoading(true)
-    setConfirmOpen(false)
     try {
       updateLogs({
         action: 'LOGIN_TO_DASHBOARD',
@@ -49,20 +46,16 @@ const Account = () => {
 
       updateLogs({
         action: 'LOGIN_TO_DASHBOARD',
-        message: 'request failed',
+        message: error.status === 'Reject' ? 'login confirm modal rejected' : 'request failed',
         data: error
       })
 
-      setLoginResponseStatus(LOGIN_FAILED)
+      setLoginResponseStatus(error.status === 'Reject' ? LOGIN_NONE : LOGIN_FAILED)
     }
 
     setTimeout(() => {
       setIsLoading(false)
-    }, 1000)
-  }
-
-  const handleClose = () => {
-    setConfirmOpen(false)
+    }, 400)
   }
 
   const handleLogout = async () => {
@@ -135,15 +128,11 @@ const Account = () => {
           </>
         ) : (
           <>
-            <button className="button login" onClick={() => setConfirmOpen(true)}>Login</button>
+            <button className="button login" onClick={handleLogin}>Login</button>
             <button className="button button-light" onClick={handleGoBack}>Back</button>
           </>
         )}
       </div>
-      {confirmOpen && <Confirm
-        onClose={handleClose}
-        onConfirm={handleLogin}
-      />}
       {isLoading && <Preloader />}
     </section>
   )

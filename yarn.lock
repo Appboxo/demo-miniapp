@@ -2,13 +2,13 @@
 # yarn lockfile v1
 
 
-"@appboxo/js-sdk@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@appboxo/js-sdk/-/js-sdk-1.0.0.tgz#91df9739b312f385d9f6cf961a6c46a166046556"
-  integrity sha512-OO5AalO8tedN1h2ggjV2PY/VUncGj4GPahvfFKlD6RNogRcnhvMeH4wxD66gGaNJRq6VVIzIAFFxdf+YUj+FEw==
+"@appboxo/js-sdk@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@appboxo/js-sdk/-/js-sdk-1.0.7.tgz#8050f41fa6059aa837b8b0addf774b7d38963211"
+  integrity sha512-VdVyGhios2UqPPUqiN0xSnzmTAFPtwtCOA2MiJgzau0y8KmZWLyweW3DUePkjh4RYDXBTvbifiurpV7FTauuXg==
   dependencies:
-    axios "^0.19.0"
     js-cookie "^2.2.1"
+    whatwg-fetch "^3.0.0"
 
 "@babel/code-frame@7.5.5", "@babel/code-frame@^7.5.5":
   version "7.5.5"
@@ -10957,7 +10957,7 @@ whatwg-encoding@^1.0.1, whatwg-encoding@^1.0.3, whatwg-encoding@^1.0.5:
   dependencies:
     iconv-lite "0.4.24"
 
-whatwg-fetch@3.0.0:
+whatwg-fetch@3.0.0, whatwg-fetch@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-3.0.0.tgz#fc804e458cc460009b1a2b966bc8817d2578aefb"
   integrity sha512-9GSJUgz1D4MfyKU7KRqwOjXCXTqWdFNvEr7eUBYchQiVc744mqK/MzXPNR2WsPkmkOa4ywfg8C2n8h+13Bey1Q==

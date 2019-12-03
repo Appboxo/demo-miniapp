@@ -5,7 +5,7 @@ import LoggerContext from '../LoggerContext.js'
 
 import './Home.scss'
 
-const AIRALO_ID = 35
+const AIRALO_ID = 'id28'
 
 const Home = (props) => {
   const { updateLogs } = React.useContext(LoggerContext)
@@ -33,8 +33,8 @@ const Home = (props) => {
         <p>Tap on account details button to login in the miniapp with credentials from Appboxo demo app.</p>
       </div>
       <div>
-        <button className="button button-light" onClick={openAiralo}>Open Airalo</button>
         <button className="button" onClick={handleClick}>Account details</button>
+        <button className="button button-light" onClick={openAiralo}>Open Airalo</button>
       </div>
     </section>
   )

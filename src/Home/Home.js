@@ -1,8 +1,11 @@
 import React from 'react';
+import appboxoSdk from '@appboxo/js-sdk'
 import { useHistory } from 'react-router-dom';
 import LoggerContext from '../LoggerContext.js'
 
 import './Home.scss'
+
+const AIRALO_ID = 35
 
 const Home = (props) => {
   const { updateLogs } = React.useContext(LoggerContext)
@@ -16,6 +19,12 @@ const Home = (props) => {
     history.push('/account');
   }
 
+  const openAiralo = () => {
+    appboxoSdk.send('AppBoxoWebAppOpenMiniApp', {
+      app_id: AIRALO_ID
+    })
+  }
+
   return (
     <section className="pane intro">
       <div>
@@ -23,7 +32,10 @@ const Home = (props) => {
         <p>This demo shows Appboxo Connect API capabilities to pass login credentials from host app to miniapp.</p>
         <p>Tap on account details button to login in the miniapp with credentials from Appboxo demo app.</p>
       </div>
-      <button className="button" onClick={handleClick}>Account details</button>
+      <div>
+        <button className="button button-light" onClick={openAiralo}>Open Airalo</button>
+        <button className="button" onClick={handleClick}>Account details</button>
+      </div>
     </section>
   )
 }

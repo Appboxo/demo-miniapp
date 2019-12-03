@@ -22,10 +22,7 @@ function App() {
   }
 
   useEffect(() => {
-    updateLogs({
-      action: 'AppBoxoWebAppGetInitData',
-      message: 'request sent'
-    })
+    // Get initial app data
     appboxoSdk.getInitData()
       .then((appData) => {
         setLoginStatus(Boolean(appData.token))
@@ -45,6 +42,23 @@ function App() {
           data: error
         })
       })
+
+    // Set status bar color
+    appboxoSdk.send('AppBoxoWebAppSetStatusBarColor', {
+      color: '#ffffff'
+    })
+
+    const currentLogs = [
+      {
+        action: 'AppBoxoWebAppSetStatusBarColor',
+        message: 'request sent'
+      },
+      {
+        action: 'AppBoxoWebAppGetInitData',
+        message: 'request sent'
+      }
+    ]
+    setLogs([...logs, ...currentLogs])
   }, [])
 
   return (

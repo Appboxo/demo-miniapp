@@ -7,6 +7,7 @@ import {
   Route
 } from 'react-router-dom';
 import Account from './Account/Account.js'
+import Features from './Features/Features.js'
 import Home from './Home/Home.js'
 import AuthContext from './AuthContext.js'
 import LoggerContext from './LoggerContext.js'
@@ -74,6 +75,9 @@ function App() {
           <Switch>
             <Route path="/account">
               <Account />
+            </Route>
+            <Route path="/features">
+              <Features />
             </Route>
             <Route path="/">
               <Home />

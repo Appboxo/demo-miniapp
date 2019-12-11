@@ -5,13 +5,11 @@ import LoggerContext from '../LoggerContext.js'
 
 import './Home.scss'
 
-const AIRALO_ID = 'id28'
-
 const Home = (props) => {
   const { updateLogs } = React.useContext(LoggerContext)
   let history = useHistory();
 
-  const handleClick = () => {
+  const handleAccountClick = () => {
     updateLogs({
       action: 'REDIRECT',
       message: 'to account details'
@@ -19,10 +17,12 @@ const Home = (props) => {
     history.push('/account');
   }
 
-  const openAiralo = () => {
-    appboxoSdk.send('AppBoxoWebAppOpenMiniApp', {
-      app_id: AIRALO_ID
+  const handleFeaturesClick = () => {
+    updateLogs({
+      action: 'REDIRECT',
+      message: 'to features details'
     })
+    history.push('/features');
   }
 
   return (
@@ -33,8 +33,8 @@ const Home = (props) => {
         <p>Tap on account details button to login in the miniapp with credentials from Appboxo demo app.</p>
       </div>
       <div>
-        <button className="button" onClick={handleClick}>Account details</button>
-        <button className="button button-light" onClick={openAiralo}>Open Airalo</button>
+        <button className="button" onClick={handleAccountClick}>Account details</button>
+        <button className="button button-light" onClick={handleFeaturesClick}>Features</button>
       </div>
     </section>
   )

@@ -24,7 +24,7 @@ const Account = () => {
 
   const loginProps = {
     postConfirmCallback: (confirmStatus) => {
-      setIsLoading(true)
+      setIsLoading(confirmStatus)
     }
   }
 

@@ -11,17 +11,17 @@ const TABS = [
   {
     tabId: 12,
     tabName: 'Home',
-    tabIcon: ''
+    tabIcon: `${document.location.origin}/img/home-icon.png`
   },
   {
     tabId: 123,
     tabName: 'About',
-    tabIcon: ''
+    tabIcon: `${document.location.origin}/img/info-icon.png`
   },
   {
     tabId: 1234,
     tabName: 'Services',
-    tabIcon: ''
+    tabIcon: `${document.location.origin}/img/service-icon.png`
   }
 ]
 

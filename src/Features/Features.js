@@ -37,9 +37,9 @@ const Features = (props) => {
   
     const { type, data } = event.detail;
   
-    if (type === 'AppBoxoWebAppBottomTabClick') {
+    if (type === 'AppBoxoWebAppTabBarItemClick') {
       updateLogs({
-        action: 'AppBoxoWebAppBottomTabClick',
+        action: 'AppBoxoWebAppTabBarItemClick',
         message: 'received',
         data: data
       })
@@ -67,12 +67,69 @@ const Features = (props) => {
     history.push('/');
   }
 
-  const initTabs = () => {
+  const initTabBar = () => {
     updateLogs({
-      action: 'AppBoxoWebAppInitBottomTabs',
+      action: 'AppBoxoWebAppInitTabBar',
       message: 'called for three tabs'
     })
-    appboxoSdk.send('AppBoxoWebAppInitBottomTabs', TABS)
+    appboxoSdk.send('AppBoxoWebAppInitTabBar', {
+      list: TABS,
+      options: {
+        iconColor: '#2eb8da',
+        selectedIconColor: '#2eb8da',
+        background: '#ffffff',
+        textColor: '#000000',
+        selectedTextColor: '#2eb8da'
+      }
+    })
+  }
+
+  const showLightNavBar = () => {
+    updateLogs({
+      action: 'AppBoxoWebAppSetNavigationBar',
+      message: 'called with light color options'
+    })
+    appboxoSdk.send('AppBoxoWebAppSetNavigationBar', {
+      title: 'Light nav bar',
+      backButton: true,
+      background: '#ffffff',
+      frontColor: '#000000',
+      show: true
+    })
+  }
+
+  const showDarkNavBar = () => {
+    updateLogs({
+      action: 'AppBoxoWebAppSetNavigationBar',
+      message: 'called with dark color options'
+    })
+    appboxoSdk.send('AppBoxoWebAppSetNavigationBar', {
+      title: 'Dark nav bar',
+      backButton: true,
+      background: '#012d38',
+      frontColor: '#ffffff',
+      show: true
+    })
+  }
+
+  const changeNavBarTitle = () => {
+    updateLogs({
+      action: 'AppBoxoWebAppSetNavigationBar',
+      message: 'called to change title'
+    })
+    appboxoSdk.send('AppBoxoWebAppSetNavigationBar', {
+      title: 'Custom title'
+    })
+  }
+
+  const hideNavBar = () => {
+    updateLogs({
+      action: 'AppBoxoWebAppSetNavigationBar',
+      message: 'called to hide it'
+    })
+    appboxoSdk.send('AppBoxoWebAppSetNavigationBar', {
+      show: false
+    })
   }
 
   const openAiralo = () => {
@@ -86,10 +143,17 @@ const Features = (props) => {
       <div>
         <h1>Features</h1>
         <div className="feature">
-          <h3>Tabs</h3>
-          <button className="button button-light" onClick={initTabs}>Initialize bottom tabs</button>
-          <button className="button button-light" onClick={() => appboxoSdk.send('AppBoxoWebAppShowBottomTabs')}>Show tabs</button>
-          <button className="button button-light" onClick={() => appboxoSdk.send('AppBoxoWebAppHideBottomTabs')}>Hide tabs</button>
+          <h3>NavigationBar</h3>
+          <button className="button button-light" onClick={showDarkNavBar}>Show dark navigation bar</button>
+          <button className="button button-light" onClick={showLightNavBar}>Show light navigation bar</button>
+          <button className="button button-light" onClick={changeNavBarTitle}>Change navigation bar title</button>
+          <button className="button button-light" onClick={hideNavBar}>Hide navigation bar</button>
+        </div>
+        <div className="feature">
+          <h3>TabBar</h3>
+          <button className="button button-light" onClick={initTabBar}>Initialize bottom tab bar</button>
+          <button className="button button-light" onClick={() => appboxoSdk.send('AppBoxoWebAppShowTabBar')}>Show tab bar</button>
+          <button className="button button-light" onClick={() => appboxoSdk.send('AppBoxoWebAppHideTabBar')}>Hide tab bar</button>
 
           <p>
             Active tab name: <strong>{activeTab}</strong>

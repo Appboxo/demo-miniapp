@@ -27,6 +27,7 @@ const TABS = [
 
 const Features = (props) => {
   const [activeTab, setActiveTab] = useState('-')
+  const [clickCount, setClickCount] = useState(0)
   const { updateLogs } = React.useContext(LoggerContext)
   let history = useHistory();
 
@@ -138,6 +139,16 @@ const Features = (props) => {
     })
   }
 
+  const handleTracking = () => {
+    appboxoSdk.track({
+      action: 'click',
+      payload: {
+        btnName: 'Track click'
+      }
+    })
+    setClickCount(clickCount + 1)
+  }
+
   return (
     <section className="pane features">
       <div>
@@ -163,9 +174,13 @@ const Features = (props) => {
           <h3>Open other miniapp</h3>
           <button className="button button-light" onClick={openAiralo}>Open Airalo</button>
         </div>
+        <div className="feature">
+          <h3>Tracking</h3>
+          <button className="button button-light" onClick={handleTracking}>Track click ({clickCount})</button>
+        </div>
       </div>
       <div>
-        <button className="button button-light" onClick={handleGoBack}>Go back</button>
+        <button className="button button-back" onClick={handleGoBack}>Go back</button>
       </div>
     </section>
   )

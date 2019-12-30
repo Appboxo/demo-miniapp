@@ -35,7 +35,6 @@ const Account = () => {
         message: 'request sent',
       })
       const token = await appboxoSdk.login(loginProps)
-      console.log('token: ', token)
 
       setLoginStatus(true)
 

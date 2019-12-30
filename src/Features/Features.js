@@ -139,7 +139,7 @@ const Features = (props) => {
     })
   }
 
-  const handleTracking = () => {
+  const handleClickTracking = () => {
     appboxoSdk.track({
       action: 'click',
       payload: {
@@ -147,6 +147,31 @@ const Features = (props) => {
       }
     })
     setClickCount(clickCount + 1)
+  }
+
+  const handleTransactionTracking = () => {
+    appboxoSdk.track({
+      action: 'transaction',
+      payload: {
+        shipping: 9.99,
+        tax: 0.57,
+        discount: 2.25,
+        currency_code: 'USD',
+        customer: {
+          first_name: 'John',
+          last_name: 'Doe',
+          email: 'jdoe@domain.com',
+          ip_address: '234.192.4.75'
+        },
+        items: [{
+          name: 'Product',
+          description: 'Product description',
+          price: 5.50,
+          amount: 2,
+          total: 11.0,
+        }]
+      }
+    })
   }
 
   return (
@@ -176,7 +201,8 @@ const Features = (props) => {
         </div>
         <div className="feature">
           <h3>Tracking</h3>
-          <button className="button button-light" onClick={handleTracking}>Track click ({clickCount})</button>
+          <button className="button button-light" onClick={handleClickTracking}>Track click ({clickCount})</button>
+          <button className="button button-light" onClick={handleTransactionTracking}>Track transaction</button>
         </div>
       </div>
       <div>

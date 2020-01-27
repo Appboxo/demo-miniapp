@@ -141,9 +141,11 @@ const Features = (props) => {
 
   const handleClickTracking = () => {
     appboxoSdk.track({
+      app_id: +localStorage.getItem('app_id'),
+      client_id: +localStorage.getItem('client_id'),
       action: 'click',
       payload: {
-        btnName: 'Track click'
+        btnName: 'login'
       }
     })
     setClickCount(clickCount + 1)
@@ -151,9 +153,11 @@ const Features = (props) => {
 
   const handleTransactionTracking = () => {
     appboxoSdk.track({
+      app_id: +localStorage.getItem('app_id'),
+      client_id: +localStorage.getItem('client_id'),
       action: 'transaction',
       payload: {
-        shipping: 9.99,
+        shipping: 5,
         tax: 0.57,
         discount: 2.25,
         currency_code: 'USD',
@@ -163,13 +167,15 @@ const Features = (props) => {
           email: 'jdoe@domain.com',
           ip_address: '234.192.4.75'
         },
-        items: [{
-          name: 'Product',
-          description: 'Product description',
-          price: 5.50,
-          amount: 2,
-          total: 11.0,
-        }]
+        items: [
+          {
+            name: 'Product',
+            description: 'test',
+            price: 8.80,
+            amount: 1,
+            total: 8.80
+          }
+        ]
       }
     })
   }

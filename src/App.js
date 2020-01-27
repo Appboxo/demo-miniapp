@@ -33,6 +33,9 @@ function App() {
           message: 'response received',
           data: appData
         })
+        localStorage.clear()
+        localStorage.setItem('app_id', appData.app_id)
+        localStorage.setItem('client_id', appData.client_id)
       })
       .catch((error) => {
         console.log('Error getting web app init data: ', error)

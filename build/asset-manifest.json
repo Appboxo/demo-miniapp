@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.59f18e8c.chunk.css",
-    "main.js": "/static/js/main.53014bc4.chunk.js",
-    "main.js.map": "/static/js/main.53014bc4.chunk.js.map",
+    "main.js": "/static/js/main.5e28af7e.chunk.js",
+    "main.js.map": "/static/js/main.5e28af7e.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.46640c3d.js",
     "runtime-main.js.map": "/static/js/runtime-main.46640c3d.js.map",
     "static/js/2.a45e2b06.chunk.js": "/static/js/2.a45e2b06.chunk.js",
     "static/js/2.a45e2b06.chunk.js.map": "/static/js/2.a45e2b06.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.25baf4375fa71319fd9aaa83a8df0ba5.js": "/precache-manifest.25baf4375fa71319fd9aaa83a8df0ba5.js",
+    "precache-manifest.cc467bbb71314dc7c6bf8dfc0186bc3a.js": "/precache-manifest.cc467bbb71314dc7c6bf8dfc0186bc3a.js",
     "service-worker.js": "/service-worker.js",
     "static/css/main.59f18e8c.chunk.css.map": "/static/css/main.59f18e8c.chunk.css.map",
     "static/media/error-icon.952f8910.svg": "/static/media/error-icon.952f8910.svg",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.46640c3d.js",
     "static/js/2.a45e2b06.chunk.js",
     "static/css/main.59f18e8c.chunk.css",
-    "static/js/main.53014bc4.chunk.js"
+    "static/js/main.5e28af7e.chunk.js"
   ]
 }

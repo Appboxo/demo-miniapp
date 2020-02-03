@@ -1,5 +1,4 @@
 import React from 'react';
-import appboxoSdk from '@appboxo/js-sdk'
 import { useHistory } from 'react-router-dom';
 import LoggerContext from '../LoggerContext.js'
 

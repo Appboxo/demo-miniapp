@@ -2,6 +2,8 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import LoggerContext from '../LoggerContext.js'
 
+import { Button } from 'antd';
+
 import './Home.scss'
 
 const Home = (props) => {
@@ -32,8 +34,17 @@ const Home = (props) => {
         <p>Tap on account details button to login in the miniapp with credentials from Appboxo demo app.</p>
       </div>
       <div>
-        <button className="button" onClick={handleAccountClick}>Account details</button>
-        <button className="button button-light" onClick={handleFeaturesClick}>Features</button>
+        <Button
+          type="primary"
+          size="large"
+          onClick={handleAccountClick}
+          block
+        >Account details</Button>
+        <Button
+          size="large"
+          block
+          onClick={handleFeaturesClick}
+        >Features</Button>
       </div>
     </section>
   )

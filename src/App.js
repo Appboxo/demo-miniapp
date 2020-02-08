@@ -6,6 +6,8 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
+import { Button } from 'antd';
+
 import Account from './Account/Account.js'
 import Features from './Features/Features.js'
 import Home from './Home/Home.js'
@@ -70,7 +72,14 @@ function App() {
       loginStatus,
       setLoginStatus
     }}>
-      {!logsVisibility && <button className="show-logs-button" onClick={() => setLogsVisibility(true)}>Show Logs</button>}
+      {!logsVisibility && (
+        <Button
+          type="dashed"
+          size="small"
+          className="show-logs-button"
+          onClick={() => setLogsVisibility(true)}
+        >Show Logs</Button>
+      )}
       <LoggerContext.Provider value={{
         updateLogs
       }}>

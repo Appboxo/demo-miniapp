@@ -33,6 +33,7 @@ const Tracking = () => {
       await appboxoSdk.track({
         app_id: +localStorage.getItem('app_id'),
         client_id: +localStorage.getItem('client_id'),
+        hostapp_id: null,
         action: 'transaction',
         payload: {
           shipping: 5,

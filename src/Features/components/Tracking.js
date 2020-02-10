@@ -12,8 +12,8 @@ const Tracking = () => {
     setIsLoadingClick(true)
     try {
       await appboxoSdk.track({
-        app_id: +localStorage.getItem('app_id'),
-        client_id: +localStorage.getItem('client_id'),
+        app_id: localStorage.getItem('app_id'),
+        client_id: localStorage.getItem('client_id'),
         hostapp_id: null,
         action: 'click',
         payload: {
@@ -32,8 +32,8 @@ const Tracking = () => {
     setIsLoading(true)
     try {
       await appboxoSdk.track({
-        app_id: +localStorage.getItem('app_id'),
-        client_id: +localStorage.getItem('client_id'),
+        app_id: localStorage.getItem('app_id'),
+        client_id: localStorage.getItem('client_id'),
         hostapp_id: null,
         action: 'transaction',
         payload: {

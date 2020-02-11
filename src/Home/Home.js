@@ -1,8 +1,8 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React from 'react'
+import { useHistory } from 'react-router-dom'
 import LoggerContext from '../LoggerContext.js'
 
-import { Button } from 'antd';
+import { Button } from 'antd'
 
 import './Home.scss'
 

@@ -7,6 +7,8 @@ import LoginResponse from '../components/LoginResponse.js'
 import AuthContext from '../AuthContext.js'
 import LoggerContext from '../LoggerContext.js'
 
+import { Button } from 'antd'
+
 
 import './Account.scss'
 
@@ -126,16 +128,25 @@ const Account = () => {
       </div>
       <div>
         {loginStatus ? (
-          <>
-            <button className="button logout" onClick={handleLogout}>Logout</button>
-            <button className="button button-light" onClick={handleGoBack}>Back</button>
-          </>
+          <Button
+            type="danger"
+            size="large"
+            onClick={handleLogout}
+            block
+          >Logout</Button>
         ) : (
-          <>
-            <button className="button login" onClick={handleLogin}>Login</button>
-            <button className="button button-light" onClick={handleGoBack}>Back</button>
-          </>
+          <Button
+            type="primary"
+            size="large"
+            onClick={handleLogin}
+            block
+          >Login</Button>
         )}
+        <Button
+          size="large"
+          block
+          onClick={handleGoBack}
+        >Back</Button>
       </div>
       {isLoading && <Preloader />}
     </section>

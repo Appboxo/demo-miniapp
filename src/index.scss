@@ -30,28 +30,28 @@ p {
 
 .ant-btn {
   border-radius: 1rem;
-}
 
-.ant-btn {
-  border-color: #2CBBD7;
-  color: #2CBBD7;
+  &.ant-btn-primary {
+    background-color: #000000;
+    border-color: #000000 !important;
+    color: #ffffff !important;
 
-  &:hover,
-  &:focus {
+    &:hover,
+    &:focus {
+      background-color: #000000;
+      border-color: #000000;
+    }
+  }
+
+  &:not(.ant-btn-danger) {
     border-color: #2CBBD7;
     color: #2CBBD7;
-  }
-}
-
-.ant-btn-primary {
-  background-color: #000000;
-  border-color: #000000;
-  color: #ffffff;
-
-  &:hover,
-  &:focus {
-    background-color: #000000;
-    border-color: #000000;
+  
+    &:hover,
+    &:focus {
+      border-color: #2CBBD7;
+      color: #2CBBD7;
+    }
   }
 }
 

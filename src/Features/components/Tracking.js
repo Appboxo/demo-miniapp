@@ -3,30 +3,8 @@ import appboxoSdk from '@appboxo/js-sdk'
 import { Card, Button, Alert, message } from 'antd'
 
 const Tracking = () => {
-  const [clickCount, setClickCount] = useState(0)
   const [error, setError] = useState(null)
-  const [isLoadingClick, setIsLoadingClick] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-
-  const handleClickTracking = async () => {
-    setIsLoadingClick(true)
-    try {
-      await appboxoSdk.track({
-        app_id: localStorage.getItem('app_id'),
-        client_id: localStorage.getItem('client_id'),
-        hostapp_id: null,
-        action: 'click',
-        payload: {
-          btnName: 'login'
-        }
-      })
-      setClickCount(clickCount + 1)
-      message.success('Successfully sent!');
-    } catch (error) {
-      setError(error)
-    }
-    setIsLoadingClick(false)
-  }
 
   const handleTransactionTracking = async () => {
     setIsLoading(true)
@@ -72,7 +50,7 @@ const Tracking = () => {
 
   return (
     <Card
-      title="Event tracking"
+      title="Transaction tracking"
     >
       {error && <Alert
         message="Error sending"
@@ -82,12 +60,6 @@ const Tracking = () => {
         afterClose={handleClose}
       />}
 
-      <Button
-        size="large"
-        block
-        loading={isLoadingClick}
-        onClick={handleClickTracking}
-      >{isLoadingClick ? 'Sending...' : `Send click tracking event (${clickCount})`}</Button>
       <Button
         size="large"
         block

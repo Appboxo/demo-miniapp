@@ -6,6 +6,7 @@ import NavigationBar from './components/NavigationBar'
 import TabBar from './components/TabBar'
 import Miscellaneous from './components/Miscellaneous'
 import Tracking from './components/Tracking'
+import CustomEvents from './components/CustomEvents'
 
 import './Features.scss'
 
@@ -36,6 +37,9 @@ const Features = (props) => {
         </div>
         <div className="feature">
           <Tracking />
+        </div>
+        <div className="feature">
+          <CustomEvents />
         </div>
       </div>
       <div>

@@ -1,3 +1,5 @@
+![CI](https://github.com/Appboxo/demo_miniapp_frontend/workflows/CI/badge.svg?branch=master)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

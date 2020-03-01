@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "::set-output name=dir::$(yarn cache dir)"
+    - uses: actions/cache@v1
+      id: yarn-cache
+      with:
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+    - name: Install requirements
+      run: yarn install
+
+    - name: Build
+      run: yarn build --if-present
+
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: build
+        path: build
+
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get build
+      uses: actions/download-artifact@v1
+      with:
+        name: build
+    - name: copy file via ssh password
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.MINIAPPS_HOST }}
+        username: ${{ secrets.MINIAPPS_USERNAME }}
+        key: ${{ secrets.MINIAPPS_KEY }}
+        port: ${{ secrets.MINIAPPS_PORT }}
+        source: build
+        target: /home/ubuntu/ws/demo_miniapp_frontend/pre_build

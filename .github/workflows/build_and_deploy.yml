@@ -43,7 +43,7 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: build
-    - name: copy file via ssh password
+    - name: Upload build
       uses: appleboy/scp-action@master
       with:
         host: ${{ secrets.MINIAPPS_HOST }}
@@ -51,4 +51,14 @@ jobs:
         key: ${{ secrets.MINIAPPS_KEY }}
         port: ${{ secrets.MINIAPPS_PORT }}
         source: build
-        target: /home/ubuntu/ws/demo_miniapp_frontend/pre_build
+        target: /home/ubuntu/ws/demo_miniapp_frontend/
+    - name: Refresh files
+    uses: appleboy/ssh-action@master
+    with:
+      host: ${{ secrets.MINIAPPS_HOST }}
+      username: ${{ secrets.MINIAPPS_USERNAME }}
+      key: ${{ secrets.MINIAPPS_KEY }}
+      port: ${{ secrets.MINIAPPS_PORT }}
+      script: |
+        cd /home/ubuntu/ws/appboxo_ci
+        docker-compose -f docker-compose-demo-miniapp.yml up -d --build demo-miniapp-frontend

@@ -50,7 +50,6 @@ jobs:
         username: ${{ secrets.MINIAPPS_USERNAME }}
         key: ${{ secrets.MINIAPPS_KEY }}
         port: ${{ secrets.MINIAPPS_PORT }}
-        rm: true
         source: build
         target: /home/ubuntu/ws/demo_miniapp_frontend/
     - name: Refresh files
@@ -62,4 +61,4 @@ jobs:
         port: ${{ secrets.MINIAPPS_PORT }}
         script: |
           cd /home/ubuntu/ws/appboxo_ci
-          docker-compose -f docker-compose-demo-miniapp.yml up -d --build demo-miniapp-frontend
+          docker-compose -f docker-compose-demo-miniapp.yml up -d --no-deps --build demo-miniapp-frontend

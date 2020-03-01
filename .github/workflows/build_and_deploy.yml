@@ -50,6 +50,7 @@ jobs:
         username: ${{ secrets.MINIAPPS_USERNAME }}
         key: ${{ secrets.MINIAPPS_KEY }}
         port: ${{ secrets.MINIAPPS_PORT }}
+        rm: true
         source: build
         target: /home/ubuntu/ws/demo_miniapp_frontend/
     - name: Refresh files

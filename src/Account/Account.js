@@ -22,7 +22,7 @@ const Account = () => {
   const { updateLogs } = React.useContext(LoggerContext)
 
   const [isLoading, setIsLoading] = useState(false)
-  const [loginResponseStatus, setLoginResponseStatus] = useState(LOGIN_SUCCESS)
+  const [loginResponseStatus, setLoginResponseStatus] = useState(LOGIN_NONE)
 
   const loginProps = {
     postConfirmCallback: (confirmStatus) => {

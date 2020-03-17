@@ -25,6 +25,9 @@ const TABS = [
 
 const TabBar = () => {
   const [activeTab, setActiveTab] = useState('')
+  const [isTabbarShown, setIsTabbarShown] = useState(false)
+  const [isLightTheme, setIsLightTheme] = useState(true)
+  const [isInit, setIsInit] = useState(false)
   const { updateLogs } = React.useContext(LoggerContext)
 
   const tabClickListener = (event) => {
@@ -58,19 +61,65 @@ const TabBar = () => {
 
   const initTabBar = () => {
     updateLogs({
-      action: 'AppBoxoWebAppInitTabBar',
+      action: 'AppBoxoWebAppSetTabBar',
       message: 'called for three tabs'
     })
-    appboxoSdk.send('AppBoxoWebAppInitTabBar', {
+    appboxoSdk.send('AppBoxoWebAppSetTabBar', {
+      show: true,
+      activeTab: TABS[0].tabId,
       list: TABS,
       options: {
         iconColor: '#2eb8da',
         selectedIconColor: '#2eb8da',
         background: '#ffffff',
         textColor: '#000000',
-        selectedTextColor: '#2eb8da'
+        selectedTextColor: '#2eb8da',
+        hasBorder: true,
+        borderColor: '#2eb8da'
       }
     })
+    setIsInit(true)
+    setIsTabbarShown(true)
+  }
+
+  const handleChangeToDark = () => {
+    appboxoSdk.send('AppBoxoWebAppSetTabBar', {
+      options: {
+        iconColor: '#ffffff',
+        selectedIconColor: '#2eb8da',
+        background: '#000000',
+        textColor: '#ffffff',
+        selectedTextColor: '#2eb8da',
+        hasBorder: true,
+        borderColor: '#000000'
+      }
+    })
+
+    setIsLightTheme(false)
+  }
+
+  const handleChangeToLight = () => {
+    appboxoSdk.send('AppBoxoWebAppSetTabBar', {
+      options: {
+        iconColor: '#2eb8da',
+        selectedIconColor: '#2eb8da',
+        background: '#ffffff',
+        textColor: '#000000',
+        selectedTextColor: '#2eb8da',
+        hasBorder: true,
+        borderColor: '#2eb8da'
+      }
+    })
+
+    setIsLightTheme(true)
+  }
+
+  const handleVisibility = (show: boolean) => {
+    appboxoSdk.send('AppBoxoWebAppSetTabBar', {
+      show
+    })
+
+    setIsTabbarShown(show)
   }
 
   return (
@@ -78,23 +127,48 @@ const TabBar = () => {
       <Card
         title="TabBar"
       >
-        <Button
-          size="large"
-          block
-          onClick={initTabBar}
-        >Initialize bottom tab bar</Button>
-        <Button
-          size="large"
-          block
-          onClick={() => appboxoSdk.send('AppBoxoWebAppShowTabBar')}
-        >Show tab bar</Button>
-        <Button
-          size="large"
-          block
-          onClick={() => appboxoSdk.send('AppBoxoWebAppHideTabBar')}
-        >Hide tab bar</Button>
-
-        <Text type="secondary">Active tab name: </Text><Text type="warning">{activeTab || 'TabBar is not active'}</Text>
+        {!isInit ? (
+          <Button
+            size="large"
+            block
+            onClick={initTabBar}
+          >Initialize native bottom tab bar</Button>
+        ) : (
+          <>
+            {isTabbarShown ? (
+              <Button
+                size="large"
+                block
+                onClick={() => handleVisibility(false)}
+              >Hide tab bar</Button>
+            ) : (
+              <Button
+                size="large"
+                block
+                onClick={() => handleVisibility(true)}
+              >Show tab bar</Button>
+            )}
+            {isLightTheme ? (
+              <Button
+                size="large"
+                block
+                onClick={handleChangeToDark}
+              >Change to dark theme</Button>
+            ) : (
+              <Button
+                size="large"
+                block
+                onClick={handleChangeToLight}
+              >Change to light theme</Button>
+            )}
+            {isTabbarShown && (
+              <>
+                <Text type="secondary">Active tab name: </Text>
+                <Text type="warning">{activeTab || 'TabBar is not active'}</Text>
+              </>
+            )}
+          </>
+        )}
       </Card>
     </>
   )

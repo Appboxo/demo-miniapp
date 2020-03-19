@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
 import { Card, Button, Typography } from 'antd'
-import LoggerContext from '../../LoggerContext.js'
+import { useObserver } from "mobx-react"
+import LoggerContext from '../../LoggerContext'
+import { StoreContext } from '../../StoreContext'
 
 const { Text } = Typography;
 
@@ -24,11 +26,8 @@ const TABS = [
 ]
 
 const TabBar = () => {
-  const [activeTab, setActiveTab] = useState('')
-  const [isTabbarShown, setIsTabbarShown] = useState(false)
-  const [isLightTheme, setIsLightTheme] = useState(true)
-  const [isInit, setIsInit] = useState(false)
   const { updateLogs } = React.useContext(LoggerContext)
+  const store = React.useContext(StoreContext)
 
   const tabClickListener = (event) => {
     if (!event.detail) {
@@ -46,7 +45,7 @@ const TabBar = () => {
 
       if (data.tabId) {
         const active = TABS.find(item => item.tabId === data.tabId)
-        setActiveTab(active.tabName)
+        store.activeTabbarTab = active.tabName
       }
     }
   }
@@ -78,8 +77,8 @@ const TabBar = () => {
         borderColor: '#2eb8da'
       }
     })
-    setIsInit(true)
-    setIsTabbarShown(true)
+    store.isTabbarInitialized = true
+    store.isTabbarShown = true
   }
 
   const handleChangeToDark = () => {
@@ -95,7 +94,7 @@ const TabBar = () => {
       }
     })
 
-    setIsLightTheme(false)
+    store.isTabbarLightTheme = false
   }
 
   const handleChangeToLight = () => {
@@ -111,7 +110,7 @@ const TabBar = () => {
       }
     })
 
-    setIsLightTheme(true)
+    store.isTabbarLightTheme = true
   }
 
   const handleVisibility = (show: boolean) => {
@@ -119,7 +118,7 @@ const TabBar = () => {
       show
     })
 
-    setIsTabbarShown(show)
+    store.isTabbarShown = show
   }
 
   const handleShowTabItemBadges = () => {
@@ -140,17 +139,17 @@ const TabBar = () => {
     })
   }
 
-  return (
+  return useObserver(() => (
     <Card
       title="TabBar"
     >
-      {!isInit ? (
+      {!store.isTabbarInitialized ? (
         <Button
           size="large"
           block
           onClick={initTabBar}
         >Initialize native bottom tab bar</Button>
-      ) : !isTabbarShown ? (
+      ) : !store.isTabbarShown ? (
         <Button
           size="large"
           block
@@ -163,7 +162,7 @@ const TabBar = () => {
             block
             onClick={() => handleVisibility(false)}
           >Hide tab bar</Button>
-          {isLightTheme ? (
+          {store.isTabbarLightTheme ? (
             <Button
               size="large"
               block
@@ -181,16 +180,16 @@ const TabBar = () => {
             block
             onClick={handleShowTabItemBadges}
           >Show tab item badges</Button>
-          {isTabbarShown && (
+          {store.isTabbarShown && (
             <>
               <Text type="secondary">Active tab name: </Text>
-              <Text type="warning">{activeTab || 'Home'}</Text>
+              <Text type="warning">{store.activeTabbarTab || 'Home'}</Text>
             </>
           )}
         </>
       )}
     </Card>
-  )
+  ))
 }
 
 export default TabBar

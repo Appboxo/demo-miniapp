@@ -8,12 +8,13 @@ import {
 } from 'react-router-dom';
 import { Button } from 'antd';
 
-import Account from './Account/Account.js'
-import Features from './Features/Features.js'
-import Home from './Home/Home.js'
-import AuthContext from './AuthContext.js'
-import LoggerContext from './LoggerContext.js'
-import Logs from './components/Logs.js'
+import Account from './Account/Account'
+import Features from './Features/Features'
+import Home from './Home/Home'
+import AuthContext from './AuthContext'
+import LoggerContext from './LoggerContext'
+import Logs from './components/Logs'
+import StoreProvider from './StoreContext'
 
 function App() {
   const [loginStatus, setLoginStatus] = useState(false)
@@ -83,19 +84,21 @@ function App() {
       <LoggerContext.Provider value={{
         updateLogs
       }}>
-        <Router>
-          <Switch>
-            <Route path="/account">
-              <Account />
-            </Route>
-            <Route path="/features">
-              <Features />
-            </Route>
-            <Route path="/">
-              <Home />
-            </Route>
-          </Switch>
-        </Router>
+        <StoreProvider>
+          <Router>
+            <Switch>
+              <Route path="/account">
+                <Account />
+              </Route>
+              <Route path="/features">
+                <Features />
+              </Route>
+              <Route path="/">
+                <Home />
+              </Route>
+            </Switch>
+          </Router>
+        </StoreProvider>
       </LoggerContext.Provider>
       {logsVisibility && <Logs logs={logs} onClose={() => setLogsVisibility(false)}/>}
     </AuthContext.Provider>

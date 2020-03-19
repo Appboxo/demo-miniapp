@@ -122,55 +122,74 @@ const TabBar = () => {
     setIsTabbarShown(show)
   }
 
+  const handleShowTabItemBadges = () => {
+    appboxoSdk.send('AppBoxoWebAppSetTabBar', {
+      badges: [
+        {
+          tabId: 12,
+          background: '#ff0000',
+          color: '#ffffff',
+          value: '4'
+        },
+        {
+          tabId: 1234,
+          background: '#00FF00',
+          color: '#ffffff'
+        }
+      ]
+    })
+  }
+
   return (
-    <>
-      <Card
-        title="TabBar"
-      >
-        {!isInit ? (
+    <Card
+      title="TabBar"
+    >
+      {!isInit ? (
+        <Button
+          size="large"
+          block
+          onClick={initTabBar}
+        >Initialize native bottom tab bar</Button>
+      ) : !isTabbarShown ? (
+        <Button
+          size="large"
+          block
+          onClick={() => handleVisibility(true)}
+        >Show tab bar</Button>
+      ) : (
+        <>
           <Button
             size="large"
             block
-            onClick={initTabBar}
-          >Initialize native bottom tab bar</Button>
-        ) : (
-          <>
-            {isTabbarShown ? (
-              <Button
-                size="large"
-                block
-                onClick={() => handleVisibility(false)}
-              >Hide tab bar</Button>
-            ) : (
-              <Button
-                size="large"
-                block
-                onClick={() => handleVisibility(true)}
-              >Show tab bar</Button>
-            )}
-            {isLightTheme ? (
-              <Button
-                size="large"
-                block
-                onClick={handleChangeToDark}
-              >Change to dark theme</Button>
-            ) : (
-              <Button
-                size="large"
-                block
-                onClick={handleChangeToLight}
-              >Change to light theme</Button>
-            )}
-            {isTabbarShown && (
-              <>
-                <Text type="secondary">Active tab name: </Text>
-                <Text type="warning">{activeTab || 'TabBar is not active'}</Text>
-              </>
-            )}
-          </>
-        )}
-      </Card>
-    </>
+            onClick={() => handleVisibility(false)}
+          >Hide tab bar</Button>
+          {isLightTheme ? (
+            <Button
+              size="large"
+              block
+              onClick={handleChangeToDark}
+            >Change to dark theme</Button>
+          ) : (
+            <Button
+              size="large"
+              block
+              onClick={handleChangeToLight}
+            >Change to light theme</Button>
+          )}
+          <Button
+            size="large"
+            block
+            onClick={handleShowTabItemBadges}
+          >Show tab item badges</Button>
+          {isTabbarShown && (
+            <>
+              <Text type="secondary">Active tab name: </Text>
+              <Text type="warning">{activeTab || 'Home'}</Text>
+            </>
+          )}
+        </>
+      )}
+    </Card>
   )
 }
 

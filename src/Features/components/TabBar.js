@@ -3,27 +3,9 @@ import appboxoSdk from '@appboxo/js-sdk'
 import { Card, Button, Typography } from 'antd'
 import { useObserver } from "mobx-react"
 import LoggerContext from '../../LoggerContext'
-import { StoreContext } from '../../StoreContext'
+import { StoreContext, TABS } from '../../StoreContext'
 
 const { Text } = Typography;
-
-const TABS = [
-  {
-    tabId: 12,
-    tabName: 'Home',
-    tabIcon: `${document.location.origin}/img/home-icon.png`
-  },
-  {
-    tabId: 123,
-    tabName: 'About',
-    tabIcon: `${document.location.origin}/img/info-icon.png`
-  },
-  {
-    tabId: 1234,
-    tabName: 'Services',
-    tabIcon: `${document.location.origin}/img/service-icon.png`
-  }
-]
 
 const TabBar = () => {
   const { updateLogs } = React.useContext(LoggerContext)
@@ -44,6 +26,9 @@ const TabBar = () => {
       })
 
       if (data.tabId) {
+        // Store active tab to preserve active tab value
+        window.localStorage.setItem('activeTab', data.tabId)
+
         const active = TABS.find(item => item.tabId === data.tabId)
         store.activeTabbarTab = active.tabName
       }
@@ -63,9 +48,10 @@ const TabBar = () => {
       action: 'AppBoxoWebAppSetTabBar',
       message: 'called for three tabs'
     })
+
     appboxoSdk.send('AppBoxoWebAppSetTabBar', {
       show: true,
-      activeTab: TABS[0].tabId,
+      activeTab: store.activeTabbarTab,
       list: TABS,
       options: {
         iconColor: '#2eb8da',

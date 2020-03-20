@@ -29,6 +29,7 @@ const StoreProvider = ({ children }) => {
     isTabbarShown: false,
     isTabbarLightTheme: true,
     activeTabbarTab: activeTabId,
+    activeTabWithBadges: TABS.map(item => item.tabId)
   }))
 
   return (

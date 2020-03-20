@@ -7,6 +7,26 @@ import { StoreContext, TABS } from '../../StoreContext'
 
 const { Text } = Typography;
 
+const TAB_BADGES = [
+  {
+    tabId: 12,
+    background: '#ff0000',
+    color: '#ffffff',
+    value: '4'
+  },
+  {
+    tabId: 123,
+    background: '#0000ff',
+    color: '#ffffff',
+    value: '12'
+  },
+  {
+    tabId: 1234,
+    background: '#00FF00',
+    color: '#ffffff'
+  }
+]
+
 const TabBar = () => {
   const { updateLogs } = React.useContext(LoggerContext)
   const store = React.useContext(StoreContext)
@@ -31,6 +51,14 @@ const TabBar = () => {
 
         const active = TABS.find(item => item.tabId === data.tabId)
         store.activeTabbarTab = active.tabName
+
+        // Remove badge preserving the other ones
+        const restBadges = store.activeTabWithBadges.filter(id => id !== data.tabId)
+        store.activeTabWithBadges = restBadges
+
+        appboxoSdk.send('AppBoxoWebAppSetTabBar', {
+          badges: TAB_BADGES.filter(item => restBadges.includes(item.tabId))
+        })
       }
     }
   }
@@ -109,20 +137,10 @@ const TabBar = () => {
 
   const handleShowTabItemBadges = () => {
     appboxoSdk.send('AppBoxoWebAppSetTabBar', {
-      badges: [
-        {
-          tabId: 12,
-          background: '#ff0000',
-          color: '#ffffff',
-          value: '4'
-        },
-        {
-          tabId: 1234,
-          background: '#00FF00',
-          color: '#ffffff'
-        }
-      ]
+      badges: TAB_BADGES
     })
+
+    store.activeTabWithBadges = TABS.map(item => item.tabId)
   }
 
   return useObserver(() => (

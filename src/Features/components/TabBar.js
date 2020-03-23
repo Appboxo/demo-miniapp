@@ -115,10 +115,9 @@ const TabBar = () => {
     appboxoSdk.send('AppBoxoWebAppSetTabBar', {
       options: {
         iconColor: '#2eb8da',
-        selectedIconColor: '#2eb8da',
         background: '#ffffff',
         textColor: '#000000',
-        selectedTextColor: '#2eb8da',
+        selectedColor: '#2eb8da',
         hasBorder: true,
         borderColor: '#2eb8da'
       }

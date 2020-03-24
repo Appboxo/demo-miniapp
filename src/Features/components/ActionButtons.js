@@ -9,7 +9,7 @@ const ActionButtons = () => {
   const toggleActionButtonTheme = () => {
     store.isLightActionButtons = !store.isLightActionButtons
     appboxoSdk.send('AppBoxoWebAppSetActionButton', {
-      isLight: !store.isLightActionButtons
+      isLight: store.isLightActionButtons
     })
   }
 

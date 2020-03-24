@@ -7,6 +7,7 @@ import TabBar from './components/TabBar'
 import Miscellaneous from './components/Miscellaneous'
 import Tracking from './components/Tracking'
 import CustomEvents from './components/CustomEvents'
+import ActionButtons from './components/ActionButtons'
 
 import './Features.scss'
 
@@ -34,6 +35,9 @@ const Features = (props) => {
         </div>
         <div className="feature">
           <Miscellaneous />
+        </div>
+        <div className="feature">
+          <ActionButtons />
         </div>
         <div className="feature">
           <Tracking />

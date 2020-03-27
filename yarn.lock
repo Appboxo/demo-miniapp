@@ -30,13 +30,12 @@
   resolved "https://registry.yarnpkg.com/@ant-design/icons/-/icons-2.1.1.tgz#7b9c08dffd4f5d41db667d9dbe5e0107d0bd9a4a"
   integrity sha512-jCH+k2Vjlno4YWl6g535nHR09PwCEmTBKAG6VqF+rhkrSPRLfgpU2maagwbZPLjaHuU5Jd1DFQ2KJpQuI6uG8w==
 
-"@appboxo/js-sdk@^1.0.14":
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/@appboxo/js-sdk/-/js-sdk-1.0.14.tgz#585658e689e57eeb5005b828d551122a9a586585"
-  integrity sha512-B7sO3QQztUEyeOcxhCu1fCADShMSysGyW3217on3P6MYiTOPrWxsP1FC65gwnaWuS53um7QvI0zs9dY+kM4Q7Q==
+"@appboxo/js-sdk@^1.0.18":
+  version "1.0.18"
+  resolved "https://registry.yarnpkg.com/@appboxo/js-sdk/-/js-sdk-1.0.18.tgz#ed5dd854a485490eb88f95b55e52d168101c3851"
+  integrity sha512-G6zCr5X+c2cgAK2d5b1KwluPgLeqm6IX4GmrZWT/aOU2JgcsJ5H8oub62Ky2rDc7b9eJ5EP7w1n2U2Pb/aHMRQ==
   dependencies:
     js-cookie "^2.2.1"
-    whatwg-fetch "^3.0.0"
 
 "@babel/code-frame@7.5.5", "@babel/code-frame@^7.5.5":
   version "7.5.5"
@@ -11807,7 +11806,7 @@ whatwg-encoding@^1.0.1, whatwg-encoding@^1.0.3, whatwg-encoding@^1.0.5:
   dependencies:
     iconv-lite "0.4.24"
 
-whatwg-fetch@3.0.0, whatwg-fetch@>=0.10.0, whatwg-fetch@^3.0.0:
+whatwg-fetch@3.0.0, whatwg-fetch@>=0.10.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-3.0.0.tgz#fc804e458cc460009b1a2b966bc8817d2578aefb"
   integrity sha512-9GSJUgz1D4MfyKU7KRqwOjXCXTqWdFNvEr7eUBYchQiVc744mqK/MzXPNR2WsPkmkOa4ywfg8C2n8h+13Bey1Q==

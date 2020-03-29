@@ -54,6 +54,23 @@ const NavigationBar = () => {
     })
   }
 
+  const handleTransparentNavbar = () => {
+    updateLogs({
+      action: 'AppBoxoWebAppSetNavigationBar',
+      message: 'called with transparent bg options'
+    })
+    appboxoSdk.send('AppBoxoWebAppSetNavigationBar', {
+      title: 'Nav bar with no initial background',
+      backButton: true,
+      background: '#000000',
+      frontColor: '#ffffff',
+      isBackgroundTransparent: true,
+      frontColorWhenTransparent: '#000000',
+      changeBackgroundOnScroll: true,
+      show: true
+    })
+  }
+
   return (
     <Card
       title="NavigationBar"
@@ -68,6 +85,11 @@ const NavigationBar = () => {
         block
         onClick={showLightNavBar}
       >Show light navigation bar</Button>
+      <Button
+        size="large"
+        block
+        onClick={handleTransparentNavbar}
+      >Show navigation bar with transparent background</Button>
       <Button
         size="large"
         block

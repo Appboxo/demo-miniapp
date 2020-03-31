@@ -88,6 +88,7 @@ const NavigationBar = () => {
       <Button
         size="large"
         block
+        className="wrap-button"
         onClick={handleTransparentNavbar}
       >Show navigation bar with transparent background</Button>
       <Button

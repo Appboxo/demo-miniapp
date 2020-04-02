@@ -8,6 +8,8 @@ import Miscellaneous from './components/Miscellaneous'
 import Tracking from './components/Tracking'
 import CustomEvents from './components/CustomEvents'
 import ActionButtons from './components/ActionButtons'
+import LoadingIndicator from './components/LoadingIndicator'
+import QRCodeReader from './components/QRCodeReader'
 
 import './Features.scss'
 
@@ -40,10 +42,16 @@ const Features = (props) => {
           <ActionButtons />
         </div>
         <div className="feature">
+          <LoadingIndicator />
+        </div>
+        <div className="feature">
           <Tracking />
         </div>
         <div className="feature">
           <CustomEvents />
+        </div>
+        <div className="feature">
+          <QRCodeReader />
         </div>
       </div>
       <div>

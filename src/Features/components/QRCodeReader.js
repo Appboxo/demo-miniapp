@@ -17,11 +17,13 @@ const QRCodeReader = () => {
       if (type === 'AppBoxoWebAppOpenQRCodeReaderResult') {
         // Reading result of the QR Code Reader
         setCode(data.code_data)
+        setError('')
       }
 
       if (type === 'AppBoxoWebAppOpenQRCodeReaderFailed') {
         // Catching the error
         setError(data.error_data)
+        setCode('')
       }
     }
 

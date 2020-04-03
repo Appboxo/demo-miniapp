@@ -86,7 +86,7 @@ const TabBar = () => {
         background: '#ffffff',
         selectedColor: '#2eb8da',
         hasBorder: true,
-        borderColor: '#2eb8da'
+        borderColor: '#cccccc'
       }
     })
     store.isTabbarInitialized = true
@@ -114,7 +114,7 @@ const TabBar = () => {
         background: '#ffffff',
         selectedColor: '#2eb8da',
         hasBorder: true,
-        borderColor: '#2eb8da'
+        borderColor: '#cccccc'
       }
     })
 

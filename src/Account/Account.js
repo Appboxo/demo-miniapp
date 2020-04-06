@@ -24,19 +24,13 @@ const Account = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [loginResponseStatus, setLoginResponseStatus] = useState(LOGIN_NONE)
 
-  const loginProps = {
-    postConfirmCallback: (confirmStatus) => {
-      setIsLoading(confirmStatus)
-    }
-  }
-
   const handleLogin = async () => {
     try {
       updateLogs({
         action: 'LOGIN_TO_DASHBOARD',
         message: 'request sent',
       })
-      const token = await appboxoSdk.login(loginProps)
+      const token = await appboxoSdk.login()
 
       setLoginStatus(true)
 

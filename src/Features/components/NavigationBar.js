@@ -16,6 +16,9 @@ const NavigationBar = () => {
       backButton: true,
       background: '#ffffff',
       frontColor: '#000000',
+      isBackgroundTransparent: false,
+      frontColorWhenTransparent: '#000000',
+      changeBackgroundOnScroll: false,
       show: true
     })
   }
@@ -30,6 +33,9 @@ const NavigationBar = () => {
       backButton: true,
       background: '#012d38',
       frontColor: '#ffffff',
+      isBackgroundTransparent: false,
+      frontColorWhenTransparent: '#ffffff',
+      changeBackgroundOnScroll: false,
       show: true
     })
   }

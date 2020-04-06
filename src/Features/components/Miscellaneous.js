@@ -2,7 +2,7 @@ import React from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
 import { Card, Button } from 'antd'
 
-const AIRALO_ID = 'id28'
+const AIRALO_ID = 'app94302'
 
 const Miscellaneous = () => {
   const openAiralo = () => {

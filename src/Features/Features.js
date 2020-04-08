@@ -11,6 +11,7 @@ import ActionButtons from './components/ActionButtons'
 import LoadingIndicator from './components/LoadingIndicator'
 import QRCodeReader from './components/QRCodeReader'
 import HapticFeedback from './components/Haptic'
+import ActionSheet from './components/ActionSheet'
 
 import './Features.scss'
 
@@ -23,7 +24,8 @@ const FEATURES = [
   Tracking,
   CustomEvents,
   QRCodeReader,
-  HapticFeedback
+  HapticFeedback,
+  ActionSheet
 ]
 
 const Features = (props) => {

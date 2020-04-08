@@ -22,7 +22,7 @@ export const TABS = [
 ]
 
 const StoreProvider = ({ children }) => {
-  const activeTabId = window.localStorage.getItem('activeTab') || TABS[0].tabId
+  const activeTabId = window.localStorage.getItem('activeTab') || TABS[0].tabName
 
   const store = useLocalStore(() => ({
     isTabbarInitialized: false,

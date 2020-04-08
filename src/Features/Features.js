@@ -10,8 +10,21 @@ import CustomEvents from './components/CustomEvents'
 import ActionButtons from './components/ActionButtons'
 import LoadingIndicator from './components/LoadingIndicator'
 import QRCodeReader from './components/QRCodeReader'
+import HapticFeedback from './components/Haptic'
 
 import './Features.scss'
+
+const FEATURES = [
+  NavigationBar,
+  TabBar,
+  Miscellaneous,
+  ActionButtons,
+  LoadingIndicator,
+  Tracking,
+  CustomEvents,
+  QRCodeReader,
+  HapticFeedback
+]
 
 const Features = (props) => {
   const { updateLogs } = React.useContext(LoggerContext)
@@ -29,30 +42,11 @@ const Features = (props) => {
     <section className="pane features">
       <div>
         <h1>Features</h1>
-        <div className="feature">
-          <NavigationBar />
-        </div>
-        <div className="feature">
-          <TabBar />
-        </div>
-        <div className="feature">
-          <Miscellaneous />
-        </div>
-        <div className="feature">
-          <ActionButtons />
-        </div>
-        <div className="feature">
-          <LoadingIndicator />
-        </div>
-        <div className="feature">
-          <Tracking />
-        </div>
-        <div className="feature">
-          <CustomEvents />
-        </div>
-        <div className="feature">
-          <QRCodeReader />
-        </div>
+        {FEATURES.map((Feature, index) => (
+          <div className="feature" key={index}>
+            <Feature />
+          </div>
+        ))}
       </div>
       <div>
         <Button

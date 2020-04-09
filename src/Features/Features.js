@@ -1,4 +1,5 @@
 import React from 'react';
+import appboxoSdk from '@appboxo/js-sdk'
 import { useHistory } from 'react-router-dom';
 import LoggerContext from '../LoggerContext.js'
 import { Button } from 'antd';
@@ -12,20 +13,55 @@ import LoadingIndicator from './components/LoadingIndicator'
 import QRCodeReader from './components/QRCodeReader'
 import HapticFeedback from './components/Haptic'
 import ActionSheet from './components/ActionSheet'
+import GeoData from './components/GeoData'
 
 import './Features.scss'
 
 const FEATURES = [
-  NavigationBar,
-  TabBar,
-  Miscellaneous,
-  ActionButtons,
-  LoadingIndicator,
-  Tracking,
-  CustomEvents,
-  QRCodeReader,
-  HapticFeedback,
-  ActionSheet
+  {
+    component: NavigationBar,
+    eventName: 'AppBoxoWebAppSetNavigationBar'
+  },
+  {
+    component: TabBar,
+    eventName: 'AppBoxoWebAppSetTabBar'
+  },
+  {
+    component: Miscellaneous,
+    eventName: 'AppBoxoWebAppOpenMiniApp'
+  },
+  {
+    component: ActionButtons,
+    eventName: 'AppBoxoWebAppSetActionButton'
+  },
+  {
+    component: LoadingIndicator,
+    eventName: 'AppBoxoWebAppLoadingIndicator'
+  },
+  {
+    component: Tracking,
+    eventName: 'AppBoxoWebAppGetInitData'
+  },
+  {
+    component: CustomEvents,
+    eventName: 'AppBoxoWebAppCustomEvent'
+  },
+  {
+    component: QRCodeReader,
+    eventName: 'AppBoxoWebAppOpenQRCodeReader'
+  },
+  {
+    component: HapticFeedback,
+    eventName: 'AppBoxoWebAppVibrate'
+  },
+  {
+    component: ActionSheet,
+    eventName: 'AppBoxoWebAppShowActionSheet'
+  },
+  {
+    component: GeoData,
+    eventName: 'AppBoxoWebAppGetGeodata'
+  }
 ]
 
 const Features = (props) => {
@@ -44,11 +80,17 @@ const Features = (props) => {
     <section className="pane features">
       <div>
         <h1>Features</h1>
-        {FEATURES.map((Feature, index) => (
-          <div className="feature" key={index}>
-            <Feature />
-          </div>
-        ))}
+        {FEATURES.map((feature, index) => {
+          if (appboxoSdk.supports(feature.eventName)) {
+            return (
+              <div className="feature" key={index}>
+                <feature.component />
+              </div>
+            )
+          } else {
+            return null
+          }
+        })}
       </div>
       <div>
         <Button

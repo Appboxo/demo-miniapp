@@ -9,7 +9,15 @@ const GeoData = () => {
   const [position, setPosition] = useState(null)
 
   const requestGeoposition = async () => {
+    appboxoSdk.send('AppBoxoWebAppLoadingIndicator', {
+      show: true
+    })
+
     const data = await appboxoSdk.sendPromise('AppBoxoWebAppGetGeodata')
+
+    appboxoSdk.send('AppBoxoWebAppLoadingIndicator', {
+      show: false
+    })
 
     setPosition({
       isAvailable: !!data.available,

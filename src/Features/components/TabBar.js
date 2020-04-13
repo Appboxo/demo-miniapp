@@ -53,12 +53,14 @@ const TabBar = () => {
         store.activeTabbarTab = active.tabName
 
         // Remove badge preserving the other ones
-        const restBadges = store.activeTabWithBadges.filter(id => id !== data.tabId)
-        store.activeTabWithBadges = restBadges
+        if (store.activeTabWithBadges.length) {
+          const restBadges = store.activeTabWithBadges.filter(id => id !== data.tabId)
+          store.activeTabWithBadges = restBadges
 
-        appboxoSdk.send('AppBoxoWebAppSetTabBar', {
-          badges: TAB_BADGES.filter(item => restBadges.includes(item.tabId))
-        })
+          appboxoSdk.send('AppBoxoWebAppSetTabBar', {
+            badges: TAB_BADGES.filter(item => restBadges.includes(item.tabId))
+          })
+        }
       }
     }
   }

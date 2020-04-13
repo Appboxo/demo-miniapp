@@ -47,18 +47,20 @@ const TabBar = () => {
 
       if (data.tabId) {
         // Store active tab to preserve active tab value
-        window.localStorage.setItem('activeTab', data.tabId)
+        window.localStorage.setItem('activeTabId', data.tabId)
 
         const active = TABS.find(item => item.tabId === data.tabId)
-        store.activeTabbarTab = active.tabName
+        store.activeTabbarTabName = active.tabName
 
         // Remove badge preserving the other ones
-        const restBadges = store.activeTabWithBadges.filter(id => id !== data.tabId)
-        store.activeTabWithBadges = restBadges
+        if (store.isTabbarBadgesShown && store.activeTabWithBadges.length) {
+          const restBadges = store.activeTabWithBadges.filter(id => id !== data.tabId)
+          store.activeTabWithBadges = restBadges
 
-        appboxoSdk.send('AppBoxoWebAppSetTabBar', {
-          badges: TAB_BADGES.filter(item => restBadges.includes(item.tabId))
-        })
+          appboxoSdk.send('AppBoxoWebAppSetTabBar', {
+            badges: TAB_BADGES.filter(item => restBadges.includes(item.tabId))
+          })
+        }
       }
     }
   }
@@ -77,9 +79,11 @@ const TabBar = () => {
       message: 'called for three tabs'
     })
 
+    const active = TABS.find(item => item.tabName === store.activeTabbarTabName)
+
     appboxoSdk.send('AppBoxoWebAppSetTabBar', {
       show: true,
-      activeTab: store.activeTabbarTab,
+      activeTab: active.tabId,
       list: TABS,
       options: {
         color: '#aaaaaa',
@@ -135,6 +139,7 @@ const TabBar = () => {
     })
 
     store.activeTabWithBadges = TABS.map(item => item.tabId)
+    store.isTabbarBadgesShown = true
   }
 
   return useObserver(() => (
@@ -181,7 +186,7 @@ const TabBar = () => {
           {store.isTabbarShown && (
             <>
               <Text type="secondary">Active tab name: </Text>
-              <Text type="warning">{store.activeTabbarTab || 'Home'}</Text>
+              <Text type="warning">{store.activeTabbarTabName || 'Home'}</Text>
             </>
           )}
         </>

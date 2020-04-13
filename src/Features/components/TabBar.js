@@ -53,7 +53,7 @@ const TabBar = () => {
         store.activeTabbarTabName = active.tabName
 
         // Remove badge preserving the other ones
-        if (store.activeTabWithBadges.length) {
+        if (store.isTabbarBadgesShown && store.activeTabWithBadges.length) {
           const restBadges = store.activeTabWithBadges.filter(id => id !== data.tabId)
           store.activeTabWithBadges = restBadges
 
@@ -139,6 +139,7 @@ const TabBar = () => {
     })
 
     store.activeTabWithBadges = TABS.map(item => item.tabId)
+    store.isTabbarBadgesShown = true
   }
 
   return useObserver(() => (

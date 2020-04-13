@@ -26,8 +26,10 @@ const StoreProvider = ({ children }) => {
   let activeTabName = TABS[0].tabName
 
   if (activeTabId) {
-    const activeTab = TABS.find(tab => tab.tabId === activeTabId)
-    activeTabName = activeTab.tabName
+    const activeTab = TABS.find(tab => tab.tabId === parseInt(activeTabId))
+    if (activeTab) {
+      activeTabName = activeTab.tabName
+    }
   }
 
   const store = useLocalStore(() => ({
@@ -35,6 +37,7 @@ const StoreProvider = ({ children }) => {
     isTabbarShown: false,
     isTabbarLightTheme: true,
     activeTabbarTabName: activeTabName,
+    isTabbarBadgesShown: false,
     activeTabWithBadges: TABS.map(item => item.tabId),
     isLightActionButtons: false
   }))

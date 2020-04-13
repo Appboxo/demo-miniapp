@@ -1,5 +1,3 @@
-// AppBoxoWebAppGetGeodata: { available: boolean | number; lat: string; long: string }
-
 import React, { useState } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
 import { Card, Button, Typography } from 'antd'

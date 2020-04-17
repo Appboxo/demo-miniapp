@@ -16,6 +16,7 @@ import ActionSheet from './components/ActionSheet'
 import GeoData from './components/GeoData'
 import Alert from './components/Alert'
 import ImageGallery from './components/ImageGallery'
+import Storage from './components/Storage'
 
 import './Features.scss'
 
@@ -71,6 +72,10 @@ const FEATURES = [
   {
     component: ImageGallery,
     eventName: 'AppBoxoWebAppShowImages'
+  },
+  {
+    component: Storage,
+    eventName: 'AppBoxoWebAppStorageSet'
   }
 ]
 

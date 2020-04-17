@@ -1,0 +1,67 @@
+import React, { useState } from 'react'
+import appboxoSdk from '@appboxo/js-sdk'
+import { Card, Button, Typography, Divider } from 'antd'
+
+const { Text } = Typography
+
+const Storage = () => {
+  const [saveStatus, setSaveStatus] = useState('')
+  const [storageKeys, setStorageKeys] = useState([])
+  const [savedData, setSavedData] = useState('')
+
+  const save = async () => {
+    const response = await appboxoSdk.sendPromise('AppBoxoWebAppStorageSet', {
+      key: 'username',
+      value: 'John'
+    })
+
+    setSaveStatus(response.result ? 'Success' : 'Failed')
+  }
+
+  const getKeys = async () => {
+    const storageKeys = await appboxoSdk.sendPromise('AppBoxoWebAppStorageGetKeys', {
+      count: 10
+    })
+    setStorageKeys(storageKeys.keys)
+  }
+
+  const getData = async () => {
+    const userData = await appboxoSdk.sendPromise('AppBoxoWebAppStorageGet', {
+      keys: ['username']
+    });
+
+    setSavedData(JSON.stringify(userData))
+  }
+
+  return (
+    <Card
+      title="Storage"
+    >
+      <Button
+        size="large"
+        block
+        onClick={save}
+      >Save username "John" to storage</Button>
+      <Text type="secondary">State: </Text>
+      <Text type="warning">{saveStatus}</Text>
+      <Divider />
+      <Button
+        size="large"
+        block
+        onClick={getKeys}
+      >Get saved storage keys</Button>
+      <Text type="secondary">Storage keys: </Text>
+      <Text type="warning">{storageKeys.join(', ')}</Text>
+      <Divider />
+      <Button
+        size="large"
+        block
+        onClick={getData}
+      >Get saved storage data</Button>
+      <Text type="secondary">Saved data: </Text>
+      <Text type="warning">{savedData}</Text>
+    </Card>
+  )
+}
+
+export default Storage

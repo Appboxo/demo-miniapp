@@ -8,14 +8,22 @@ const Storage = () => {
   const [saveStatus, setSaveStatus] = useState('')
   const [storageKeys, setStorageKeys] = useState([])
   const [savedData, setSavedData] = useState('')
+  const [removeStatus, setRemoveStatus] = useState('')
+  const [clearStatus, setClearStatus] = useState('')
 
   const save = async () => {
-    const response = await appboxoSdk.sendPromise('AppBoxoWebAppStorageSet', {
-      key: 'username',
-      value: 'John'
-    })
+    const response = await Promise.all([
+      appboxoSdk.sendPromise('AppBoxoWebAppStorageSet', {
+        key: 'username',
+        value: 'John'
+      }),
+      appboxoSdk.sendPromise('AppBoxoWebAppStorageSet', {
+        key: 'email',
+        value: 'john@doe.com'
+      })
+    ])
 
-    setSaveStatus(response.result ? 'Success' : 'Failed')
+    setSaveStatus(response.every(item => item.result) ? 'Success' : 'Failed')
   }
 
   const getKeys = async () => {
@@ -27,10 +35,24 @@ const Storage = () => {
 
   const getData = async () => {
     const userData = await appboxoSdk.sendPromise('AppBoxoWebAppStorageGet', {
-      keys: ['username']
+      keys: ['username', 'email']
     });
 
     setSavedData(JSON.stringify(userData))
+  }
+
+  const removeItem = async () => {
+    const response = await appboxoSdk.sendPromise('AppBoxoWebAppStorageRemove', {
+      key: 'username'
+    });
+
+    setRemoveStatus(response.result ? 'Success' : 'Failed')
+  }
+
+  const clearStorage = async () => {
+    const response = await appboxoSdk.sendPromise('AppBoxoWebAppStorageClear');
+
+    setClearStatus(response.result ? 'Success' : 'Failed')
   }
 
   return (
@@ -41,8 +63,8 @@ const Storage = () => {
         size="large"
         block
         onClick={save}
-      >Save username "John" to storage</Button>
-      <Text type="secondary">State: </Text>
+      >Save username and email to storage</Button>
+      <Text type="secondary">Status: </Text>
       <Text type="warning">{saveStatus}</Text>
       <Divider />
       <Button
@@ -60,6 +82,22 @@ const Storage = () => {
       >Get saved storage data</Button>
       <Text type="secondary">Saved data: </Text>
       <Text type="warning">{savedData}</Text>
+      <Divider />
+      <Button
+        size="large"
+        block
+        onClick={removeItem}
+      >Remove username from storage</Button>
+      <Text type="secondary">Status: </Text>
+      <Text type="warning">{removeStatus}</Text>
+      <Divider />
+      <Button
+        size="large"
+        block
+        onClick={clearStorage}
+      >Clear storage</Button>
+      <Text type="secondary">Status: </Text>
+      <Text type="warning">{clearStatus}</Text>
     </Card>
   )
 }

@@ -37,12 +37,6 @@ const QRCodeReader = () => {
     appboxoSdk.send('AppBoxoWebAppOpenQRCodeReader');
   }
 
-  const showLoadingIndicator = () => {
-    appboxoSdk.send('AppBoxoWebAppLoadingIndicator', {
-      show: true
-    })
-  }
-
   return (
     <Card
       title="QR code reader"

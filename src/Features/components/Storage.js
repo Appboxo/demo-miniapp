@@ -60,6 +60,7 @@ const Storage = () => {
       title="Storage"
     >
       <Button
+        className="wrap-button"
         size="large"
         block
         onClick={save}
@@ -84,6 +85,7 @@ const Storage = () => {
       <Text type="warning">{savedData}</Text>
       <Divider />
       <Button
+        className="wrap-button"
         size="large"
         block
         onClick={removeItem}

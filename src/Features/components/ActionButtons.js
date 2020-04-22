@@ -18,6 +18,7 @@ const ActionButtons = () => {
       title="Action buttons"
     >
       <Button
+        className="wrap-button"
         size="large"
         block
         onClick={toggleActionButtonTheme}

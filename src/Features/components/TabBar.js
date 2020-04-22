@@ -148,6 +148,7 @@ const TabBar = () => {
     >
       {!store.isTabbarInitialized ? (
         <Button
+          className="wrap-button"
           size="large"
           block
           onClick={initTabBar}

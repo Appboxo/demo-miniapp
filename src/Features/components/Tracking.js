@@ -61,6 +61,7 @@ const Tracking = () => {
       />}
 
       <Button
+        className="wrap-button"
         size="large"
         block
         loading={isLoading}

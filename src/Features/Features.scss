@@ -21,6 +21,10 @@
     .ant-typography.ant-typography-secondary {
       word-break: break-word;
     }
+
+    .ant-typography code {
+      word-break: break-all;
+    }
   }
 
   .button-back {

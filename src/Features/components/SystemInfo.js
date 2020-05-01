@@ -14,7 +14,7 @@ const SystemInfo = () => {
 
   return (
     <Card
-      title="System clipboard"
+      title="System information"
     >
       <Button
         size="large"
@@ -22,7 +22,9 @@ const SystemInfo = () => {
         onClick={getSystemInfo}
       >Get system info</Button>
       <Text type="secondary">System data: </Text>
-      <Text type="warning">{systemInfo}</Text>
+      <br/>
+      <Text code>{systemInfo}</Text>
+      <Text code>one</Text>
     </Card>
   )
 }

@@ -24,7 +24,6 @@ const SystemInfo = () => {
       <Text type="secondary">System data: </Text>
       <br/>
       <Text code>{systemInfo}</Text>
-      <Text code>one</Text>
     </Card>
   )
 }

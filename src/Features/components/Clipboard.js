@@ -5,7 +5,7 @@ const { Text } = Typography
 
 const Clipboard = () => {
   const [clipboard, setClipboard] = useState('')
-  const [status, setStatus] = useState(null)
+  const [status, setStatus] = useState('')
 
   const getClipboard = async () => {
     const response = await appboxoSdk.sendPromise('AppBoxoWebAppGetClipboard');
@@ -18,8 +18,8 @@ const Clipboard = () => {
       data: 'this is from clipboard'
     });
 
-    setStatus(response.result)
-  };
+    setStatus(response.result ? 'Success' : 'Failed')
+  }
 
   return (
     <Card

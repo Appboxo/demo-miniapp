@@ -82,8 +82,9 @@ const Storage = () => {
         onClick={getData}
       >Get saved storage data</Button>
       <Text type="secondary">Saved data: </Text>
-      <br/>
-      <Text code>{savedData}</Text>
+      {savedData && <div className="code-block">
+        {savedData}
+      </div>}
       <Divider />
       <Button
         className="wrap-button"

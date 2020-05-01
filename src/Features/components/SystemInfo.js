@@ -22,8 +22,9 @@ const SystemInfo = () => {
         onClick={getSystemInfo}
       >Get system info</Button>
       <Text type="secondary">System data: </Text>
-      <br/>
-      <Text code>{systemInfo}</Text>
+      {systemInfo && <div className="code-block">
+        {systemInfo}
+      </div>}
     </Card>
   )
 }

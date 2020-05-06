@@ -30,10 +30,10 @@
   resolved "https://registry.yarnpkg.com/@ant-design/icons/-/icons-2.1.1.tgz#7b9c08dffd4f5d41db667d9dbe5e0107d0bd9a4a"
   integrity sha512-jCH+k2Vjlno4YWl6g535nHR09PwCEmTBKAG6VqF+rhkrSPRLfgpU2maagwbZPLjaHuU5Jd1DFQ2KJpQuI6uG8w==
 
-"@appboxo/js-sdk@^1.0.32":
-  version "1.0.32"
-  resolved "https://registry.yarnpkg.com/@appboxo/js-sdk/-/js-sdk-1.0.32.tgz#d14a3103b261494319b6da754c21f1acb50f4667"
-  integrity sha512-dKxT+KMVduFM5iPpaG1VnTUzQ7iGjolg3FXIAAy3PwmLB47kHqJ0CpALM193kyRBnYPBeUtVXREIzVdvTp4HJw==
+"@appboxo/js-sdk@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@appboxo/js-sdk/-/js-sdk-1.3.0.tgz#1053c6c0d7d415c69ba2f3092edeaea6f2781e75"
+  integrity sha512-GP33FVdLBQ45RJC0jVbmx7R14/THALVuzgqnoVTghIvzRUj707LmSeGX66u84Rr0b0GgQ9sz7sACWOrkrF5TBw==
   dependencies:
     js-cookie "^2.2.1"
 

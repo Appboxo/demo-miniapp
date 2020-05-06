@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button, Typography } from 'antd'
+import { Card, Button, Typography, Divider } from 'antd'
 const { Text } = Typography
 
 const GeoData = () => {
   const [position, setPosition] = useState(null)
+  const [openStatus, setOpenStatus] = useState('')
+  const [location, setLocation] = useState('')
 
   const requestGeoposition = async () => {
     appboxoSdk.send('AppBoxoWebAppLoadingIndicator', {
@@ -32,9 +34,24 @@ const GeoData = () => {
     }
   }
 
+  const openLocation = async () => {
+    const data = await appboxoSdk.sendPromise('AppBoxoWebAppOpenLocation', {
+      latitude: 42.5264986,
+      longitude: 74.5788997
+    });
+
+    setOpenStatus(data.result ? 'Success' : 'Failed')
+  };
+
+  const chooseLocation = async () => {
+    const data = await appboxoSdk.sendPromise('AppBoxoWebAppChooseLocation');
+
+    setLocation(JSON.stringify(data))
+  };
+
   return (
     <Card
-      title="Request geoposition"
+      title="Geoposition"
     >
       <Button
         size="large"
@@ -43,6 +60,23 @@ const GeoData = () => {
       >Request qeo position</Button>
       <Text type="secondary">Your geo position: </Text>
       <Text type="warning">{formatPosition()}</Text>
+      <Divider />
+      <Button
+        size="large"
+        block
+        onClick={openLocation}
+      >Open location</Button>
+      <Text type="secondary">Status: {openStatus}</Text>
+      <Divider />
+      <Button
+        size="large"
+        block
+        onClick={chooseLocation}
+      >Choose location</Button>
+      <Text type="secondary">Location: </Text>
+      {location && <div className="code-block">
+        {location}
+      </div>}
     </Card>
   )
 }

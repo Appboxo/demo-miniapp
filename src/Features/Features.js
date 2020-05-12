@@ -19,6 +19,8 @@ import ImageGallery from './components/ImageGallery'
 import Storage from './components/Storage'
 import Clipboard from './components/Clipboard'
 import SystemInfo from './components/SystemInfo'
+import Accelerometer from './components/Accelerometer'
+import Gyroscope from './components/Gyroscope'
 
 import './Features.scss'
 
@@ -86,6 +88,14 @@ const FEATURES = [
   {
     component: SystemInfo,
     eventName: 'AppBoxoWebAppGetSystemInfo'
+  },
+  {
+    component: Accelerometer,
+    eventName: 'AppBoxoWebAppStartAccelerometer'
+  },
+  {
+    component: Gyroscope,
+    eventName: 'AppBoxoWebAppStartGyroscope'
   }
 ]
 

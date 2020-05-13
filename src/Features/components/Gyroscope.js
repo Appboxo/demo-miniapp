@@ -8,7 +8,9 @@ const Gyroscope = () => {
   const [isStarted, setIsStarted] = useState(false)
   const [data, setData] = useState(null)
   const startGyroscope = async () => {
-    const response = await appboxoSdk.sendPromise('AppBoxoWebAppStartGyroscope')
+    const response = await appboxoSdk.sendPromise('AppBoxoWebAppStartGyroscope', {
+      interval: 200
+    })
 
     console.log(response)
     setIsStarted(true)

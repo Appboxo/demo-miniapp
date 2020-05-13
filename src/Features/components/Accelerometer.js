@@ -8,7 +8,9 @@ const Accelerometer = () => {
   const [isStarted, setIsStarted] = useState(false)
   const [data, setData] = useState(null)
   const startAccelerometer = async () => {
-    const response = await appboxoSdk.sendPromise('AppBoxoWebAppStartAccelerometer')
+    const response = await appboxoSdk.sendPromise('AppBoxoWebAppStartAccelerometer', {
+      interval: 200
+    })
 
     console.log(response)
     setIsStarted(true)

@@ -21,6 +21,7 @@ import Clipboard from './components/Clipboard'
 import SystemInfo from './components/SystemInfo'
 import Accelerometer from './components/Accelerometer'
 import Gyroscope from './components/Gyroscope'
+import Compass from './components/Compass'
 
 import './Features.scss'
 
@@ -96,6 +97,10 @@ const FEATURES = [
   {
     component: Gyroscope,
     eventName: 'AppBoxoWebAppStartGyroscope'
+  },
+  {
+    component: Compass,
+    eventName: 'AppBoxoWebAppStartCompass'
   }
 ]
 

@@ -22,6 +22,7 @@ import SystemInfo from './components/SystemInfo'
 import Accelerometer from './components/Accelerometer'
 import Gyroscope from './components/Gyroscope'
 import Compass from './components/Compass'
+import WindowBackground from './components/Background'
 
 import './Features.scss'
 
@@ -101,6 +102,10 @@ const FEATURES = [
   {
     component: Compass,
     eventName: 'AppBoxoWebAppStartCompass'
+  },
+  {
+    component: WindowBackground,
+    eventName: 'AppBoxoWebAppSetBackgroundColor'
   }
 ]
 

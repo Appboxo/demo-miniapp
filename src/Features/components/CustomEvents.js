@@ -13,9 +13,11 @@ const CustomEvents = () => {
   }
 
   const handleSendWithNoBody = () => {
-    appboxoSdk.send('AppBoxoWebAppCustomEvent', {
-      type: 'my_custom_event_to_open_notification_with_no_body',
-    })
+    setTimeout(() => {
+        appboxoSdk.send('AppBoxoWebAppCustomEvent', {
+          type: 'my_custom_event_to_open_notification_with_no_body',
+        })
+    }, 5000)
   }
 
   const handleSendWithPromise = () => {

@@ -23,6 +23,7 @@ import Accelerometer from './components/Accelerometer'
 import Gyroscope from './components/Gyroscope'
 import Compass from './components/Compass'
 import WindowBackground from './components/Background'
+import OnRestore from './components/OnRestore'
 
 import './Features.scss'
 
@@ -106,6 +107,10 @@ const FEATURES = [
   {
     component: WindowBackground,
     eventName: 'AppBoxoWebAppSetBackgroundColor'
+  },
+  {
+    component: OnRestore,
+    eventName: 'AppBoxoWebAppOnRestore'
   }
 ]
 

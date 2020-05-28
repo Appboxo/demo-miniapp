@@ -110,7 +110,7 @@ const FEATURES = [
   },
   {
     component: OnRestore,
-    eventName: 'AppBoxoWebAppOnRestore'
+    eventName: 'AppBoxoWebAppSetNavigationBar'
   }
 ]
 

@@ -36,8 +36,8 @@ const GeoData = () => {
 
   const openLocation = async () => {
     const data = await appboxoSdk.sendPromise('AppBoxoWebAppOpenLocation', {
-      latitude: 42.5264986,
-      longitude: 74.5788997
+      latitude: 1.290270,
+      longitude: 103.851959
     });
 
     setOpenStatus(data.result ? 'Success' : 'Failed')

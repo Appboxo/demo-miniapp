@@ -60,7 +60,10 @@ const NavigationBar = () => {
     })
     appboxoSdk.send('AppBoxoWebAppSetNavigationBar', {
       show: false,
-      ...(!isLight && {frontColorWhenTransparent: '#ffffff'})
+      ...(!isLight && {
+        background: '#ffffff',
+        frontColor: '#000000'
+      })
     })
   }
 

@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
 import { Card, Button } from 'antd'
 import LoggerContext from '../../LoggerContext.js'
 
 const NavigationBar = () => {
   const { updateLogs } = React.useContext(LoggerContext)
+  const [isLight, setIsLight] = useState(false)
 
   const showLightNavBar = () => {
+    setIsLight(true)
     updateLogs({
       action: 'AppBoxoWebAppSetNavigationBar',
       message: 'called with light color options'
@@ -24,6 +26,7 @@ const NavigationBar = () => {
   }
 
   const showDarkNavBar = () => {
+    setIsLight(false)
     updateLogs({
       action: 'AppBoxoWebAppSetNavigationBar',
       message: 'called with dark color options'
@@ -56,7 +59,8 @@ const NavigationBar = () => {
       message: 'called to hide it'
     })
     appboxoSdk.send('AppBoxoWebAppSetNavigationBar', {
-      show: false
+      show: false,
+      ...(!isLight && {frontColorWhenTransparent: '#ffffff'})
     })
   }
 

@@ -3,33 +3,21 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-// import appboxoSdk from '@appboxo/js-sdk'
+import appboxoSdk from '@appboxo/js-sdk'
 
+appboxoSdk.send('AppBoxoWebAppGetMiniappSettings')
 
-if (window.miniapp_settings) {
-  document.head.insertAdjacentHTML('beforeend', `<style>
-    :root {
-      --primary-color: ${window.miniapp_settings.colors.primary_color};
-      --secondary-color: ${window.miniapp_settings.colors.secondary_color};
-      --tertiary-color: ${window.miniapp_settings.colors.tertiary_color};
-    }
-  </style>`)
-}
-
-// appboxoSdk.sendPromise('AppBoxoWebAppGetMiniappSettings').then(data => {
-//   const settings = {
-//     colors: {
-//       primary_color: '#DF1445',
-//       secondary_color: '#04C613',
-//       tertiary_color: '#00C5DA'
-//     },
-//     hostapp: {
-//       name: 'Super app',
-//       logo: '',
-//     }
-//   }
-  
-// })
+setTimeout(() => {
+  if (window.miniapp_settings) {
+    document.head.insertAdjacentHTML('beforeend', `<style>
+      :root {
+        --primary-color: ${window.miniapp_settings.colors.primary_color};
+        --secondary-color: ${window.miniapp_settings.colors.secondary_color};
+        --tertiary-color: ${window.miniapp_settings.colors.tertiary_color};
+      }
+    </style>`)
+  }
+})
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

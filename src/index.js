@@ -5,19 +5,21 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import appboxoSdk from '@appboxo/js-sdk'
 
-appboxoSdk.send('AppBoxoWebAppGetMiniappSettings')
+appboxoSdk.sendPromise('AppBoxoWebAppGetMiniappSettings').then(data => {
+  console.log('MINIAPP_SETTINGS: ', data)
+}).catch(err => console.log(err));
 
-setTimeout(() => {
-  if (window.miniapp_settings) {
-    document.head.insertAdjacentHTML('beforeend', `<style>
-      :root {
-        --primary-color: ${window.miniapp_settings.colors.primary_color};
-        --secondary-color: ${window.miniapp_settings.colors.secondary_color};
-        --tertiary-color: ${window.miniapp_settings.colors.tertiary_color};
-      }
-    </style>`)
-  }
-}, 4000)
+// setTimeout(() => {
+//   if (window.miniapp_settings) {
+//     document.head.insertAdjacentHTML('beforeend', `<style>
+//       :root {
+//         --primary-color: ${window.miniapp_settings.colors.primary_color};
+//         --secondary-color: ${window.miniapp_settings.colors.secondary_color};
+//         --tertiary-color: ${window.miniapp_settings.colors.tertiary_color};
+//       }
+//     </style>`)
+//   }
+// }, 4000)
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

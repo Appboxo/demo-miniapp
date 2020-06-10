@@ -1,5 +1,11 @@
 @import '../node_modules/antd/dist/antd.css';
 
+:root {
+  --primary-color: #000000;
+  --secondary-color: #2CBBD7;
+  --tertiary-color: #faad14;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -34,25 +40,25 @@ p {
   border-radius: 1rem;
 
   &.ant-btn-primary {
-    background-color: #000000;
-    border-color: #000000 !important;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color) !important;
     color: #ffffff !important;
 
     &:hover,
     &:focus {
-      background-color: #000000;
-      border-color: #000000;
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
     }
   }
 
   &:not(.ant-btn-danger) {
-    border-color: #2CBBD7;
-    color: #2CBBD7;
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
   
     &:hover,
     &:focus {
-      border-color: #2CBBD7;
-      color: #2CBBD7;
+      border-color: var(--secondary-color);
+      color: var(--secondary-color);
     }
   }
 }

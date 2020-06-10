@@ -17,7 +17,7 @@ setTimeout(() => {
       }
     </style>`)
   }
-})
+}, 4000)
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

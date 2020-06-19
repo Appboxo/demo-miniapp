@@ -29,6 +29,7 @@ function App() {
     // Get initial app data
     appboxoSdk.getInitData()
       .then((appData) => {
+        console.log('AppData: ', appData)
         setLoginStatus(Boolean(appData.token))
 
         updateLogs({
@@ -66,6 +67,7 @@ function App() {
       }
     ]
     setLogs([...logs, ...currentLogs])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

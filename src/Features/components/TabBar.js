@@ -71,6 +71,7 @@ const TabBar = () => {
     return () => {
       appboxoSdk.unsubscribe(tabClickListener)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const initTabBar = () => {

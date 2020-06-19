@@ -71,6 +71,7 @@ const TabBar = () => {
     return () => {
       appboxoSdk.unsubscribe(tabClickListener)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const initTabBar = () => {
@@ -125,7 +126,7 @@ const TabBar = () => {
     store.isTabbarLightTheme = true
   }
 
-  const handleVisibility = (show: boolean) => {
+  const handleVisibility = (show) => {
     appboxoSdk.send('AppBoxoWebAppSetTabBar', {
       show
     })

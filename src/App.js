@@ -66,6 +66,7 @@ function App() {
       }
     ]
     setLogs([...logs, ...currentLogs])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

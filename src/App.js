@@ -26,6 +26,7 @@ function App() {
   }
 
   useEffect(() => {
+    console.log('Getting data')
     // Get initial app data
     appboxoSdk.getInitData()
       .then((appData) => {

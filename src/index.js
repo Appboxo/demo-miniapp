@@ -16,18 +16,6 @@ appboxoSdk.sendPromise('AppBoxoWebAppGetMiniappSettings').then(data => {
   </style>`)
 }).catch(err => console.log(err));
 
-// setTimeout(() => {
-//   if (window.miniapp_settings) {
-//     document.head.insertAdjacentHTML('beforeend', `<style>
-//       :root {
-//         --primary-color: ${window.miniapp_settings.colors.primary_color};
-//         --secondary-color: ${window.miniapp_settings.colors.secondary_color};
-//         --tertiary-color: ${window.miniapp_settings.colors.tertiary_color};
-//       }
-//     </style>`)
-//   }
-// }, 4000)
-
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

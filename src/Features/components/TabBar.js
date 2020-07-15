@@ -126,7 +126,7 @@ const TabBar = () => {
     store.isTabbarLightTheme = true
   }
 
-  const handleVisibility = (show: boolean) => {
+  const handleVisibility = (show) => {
     appboxoSdk.send('AppBoxoWebAppSetTabBar', {
       show
     })

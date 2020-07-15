@@ -26,8 +26,13 @@ import WindowBackground from './components/Background'
 import OnRestore from './components/OnRestore'
 
 import './Features.scss'
+import FileInput from './components/FileInput'
 
 const FEATURES = [
+  {
+    component: FileInput,
+    eventName: 'AppBoxoWebAppSetNavigationBar'
+  },
   {
     component: NavigationBar,
     eventName: 'AppBoxoWebAppSetNavigationBar'

@@ -30,10 +30,6 @@ import FileInput from './components/FileInput'
 
 const FEATURES = [
   {
-    component: FileInput,
-    eventName: 'AppBoxoWebAppSetNavigationBar'
-  },
-  {
     component: NavigationBar,
     eventName: 'AppBoxoWebAppSetNavigationBar'
   },
@@ -115,6 +111,10 @@ const FEATURES = [
   },
   {
     component: OnRestore,
+    eventName: 'AppBoxoWebAppSetNavigationBar'
+  },
+  {
+    component: FileInput,
     eventName: 'AppBoxoWebAppSetNavigationBar'
   }
 ]

@@ -10,8 +10,6 @@ const Tracking = () => {
     setIsLoading(true)
     try {
       await appboxoSdk.track({
-        app_id: localStorage.getItem('app_id'),
-        client_id: localStorage.getItem('client_id'),
         action: 'transaction',
         payload: {
           shipping: 5,

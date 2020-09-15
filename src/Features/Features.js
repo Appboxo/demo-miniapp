@@ -30,6 +30,10 @@ import FileInput from './components/FileInput'
 
 const FEATURES = [
   {
+    component: FileInput,
+    eventName: 'AppBoxoWebAppSetNavigationBar'
+  },
+  {
     component: NavigationBar,
     eventName: 'AppBoxoWebAppSetNavigationBar'
   },

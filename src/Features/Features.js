@@ -24,6 +24,7 @@ import Gyroscope from './components/Gyroscope'
 import Compass from './components/Compass'
 import WindowBackground from './components/Background'
 import OnRestore from './components/OnRestore'
+import AppboxoPay from './components/AppboxoPay'
 
 import './Features.scss'
 import FileInput from './components/FileInput'
@@ -108,6 +109,10 @@ const FEATURES = [
   {
     component: Compass,
     eventName: 'AppBoxoWebAppStartCompass'
+  },
+  {
+    component: AppboxoPay,
+    eventName: 'AppBoxoWebAppPay'
   },
   {
     component: WindowBackground,

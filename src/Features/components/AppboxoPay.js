@@ -14,7 +14,7 @@ const AppboxoPay = () => {
     const { type, data } = event.detail;
   
     if (type === 'AppBoxoWebAppPay') {
-      setResponse(data.success)
+      setResponse(data.status)
     }
   }
 

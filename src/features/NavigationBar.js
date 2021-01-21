@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
 import { Card, Button } from 'antd'
-import LoggerContext from '../../LoggerContext.js'
+import LoggerContext from '../context/LoggerContext'
 
 const NavigationBar = () => {
   const { updateLogs } = React.useContext(LoggerContext)
@@ -101,7 +101,7 @@ const NavigationBar = () => {
       <Button
         size="large"
         block
-        className="wrap-button"
+        className='wrap-button'
         onClick={handleTransparentNavbar}
       >Show navigation bar with transparent background</Button>
       <Button

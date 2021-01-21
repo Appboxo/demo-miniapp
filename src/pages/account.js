@@ -1,28 +1,29 @@
 import React, { useState } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { useHistory } from 'react-router-dom';
+import classnames from 'classnames'
 
 import Preloader from '../components/Preloader.js'
 import LoginResponse from '../components/LoginResponse.js'
-import AuthContext from '../AuthContext.js'
-import LoggerContext from '../LoggerContext.js'
 
 import { Button } from 'antd'
 
-
-import './Account.scss'
+import AuthContext from '../context/AuthContext'
+import LoggerContext from '../context/LoggerContext'
+import styles from '../../styles/Account.module.scss'
+import { useRouter } from 'next/router'
 
 const LOGIN_SUCCESS = 'success'
 const LOGIN_FAILED = 'error'
 const LOGIN_NONE = ''
 
 const Account = () => {
-  let history = useHistory();
   const { loginStatus, setLoginStatus } = React.useContext(AuthContext)
   const { updateLogs } = React.useContext(LoggerContext)
 
   const [isLoading, setIsLoading] = useState(false)
   const [loginResponseStatus, setLoginResponseStatus] = useState(LOGIN_NONE)
+
+  const router = useRouter()
 
   const handleLogin = async () => {
     try {
@@ -95,7 +96,7 @@ const Account = () => {
   }
 
   const handleGoBack = () => {
-    history.replace('/')
+    router.replace('/')
 
     updateLogs({
       action: 'REDIRECT',
@@ -113,10 +114,10 @@ const Account = () => {
       {isLoading && <Preloader />}
     </>
   ) : (
-    <section className="pane account">
+    <section className={classnames('pane', styles.account)}>
       <div>
         <h1>Account details</h1>
-        <div className="account__email">
+        <div className={styles['account__email']}>
           Status: <b>{loginStatus ? 'Logged in' : 'Not logged in'}</b>
         </div>
       </div>

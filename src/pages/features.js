@@ -1,33 +1,32 @@
 import React from 'react';
 import appboxoSdk from '@appboxo/js-sdk'
-import { useHistory } from 'react-router-dom';
-import LoggerContext from '../LoggerContext.js'
+import { useRouter } from 'next/router'
 import { Button } from 'antd';
-import NavigationBar from './components/NavigationBar'
-import TabBar from './components/TabBar'
-import Miscellaneous from './components/Miscellaneous'
-import Tracking from './components/Tracking'
-import CustomEvents from './components/CustomEvents'
-import ActionButtons from './components/ActionButtons'
-import LoadingIndicator from './components/LoadingIndicator'
-import QRCodeReader from './components/QRCodeReader'
-import HapticFeedback from './components/Haptic'
-import ActionSheet from './components/ActionSheet'
-import GeoData from './components/GeoData'
-import Alert from './components/Alert'
-import ImageGallery from './components/ImageGallery'
-import Storage from './components/Storage'
-import Clipboard from './components/Clipboard'
-import SystemInfo from './components/SystemInfo'
-import Accelerometer from './components/Accelerometer'
-import Gyroscope from './components/Gyroscope'
-import Compass from './components/Compass'
-import WindowBackground from './components/Background'
-import OnRestore from './components/OnRestore'
-import AppboxoPay from './components/AppboxoPay'
+import NavigationBar from '../features/NavigationBar'
+import TabBar from '../features/TabBar'
+import Miscellaneous from '../features/Miscellaneous'
+import Tracking from '../features/Tracking'
+import CustomEvents from '../features/CustomEvents'
+import LoadingIndicator from '../features/LoadingIndicator'
+import QRCodeReader from '../features/QRCodeReader'
+import HapticFeedback from '../features/Haptic'
+import ActionSheet from '../features/ActionSheet'
+import GeoData from '../features/GeoData'
+import Alert from '../features/Alert'
+import ImageGallery from '../features/ImageGallery'
+import Storage from '../features/Storage'
+import Clipboard from '../features/Clipboard'
+import SystemInfo from '../features/SystemInfo'
+import Accelerometer from '../features/Accelerometer'
+import Gyroscope from '../features/Gyroscope'
+import Compass from '../features/Compass'
+import WindowBackground from '../features/Background'
+import OnRestore from '../features/OnRestore'
+import AppboxoPay from '../features/AppboxoPay'
 
-import './Features.scss'
-import FileInput from './components/FileInput'
+import FileInput from '../features/FileInput'
+import LoggerContext from '../context/LoggerContext'
+import ActionButtons from '../features/ActionButtons'
 
 const FEATURES = [
   {
@@ -124,26 +123,26 @@ const FEATURES = [
   }
 ]
 
-const Features = (props) => {
+const Features = () => {
   const { updateLogs } = React.useContext(LoggerContext)
-  let history = useHistory();
+  const router = useRouter()
 
   const handleGoBack = () => {
     updateLogs({
       action: 'REDIRECT',
       message: 'to home'
     })
-    history.push('/');
+    router.push('/');
   }
 
   return (
-    <section className="pane features">
+    <section className={'pane features'}>
       <div>
         <h1>Features</h1>
         {FEATURES.map((feature, index) => {
           if (appboxoSdk.supports(feature.eventName)) {
             return (
-              <div className="feature" key={index}>
+              <div className='feature' key={index}>
                 <feature.component />
               </div>
             )

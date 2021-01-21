@@ -1,29 +1,19 @@
-import React, { useEffect, useState } from 'react'
-
+import dynamic from 'next/dynamic'
+import { Button } from 'antd'
+import Logs from '../components/Logs'
 import appboxoSdk from '@appboxo/js-sdk'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from 'react-router-dom';
-import { Button } from 'antd';
+import React, { useState, useEffect } from 'react'
+import LoggerContext from '../context/LoggerContext'
+import AuthContext from '../context/AuthContext'
 
-import Account from './Account/Account'
-import Features from './Features/Features'
-import Home from './Home/Home'
-import AuthContext from './AuthContext'
-import LoggerContext from './LoggerContext'
-import Logs from './components/Logs'
-import StoreProvider from './StoreContext'
+import '../../styles/globals.scss'
 
-function App() {
-  const [loginStatus, setLoginStatus] = useState(false)
-  const [logsVisibility, setLogsVisibility] = useState(false)
-  const [logs, setLogs] = useState([])
+const StoreProvider = dynamic(() => import('../context/StoreContext').then(mod => mod.StoreProvider), { ssr: false })
 
-  const updateLogs = (newLog) => {
-    setLogs([...logs, newLog])
-  }
+function MyApp({ Component, pageProps }) {
+  const [ loginStatus, setLoginStatus ] = useState(false)
+  const [ logsVisibility, setLogsVisibility ] = useState(false)
+  const [ logs, setLogs ] = useState([])
 
   useEffect(() => {
     console.log('Getting data')
@@ -67,45 +57,39 @@ function App() {
         message: 'request sent'
       }
     ]
-    setLogs([...logs, ...currentLogs])
+    setLogs([ ...logs, ...currentLogs ])
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const updateLogs = (newLog) => {
+    setLogs([ ...logs, newLog ])
+  }
 
   return (
     <AuthContext.Provider value={{
       loginStatus,
       setLoginStatus
     }}>
-      {!logsVisibility && (
-        <Button
-          type="dashed"
-          size="small"
-          className="show-logs-button"
-          onClick={() => setLogsVisibility(true)}
-        >Show Logs</Button>
-      )}
       <LoggerContext.Provider value={{
         updateLogs
       }}>
+        {!logsVisibility && (
+          <Button
+            size="small"
+            type="dashed"
+            className="show-logs-button"
+            onClick={() => setLogsVisibility(true)}
+          >
+            Show Logs
+          </Button>
+        )}
         <StoreProvider>
-          <Router>
-            <Switch>
-              <Route path="/account">
-                <Account />
-              </Route>
-              <Route path="/features">
-                <Features />
-              </Route>
-              <Route path="/">
-                <Home />
-              </Route>
-            </Switch>
-          </Router>
+          <Component {...pageProps} />
+          {logsVisibility && <Logs logs={logs} onClose={() => setLogsVisibility(false)} />}
         </StoreProvider>
       </LoggerContext.Provider>
-      {logsVisibility && <Logs logs={logs} onClose={() => setLogsVisibility(false)}/>}
     </AuthContext.Provider>
-  );
+  )
 }
 
-export default App;
+export default MyApp

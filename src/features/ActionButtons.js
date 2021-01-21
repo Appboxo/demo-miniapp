@@ -1,7 +1,7 @@
 import React from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
 import { Card, Button } from 'antd'
-import { StoreContext } from '../../StoreContext'
+import { StoreContext } from '../context/StoreContext'
 
 const ActionButtons = () => {
   const store = React.useContext(StoreContext)

@@ -1,12 +1,12 @@
 import React from 'react'
 
-import './Preloader.scss'
+import styles from  './Preloader.module.scss'
 
 const Preloader = () => {
   return (
-    <div className="preloader">
-      <div className="preloader__spinner">
-        <div className="spinner"></div>
+    <div className={styles.preloader}>
+      <div className={styles['preloader__spinner']}>
+        <div className={styles.spinner} />
       </div>
     </div>
   )

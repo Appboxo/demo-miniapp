@@ -7,21 +7,21 @@ export const TABS = [
   {
     tabId: 12,
     tabName: 'Home',
-    tabIcon: `${document.location.origin}/img/home-icon.png`
+    tabIcon: `/img/home-icon.png`
   },
   {
     tabId: 123,
     tabName: 'About',
-    tabIcon: `${document.location.origin}/img/info-icon.png`
+    tabIcon: `/img/info-icon.png`
   },
   {
     tabId: 1234,
     tabName: 'Services',
-    tabIcon: `${document.location.origin}/img/service-icon.png`
+    tabIcon: `/img/service-icon.png`
   }
 ]
 
-const StoreProvider = ({ children }) => {
+export const StoreProvider = ({ children }) => {
   const activeTabId = window.localStorage.getItem('activeTabId')
   let activeTabName = TABS[0].tabName
 
@@ -46,5 +46,3 @@ const StoreProvider = ({ children }) => {
     <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
   )
 }
-
-export default StoreProvider

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
 import { Card, Button, Typography } from 'antd'
-import { useObserver } from "mobx-react"
-import LoggerContext from '../../LoggerContext'
-import { StoreContext, TABS } from '../../StoreContext'
+import { useObserver } from 'mobx-react'
+import LoggerContext from '../context/LoggerContext'
+import { StoreContext, TABS } from '../context/StoreContext'
 
-const { Text } = Typography;
+const { Text } = Typography
 
 const TAB_BADGES = [
   {
@@ -33,11 +33,11 @@ const TabBar = () => {
 
   const tabClickListener = (event) => {
     if (!event.detail) {
-      return;
+      return
     }
-  
-    const { type, data } = event.detail;
-  
+
+    const { type, data } = event.detail
+
     if (type === 'AppBoxoWebAppTabBarItemClick') {
       updateLogs({
         action: 'AppBoxoWebAppTabBarItemClick',
@@ -139,8 +139,8 @@ const TabBar = () => {
       badges: TAB_BADGES
     })
 
-    store.activeTabWithBadges = TABS.map(item => item.tabId)
     store.isTabbarBadgesShown = true
+    store.activeTabWithBadges = TABS.map(item => item.tabId)
   }
 
   return useObserver(() => (

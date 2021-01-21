@@ -1,16 +1,16 @@
 import React from 'react'
 import { Button } from 'antd';
 
-import './Logs.scss'
+import styles from './Logs.module.scss'
 
 const Logs = ({ onClose, logs }) => {
   return (
-    <section className="logs">
+    <section className={styles.logs}>
       <Button
-        type="dashed"
         size="small"
+        type="dashed"
+        onClick={onClose}
         className="show-logs-button"
-         onClick={onClose}
       >Hide Logs</Button>
       <ul>
         {logs.map(log => (<li key={log.action + '-' + log.message}>

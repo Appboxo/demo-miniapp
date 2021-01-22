@@ -27,12 +27,10 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
       "last 8 years",
       "not op_mini all"
     ],
     "development": [
-      ">0.2%",
       "last 8 years",
       "not op_mini all"
     ]

@@ -11,6 +11,7 @@
     "mobx-react": "^6.1.8",
     "node-sass": "^4.13.0",
     "react": "^16.11.0",
+    "react-app-polyfill": "^2.0.0",
     "react-dom": "^16.11.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0"
@@ -27,13 +28,13 @@
   "browserslist": {
     "production": [
       ">0.2%",
-      "not dead",
+      "last 8 years",
       "not op_mini all"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      ">0.2%",
+      "last 8 years",
+      "not op_mini all"
     ]
   }
 }

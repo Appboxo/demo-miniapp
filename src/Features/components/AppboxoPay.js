@@ -20,7 +20,7 @@ const createNewOrder = async (appData, amount, currency) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(body), // body data type must match "Content-Type" header
+    body: JSON.stringify(body),
   }).then((r) => r.json())
   return response
 }

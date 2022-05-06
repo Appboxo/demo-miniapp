@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom'
 
 import Preloader from '../components/Preloader.js'
 import LoginResponse from '../components/LoginResponse.js'
@@ -9,7 +9,6 @@ import LoggerContext from '../LoggerContext.js'
 
 import { Button } from 'antd'
 
-
 import './Account.scss'
 
 const LOGIN_SUCCESS = 'success'
@@ -17,8 +16,9 @@ const LOGIN_FAILED = 'error'
 const LOGIN_NONE = ''
 
 const Account = () => {
-  let history = useHistory();
-  const { loginStatus, setLoginStatus } = React.useContext(AuthContext)
+  let history = useHistory()
+  const { loginStatus, setLoginStatus, setAppData } =
+    React.useContext(AuthContext)
   const { updateLogs } = React.useContext(LoggerContext)
 
   const [isLoading, setIsLoading] = useState(false)
@@ -31,13 +31,14 @@ const Account = () => {
         message: 'request sent',
       })
       const token = await appboxoSdk.login()
+      setAppData((appData) => ({ ...appData, token }))
 
       setLoginStatus(true)
 
       updateLogs({
         action: 'LOGIN_TO_DASHBOARD',
         message: 'response received',
-        data: token
+        data: token,
       })
 
       setLoginResponseStatus(LOGIN_SUCCESS)
@@ -46,11 +47,16 @@ const Account = () => {
 
       updateLogs({
         action: 'LOGIN_TO_DASHBOARD',
-        message: error.status === 'Reject' ? 'login confirm modal rejected' : 'request failed',
-        data: error
+        message:
+          error.status === 'Reject'
+            ? 'login confirm modal rejected'
+            : 'request failed',
+        data: error,
       })
 
-      setLoginResponseStatus(error.status === 'Reject' ? LOGIN_NONE : LOGIN_FAILED)
+      setLoginResponseStatus(
+        error.status === 'Reject' ? LOGIN_NONE : LOGIN_FAILED
+      )
     }
 
     setTimeout(() => {
@@ -81,7 +87,7 @@ const Account = () => {
       updateLogs({
         action: 'LOGOUT',
         message: 'request failed',
-        data: error
+        data: error,
       })
     }
 
@@ -99,7 +105,7 @@ const Account = () => {
 
     updateLogs({
       action: 'REDIRECT',
-      message: 'to home'
+      message: 'to home',
     })
   }
 
@@ -122,25 +128,17 @@ const Account = () => {
       </div>
       <div>
         {loginStatus ? (
-          <Button
-            type="danger"
-            size="large"
-            onClick={handleLogout}
-            block
-          >Logout</Button>
+          <Button type="danger" size="large" onClick={handleLogout} block>
+            Logout
+          </Button>
         ) : (
-          <Button
-            type="primary"
-            size="large"
-            onClick={handleLogin}
-            block
-          >Login</Button>
+          <Button type="primary" size="large" onClick={handleLogin} block>
+            Login
+          </Button>
         )}
-        <Button
-          size="large"
-          block
-          onClick={handleGoBack}
-        >Back</Button>
+        <Button size="large" block onClick={handleGoBack}>
+          Back
+        </Button>
       </div>
       {isLoading && <Preloader />}
     </section>

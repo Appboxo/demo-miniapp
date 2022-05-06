@@ -18,6 +18,7 @@ import StoreProvider from './StoreContext'
 
 function App() {
   const [loginStatus, setLoginStatus] = useState(false)
+  const [appData, setAppData] = useState({})
   const [logsVisibility, setLogsVisibility] = useState(false)
   const [logs, setLogs] = useState([])
 
@@ -31,6 +32,7 @@ function App() {
     appboxoSdk.getInitData()
       .then((appData) => {
         console.log('AppData: ', appData)
+        setAppData(appData)
         setLoginStatus(Boolean(appData.token))
 
         updateLogs({
@@ -74,7 +76,9 @@ function App() {
   return (
     <AuthContext.Provider value={{
       loginStatus,
-      setLoginStatus
+      setLoginStatus,
+      appData,
+      setAppData
     }}>
       {!logsVisibility && (
         <Button

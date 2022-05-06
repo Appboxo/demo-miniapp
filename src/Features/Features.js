@@ -141,7 +141,8 @@ const Features = (props) => {
       <div>
         <h1>Features</h1>
         {FEATURES.map((feature, index) => {
-          if (appboxoSdk.supports(feature.eventName)) {
+          // TODO
+          if (appboxoSdk.supports(feature.eventName) || feature.eventName === 'AppBoxoWebAppPay') {
             return (
               <div className="feature" key={index}>
                 <feature.component />

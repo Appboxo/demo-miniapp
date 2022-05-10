@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import appboxoSdk from '@appboxo/js-sdk'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from 'react-router-dom';
-import { Button } from 'antd';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Button } from 'antd'
 
 import Account from './Account/Account'
 import Features from './Features/Features'
@@ -20,16 +16,19 @@ function App() {
   const [loginStatus, setLoginStatus] = useState(false)
   const [appData, setAppData] = useState({})
   const [logsVisibility, setLogsVisibility] = useState(false)
-  const [logs, setLogs] = useState([])
+  const logs = useRef([])
+
+  const setLogs = (newLogs = []) => (logs.current = newLogs)
 
   const updateLogs = (newLog) => {
-    setLogs([...logs, newLog])
+    setLogs([...logs.current, newLog])
   }
 
   useEffect(() => {
     console.log('Getting data')
     // Get initial app data
-    appboxoSdk.getInitData()
+    appboxoSdk
+      .getInitData()
       .then((appData) => {
         console.log('AppData: ', appData)
         setAppData(appData)
@@ -38,7 +37,7 @@ function App() {
         updateLogs({
           action: 'AppBoxoWebAppGetInitData',
           message: 'response received',
-          data: appData
+          data: appData,
         })
         localStorage.clear()
         localStorage.setItem('app_id', appData.app_id)
@@ -50,47 +49,53 @@ function App() {
         updateLogs({
           action: 'AppBoxoWebAppGetInitData',
           message: 'request failed',
-          data: error
+          data: error,
         })
       })
 
     // Set status bar color
     appboxoSdk.send('AppBoxoWebAppSetStatusBarColor', {
-      color: '#ffffff'
+      color: '#ffffff',
     })
 
     const currentLogs = [
       {
         action: 'AppBoxoWebAppSetStatusBarColor',
-        message: 'request sent'
+        message: 'request sent',
       },
       {
         action: 'AppBoxoWebAppGetInitData',
-        message: 'request sent'
-      }
+        message: 'request sent',
+      },
     ]
-    setLogs([...logs, ...currentLogs])
+    setLogs([...logs.current, ...currentLogs])
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
-    <AuthContext.Provider value={{
-      loginStatus,
-      setLoginStatus,
-      appData,
-      setAppData
-    }}>
+    <AuthContext.Provider
+      value={{
+        loginStatus,
+        setLoginStatus,
+        appData,
+        setAppData,
+      }}
+    >
       {!logsVisibility && (
         <Button
           type="dashed"
           size="small"
           className="show-logs-button"
           onClick={() => setLogsVisibility(true)}
-        >Show Logs</Button>
+        >
+          Show Logs
+        </Button>
       )}
-      <LoggerContext.Provider value={{
-        updateLogs
-      }}>
+      <LoggerContext.Provider
+        value={{
+          updateLogs,
+        }}
+      >
         <StoreProvider>
           <Router>
             <Switch>
@@ -107,9 +112,11 @@ function App() {
           </Router>
         </StoreProvider>
       </LoggerContext.Provider>
-      {logsVisibility && <Logs logs={logs} onClose={() => setLogsVisibility(false)}/>}
+      {logsVisibility && (
+        <Logs logs={logs.current} onClose={() => setLogsVisibility(false)} />
+      )}
     </AuthContext.Provider>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
 import { Card, Button, Typography, Input, Divider } from 'antd'
 import AuthContext from '../../AuthContext.js'
+import LoggerContext from '../../LoggerContext.js'
 const { Text } = Typography
 
 const CREATE_ORDER_URL = 'https://demo-miniapp.appboxo.com/api/v1/create-order/'
@@ -26,6 +27,7 @@ const createNewOrder = async (appData, amount, currency) => {
 }
 
 const AppboxoPay = () => {
+  const { updateLogs } = useContext(LoggerContext)
   const { appData } = useContext(AuthContext)
   const [response, setResponse] = useState('')
   const [amount, setAmount] = useState(100)
@@ -33,19 +35,57 @@ const AppboxoPay = () => {
 
   const onPay = async () => {
     try {
+      updateLogs({
+        action: 'REQUEST CREATE NEW ORDER',
+        message: `request start with amount: ${amount}, currency: ${currency}.`,
+      })
+
       const newOrderData = await createNewOrder(appData, amount, currency)
+
+      updateLogs({
+        action: 'RESPONSE CREATE NEW ORDER',
+        message: JSON.stringify(newOrderData, null, 2),
+      })
       const transactionToken = newOrderData.order_payment_id
       const miniappOrderId = newOrderData.order_id
 
-      const { status } = await appboxoSdk.pay({
+      updateLogs({
+        action: 'START APPBOXO PAY',
+        message:
+          'with params: ' +
+          JSON.stringify(
+            {
+              amount,
+              currency,
+              miniappOrderId,
+              transactionToken,
+              extraParams: {},
+            },
+            null,
+            2
+          ),
+      })
+      const payResponse = await appboxoSdk.pay({
         amount,
         currency,
         miniappOrderId,
         transactionToken,
         extraParams: {},
       })
+      const { status } = payResponse
+
+      updateLogs({
+        action: 'RESPONSE APPBOXO PAY',
+        message: JSON.stringify(payResponse, null, 2),
+      })
+
       setResponse(status)
     } catch (err) {
+      updateLogs({
+        action: 'ERROR APPBOXO PAY',
+        message: JSON.stringify(err, null, 2),
+      })
+
       setResponse(JSON.stringify(err))
     }
   }

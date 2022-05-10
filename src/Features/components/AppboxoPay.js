@@ -8,23 +8,29 @@ const { Text } = Typography
 const CREATE_ORDER_URL = 'https://demo-miniapp.appboxo.com/api/v1/create-order/'
 
 const createNewOrder = async (appData, amount, currency) => {
-  const body = {
+  const headers = new Headers()
+  headers.append('Content-Type', 'application/json')
+
+  const bodyRaw = JSON.stringify({
     order: {
       amount,
       currency,
     },
     client_id: appData.client_id,
     app_id: appData.app_id,
+  })
+
+  const requestOptions = {
+    method: 'POST',
+    headers,
+    body: bodyRaw,
+    redirect: 'follow',
   }
-  const response = await (
-    await fetch(CREATE_ORDER_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    })
-  ).json()
+
+  const response = await fetch(CREATE_ORDER_URL, requestOptions).then((r) =>
+    r.json()
+  )
+
   return response
 }
 
@@ -33,7 +39,7 @@ const AppboxoPay = () => {
   const { appData } = useContext(AuthContext)
   const [response, setResponse] = useState('')
   const [amount, setAmount] = useState(100)
-  const [currency, setCurrency] = useState('USD')
+  const [currency, setCurrency] = useState('PHP')
 
   const onPay = async () => {
     try {

@@ -44,6 +44,11 @@ const AppboxoPay = () => {
 
       const newOrderData = await createNewOrder(appData, amount, currency)
 
+      if (!!newOrderData.error_code)
+        throw new Error(
+          `failed to create new order: ${JSON.stringify(newOrderData, null, 2)}`
+        )
+
       updateLogs({
         action: 'RESPONSE CREATE NEW ORDER',
         message: 'response: ' + JSON.stringify(newOrderData, null, 2),

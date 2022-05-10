@@ -16,13 +16,15 @@ const createNewOrder = async (appData, amount, currency) => {
     client_id: appData.client_id,
     app_id: appData.app_id,
   }
-  const response = await fetch(CREATE_ORDER_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  }).then((r) => r.json())
+  const response = await (
+    await fetch(CREATE_ORDER_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+  ).json()
   return response
 }
 
@@ -44,7 +46,7 @@ const AppboxoPay = () => {
 
       updateLogs({
         action: 'RESPONSE CREATE NEW ORDER',
-        message: JSON.stringify(newOrderData, null, 2),
+        message: 'response: ' + JSON.stringify(newOrderData, null, 2),
       })
       const transactionToken = newOrderData.order_payment_id
       const miniappOrderId = newOrderData.order_id

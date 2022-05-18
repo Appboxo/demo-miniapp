@@ -81,13 +81,32 @@ const AppboxoPay = () => {
             2
           ),
       })
-      const payResponse = await appboxoSdk.pay({
-        amount,
-        currency,
+      // const payResponse = await appboxoSdk.pay({
+      //   amount,
+      //   currency,
+      //   miniappOrderId,
+      //   transactionToken,
+      // })
+
+      appboxoSdk.send('AppBoxoWebAppPay', {
         miniappOrderId,
+        currency,
+        amount,
         transactionToken,
-        extraParams: {},
       })
+
+      let subscriberFunction
+
+      const payResponse = await new Promise((res, rej) => {
+        subscriberFunction = (event) => {
+          if (event?.detail?.type === 'AppBoxoWebAppPay') {
+            res(event.detail.data)
+          }
+        }
+        appboxoSdk.subscribe(subscriberFunction)
+      })
+
+      appboxoSdk.unsubscribe(subscriberFunction)
 
       updateLogs({
         action: 'RESPONSE APPBOXO PAY',

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button, Typography, Input, Divider } from 'antd'
+import { Card, Button, Typography, Input, Divider, Modal } from 'antd'
 import AuthContext from '../../AuthContext.js'
 import LoggerContext from '../../LoggerContext.js'
 const { Text } = Typography
@@ -46,11 +46,6 @@ const AppboxoPay = () => {
     try {
       setIsLoading(true)
 
-      updateLogs({
-        action: 'REQUEST CREATE NEW ORDER',
-        message: `request start with amount: ${amount}, currency: ${currency}.`,
-      })
-
       const newOrderData = await createNewOrder(appData, amount, currency)
 
       if (!!newOrderData.error_code)
@@ -59,28 +54,13 @@ const AppboxoPay = () => {
         )
 
       updateLogs({
-        action: 'RESPONSE CREATE NEW ORDER',
+        action: 'CREATE NEW ORDER',
         message: 'response: ' + JSON.stringify(newOrderData, null, 2),
       })
+
       const transactionToken = newOrderData.order_payment_id
       const miniappOrderId = newOrderData.order_id
 
-      updateLogs({
-        action: 'START APPBOXO PAY',
-        message:
-          'with params: ' +
-          JSON.stringify(
-            {
-              amount,
-              currency,
-              miniappOrderId,
-              transactionToken,
-              extraParams: {},
-            },
-            null,
-            2
-          ),
-      })
       const payResponse = await appboxoSdk.pay({
         amount,
         currency,
@@ -88,33 +68,25 @@ const AppboxoPay = () => {
         transactionToken,
       })
 
-      // appboxoSdk.send('AppBoxoWebAppPay', {
-      //   miniappOrderId,
-      //   currency,
-      //   amount,
-      //   transactionToken,
-      //   request_id: 667,
-      // })
-
-      // let subscriberFunction
-
-      // const payResponse = await new Promise((res, rej) => {
-      //   subscriberFunction = (event) => {
-      //     if (event?.detail?.type === 'AppBoxoWebAppPay') {
-      //       res(event.detail.data)
-      //     }
-      //   }
-      //   appboxoSdk.subscribe(subscriberFunction)
-      // })
-
-      // appboxoSdk.unsubscribe(subscriberFunction)
-
       updateLogs({
-        action: 'RESPONSE APPBOXO PAY',
+        action: 'APPBOXO PAY',
         message: JSON.stringify(payResponse, null, 2),
       })
 
-      setResponse(JSON.stringify(payResponse, null, 2))
+      if (payResponse.status === 'success') {
+        Modal.success({
+          title: `Payment successful for ${currency} ${amount}!`,
+          content:
+            'You can view all your payments & orders in the Profile page of Appboxo Demo app',
+        })
+      } else {
+        Modal.error({
+          title: `Payment failed for ${currency} ${amount}!`,
+          content: JSON.stringify(payResponse, null, 2),
+        })
+      }
+
+      setResponse(payResponse)
     } catch (err) {
       updateLogs({
         action: 'ERROR APPBOXO PAY',

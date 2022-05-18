@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom'
 import LoggerContext from '../LoggerContext.js'
-import { Button } from 'antd';
+import { Button } from 'antd'
 import NavigationBar from './components/NavigationBar'
 import TabBar from './components/TabBar'
 import Miscellaneous from './components/Miscellaneous'
@@ -32,108 +32,108 @@ import FileInput from './components/FileInput'
 const FEATURES = [
   {
     component: NavigationBar,
-    eventName: 'AppBoxoWebAppSetNavigationBar'
+    eventName: 'AppBoxoWebAppSetNavigationBar',
   },
   {
     component: TabBar,
-    eventName: 'AppBoxoWebAppSetTabBar'
+    eventName: 'AppBoxoWebAppSetTabBar',
   },
   {
     component: Miscellaneous,
-    eventName: 'AppBoxoWebAppOpenMiniApp'
+    eventName: 'AppBoxoWebAppOpenMiniApp',
   },
   {
     component: ActionButtons,
-    eventName: 'AppBoxoWebAppSetActionButton'
+    eventName: 'AppBoxoWebAppSetActionButton',
   },
   {
     component: LoadingIndicator,
-    eventName: 'AppBoxoWebAppLoadingIndicator'
+    eventName: 'AppBoxoWebAppLoadingIndicator',
   },
   {
     component: Tracking,
-    eventName: 'AppBoxoWebAppGetInitData'
+    eventName: 'AppBoxoWebAppGetInitData',
   },
   {
     component: CustomEvents,
-    eventName: 'AppBoxoWebAppCustomEvent'
+    eventName: 'AppBoxoWebAppCustomEvent',
   },
   {
     component: QRCodeReader,
-    eventName: 'AppBoxoWebAppOpenQRCodeReader'
+    eventName: 'AppBoxoWebAppOpenQRCodeReader',
   },
   {
     component: HapticFeedback,
-    eventName: 'AppBoxoWebAppVibrate'
+    eventName: 'AppBoxoWebAppVibrate',
   },
   {
     component: ActionSheet,
-    eventName: 'AppBoxoWebAppShowActionSheet'
+    eventName: 'AppBoxoWebAppShowActionSheet',
   },
   {
     component: GeoData,
-    eventName: 'AppBoxoWebAppGetGeodata'
+    eventName: 'AppBoxoWebAppGetGeodata',
   },
   {
     component: Alert,
-    eventName: 'AppBoxoWebAppOpenMiniApp'
+    eventName: 'AppBoxoWebAppOpenMiniApp',
   },
   {
     component: ImageGallery,
-    eventName: 'AppBoxoWebAppShowImages'
+    eventName: 'AppBoxoWebAppShowImages',
   },
   {
     component: Storage,
-    eventName: 'AppBoxoWebAppStorageSet'
+    eventName: 'AppBoxoWebAppStorageSet',
   },
   {
     component: Clipboard,
-    eventName: 'AppBoxoWebAppSetClipboard'
+    eventName: 'AppBoxoWebAppSetClipboard',
   },
   {
     component: SystemInfo,
-    eventName: 'AppBoxoWebAppGetSystemInfo'
+    eventName: 'AppBoxoWebAppGetSystemInfo',
   },
   {
     component: Accelerometer,
-    eventName: 'AppBoxoWebAppStartAccelerometer'
+    eventName: 'AppBoxoWebAppStartAccelerometer',
   },
   {
     component: Gyroscope,
-    eventName: 'AppBoxoWebAppStartGyroscope'
+    eventName: 'AppBoxoWebAppStartGyroscope',
   },
   {
     component: Compass,
-    eventName: 'AppBoxoWebAppStartCompass'
+    eventName: 'AppBoxoWebAppStartCompass',
   },
   {
     component: AppboxoPay,
-    eventName: 'AppBoxoWebAppPay'
+    eventName: 'AppBoxoWebAppPay',
   },
   {
     component: WindowBackground,
-    eventName: 'AppBoxoWebAppSetBackgroundColor'
+    eventName: 'AppBoxoWebAppSetBackgroundColor',
   },
   {
     component: OnRestore,
-    eventName: 'AppBoxoWebAppSetNavigationBar'
+    eventName: 'AppBoxoWebAppSetNavigationBar',
   },
   {
     component: FileInput,
-    eventName: 'AppBoxoWebAppSetNavigationBar'
-  }
+    eventName: 'AppBoxoWebAppSetNavigationBar',
+  },
 ]
 
 const Features = (props) => {
   const { updateLogs } = React.useContext(LoggerContext)
-  let history = useHistory();
+  let history = useHistory()
 
   const handleGoBack = () => {
     updateLogs({
       action: 'REDIRECT',
-      message: 'to home'
+      message: 'to home',
     })
-    history.push('/');
+    history.push('/')
   }
 
   return (
@@ -141,8 +141,7 @@ const Features = (props) => {
       <div>
         <h1>Features</h1>
         {FEATURES.map((feature, index) => {
-          // TODO
-          if (appboxoSdk.supports(feature.eventName) || feature.eventName === 'AppBoxoWebAppPay') {
+          if (appboxoSdk.supports(feature.eventName)) {
             return (
               <div className="feature" key={index}>
                 <feature.component />

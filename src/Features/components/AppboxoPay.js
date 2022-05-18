@@ -40,9 +40,12 @@ const AppboxoPay = () => {
   const [response, setResponse] = useState('')
   const [amount, setAmount] = useState(100)
   const [currency, setCurrency] = useState('PHP')
+  const [isLoading, setIsLoading] = useState(false)
 
   const onPay = async () => {
     try {
+      setIsLoading(true)
+
       updateLogs({
         action: 'REQUEST CREATE NEW ORDER',
         message: `request start with amount: ${amount}, currency: ${currency}.`,
@@ -85,14 +88,13 @@ const AppboxoPay = () => {
         transactionToken,
         extraParams: {},
       })
-      const { status } = payResponse
 
       updateLogs({
         action: 'RESPONSE APPBOXO PAY',
         message: JSON.stringify(payResponse, null, 2),
       })
 
-      setResponse(status)
+      setResponse(JSON.stringify(payResponse, null, 2))
     } catch (err) {
       updateLogs({
         action: 'ERROR APPBOXO PAY',
@@ -101,6 +103,7 @@ const AppboxoPay = () => {
 
       setResponse(JSON.stringify(err))
     }
+    setIsLoading(false)
   }
 
   return (
@@ -115,7 +118,7 @@ const AppboxoPay = () => {
       <Input value={currency} onChange={(e) => setCurrency(e.target.value)} />
       <Divider />
 
-      <Button size="large" block onClick={onPay}>
+      <Button size="large" block onClick={onPay} loading={isLoading}>
         Call AppboxoPay
       </Button>
       <Text type="secondary">Result: </Text>

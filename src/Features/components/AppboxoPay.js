@@ -88,25 +88,25 @@ const AppboxoPay = () => {
       //   transactionToken,
       // })
 
-      appboxoSdk.send('AppBoxoWebAppPay', {
+      const payResponse = await appboxoSdk.sendPromise('AppBoxoWebAppPay', {
         miniappOrderId,
         currency,
         amount,
         transactionToken,
       })
 
-      let subscriberFunction
+      // let subscriberFunction
 
-      const payResponse = await new Promise((res, rej) => {
-        subscriberFunction = (event) => {
-          if (event?.detail?.type === 'AppBoxoWebAppPay') {
-            res(event.detail.data)
-          }
-        }
-        appboxoSdk.subscribe(subscriberFunction)
-      })
+      // const payResponse = await new Promise((res, rej) => {
+      //   subscriberFunction = (event) => {
+      //     if (event?.detail?.type === 'AppBoxoWebAppPay') {
+      //       res(event.detail.data)
+      //     }
+      //   }
+      //   appboxoSdk.subscribe(subscriberFunction)
+      // })
 
-      appboxoSdk.unsubscribe(subscriberFunction)
+      // appboxoSdk.unsubscribe(subscriberFunction)
 
       updateLogs({
         action: 'RESPONSE APPBOXO PAY',

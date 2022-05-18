@@ -88,6 +88,11 @@ const AppboxoPay = () => {
 
       setResponse(payResponse)
     } catch (err) {
+      Modal.error({
+        title: `Payment failed for ${currency} ${amount}!`,
+        content: JSON.stringify(err, null, 2),
+      })
+
       updateLogs({
         action: 'ERROR APPBOXO PAY',
         message: JSON.stringify(err, null, 2),

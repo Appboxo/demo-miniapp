@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button, Typography, Input, Divider, Modal } from 'antd'
+import { Card, Button, Typography, Input, Divider } from 'antd'
 import AuthContext from '../../AuthContext.js'
 import LoggerContext from '../../LoggerContext.js'
 const { Text } = Typography
@@ -37,7 +37,7 @@ const createNewOrder = async (appData, amount, currency) => {
 const AppboxoPay = () => {
   const { updateLogs } = useContext(LoggerContext)
   const { appData } = useContext(AuthContext)
-  const [response, setResponse] = useState('')
+  const [response, setResponse] = useState({})
   const [amount, setAmount] = useState(100)
   const [currency, setCurrency] = useState('PHP')
   const [isLoading, setIsLoading] = useState(false)
@@ -73,32 +73,14 @@ const AppboxoPay = () => {
         message: JSON.stringify(payResponse, null, 2),
       })
 
-      if (payResponse.status === 'success') {
-        Modal.success({
-          title: `Payment successful for ${currency} ${amount}!`,
-          content:
-            'You can view all your payments & orders in the Profile page of Appboxo Demo app',
-        })
-      } else {
-        Modal.error({
-          title: `Payment failed for ${currency} ${amount}!`,
-          content: JSON.stringify(payResponse, null, 2),
-        })
-      }
-
       setResponse(payResponse)
     } catch (err) {
-      Modal.error({
-        title: `Payment failed for ${currency} ${amount}!`,
-        content: JSON.stringify(err, null, 2),
-      })
-
       updateLogs({
         action: 'ERROR APPBOXO PAY',
         message: JSON.stringify(err, null, 2),
       })
 
-      setResponse(JSON.stringify(err))
+      setResponse(err)
     }
     setIsLoading(false)
   }
@@ -118,8 +100,14 @@ const AppboxoPay = () => {
       <Button size="large" block onClick={onPay} loading={isLoading}>
         Call AppboxoPay
       </Button>
-      <Text type="secondary">Result: </Text>
-      <Text type="warning">{response}</Text>
+      <Text type="secondary">
+        Result{' '}
+        {response.status === 'success'
+          ? `Payment successful! You can view payments & orders in Profile page.`
+          : ''}
+        {response.status === 'fail' ? `Payment failed!` : ''}
+      </Text>
+      <Text type="warning">{JSON.stringify(response, null, 2)}</Text>
     </Card>
   )
 }

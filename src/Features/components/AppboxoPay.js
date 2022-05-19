@@ -85,6 +85,14 @@ const AppboxoPay = () => {
     setIsLoading(false)
   }
 
+  let responseString = ''
+
+  try {
+    responseString = JSON.stringify(response, null, 2)
+  } catch (err) {
+    responseString = JSON.stringify(err)
+  }
+
   return (
     <Card title="AppboxoPay">
       <Text type="secondary">Amount: </Text>
@@ -107,7 +115,7 @@ const AppboxoPay = () => {
           : ''}
         {response.status === 'fail' ? `Payment failed!` : ''}
       </Text>
-      <Text type="warning">{JSON.stringify(response, null, 2)}</Text>
+      <Text type="warning">{responseString}</Text>
     </Card>
   )
 }

@@ -68,29 +68,21 @@ const AppboxoPay = () => {
         transactionToken,
       })
 
-      updateLogs({
-        action: 'APPBOXO PAY',
-        message: JSON.stringify(payResponse, null, 2),
-      })
+      // updateLogs({
+      //   action: 'APPBOXO PAY',
+      //   message: JSON.stringify(payResponse, null, 2),
+      // })
 
       setResponse(payResponse)
     } catch (err) {
-      updateLogs({
-        action: 'ERROR APPBOXO PAY',
-        message: JSON.stringify(err, null, 2),
-      })
+      // updateLogs({
+      //   action: 'ERROR APPBOXO PAY',
+      //   message: JSON.stringify(err, null, 2),
+      // })
 
       setResponse(err)
     }
     setIsLoading(false)
-  }
-
-  let responseString = ''
-
-  try {
-    responseString = JSON.stringify(response, null, 2)
-  } catch (err) {
-    responseString = JSON.stringify(err)
   }
 
   return (
@@ -110,12 +102,12 @@ const AppboxoPay = () => {
       </Button>
       <Text type="secondary">
         Result{' '}
-        {response.status === 'success'
+        {response && response.status === 'success'
           ? `Payment successful! You can view payments & orders in Profile page.`
           : ''}
-        {response.status === 'fail' ? `Payment failed!` : ''}
+        {response && response.status === 'fail' ? `Payment failed!` : ''}
       </Text>
-      <Text type="warning">{responseString}</Text>
+      <Text type="warning">{JSON.stringify(response, null, 2)}</Text>
     </Card>
   )
 }

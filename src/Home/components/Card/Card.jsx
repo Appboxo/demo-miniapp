@@ -7,8 +7,10 @@ function Card({ isActive, title, secondaryText }) {
     <div className={`card ${isActive ? "active" : ""}`}>
       <div className="image-container"></div>
 
-      <h1 className="text-body secondary-text grey">{title}</h1>
-      <h3 className="text-body primary-text">{secondaryText}</h3>
+      <div>
+        <h1 className="text-body secondary-text grey">{title}</h1>
+        <h3 className="text-body primary-text">{secondaryText}</h3>
+      </div>
     </div>
   );
 }

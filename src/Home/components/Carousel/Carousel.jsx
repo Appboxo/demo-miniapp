@@ -1,15 +1,25 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { createRef, useEffect, useRef, useState } from "react";
+
+import { ReactComponent as ArrowIcon } from "../../../assets/arrow.svg";
 
 import "./Carousel.scss";
 import Card from "../Card/Card";
 
-function Carousel({ elements }) {
+function Carousel({ elements, onSpinStart, isSpinStarted }) {
   const elementsCopy = [...elements, ...elements];
   const [currentIndex, setCurrentIndex] = useState(null);
+  const [spinStopped, setSpinStopped] = useState(false);
+
+  const cardsRefs = elementsCopy.map((el) => ({
+    ref: createRef(),
+    element: el,
+  }));
 
   const carouselRef = useRef(null);
   const wrapperRef = useRef(null);
   const animationRefId = useRef(null);
+
+  const centerX = window.innerWidth / 2;
 
   const cardWidth = 172 + 8;
   const carouselOffset = (cardWidth * elementsCopy.length) / 2;
@@ -20,7 +30,15 @@ function Carousel({ elements }) {
   const maxSpeed = 160;
   const minSpeed = 100;
 
-  useEffect(() => {}, [speed]);
+  useEffect(() => {
+    if (spinStopped) {
+      console.log(cardsRefs);
+
+      cardsRefs.map((card) => {
+        console.log(card.ref.current);
+      });
+    }
+  }, [spinStopped]);
 
   const lerp = (start, end, t) => {
     return start + (end - start) * t;
@@ -54,10 +72,12 @@ function Carousel({ elements }) {
   const handleStartSpin = () => {
     speed = getRandomSpeed();
     spin();
+    onSpinStart();
   };
 
   const handleStopSpin = () => {
     cancelAnimationFrame(animationRefId.current);
+    setSpinStopped(true);
   };
 
   return (
@@ -66,6 +86,7 @@ function Carousel({ elements }) {
       onClick={handleStartSpin}
       ref={wrapperRef}
     >
+      {isSpinStarted && <ArrowIcon className="arrow" />}
       <div className="carousel" ref={carouselRef}>
         {elementsCopy.map((element, index) => (
           <Card
@@ -73,9 +94,11 @@ function Carousel({ elements }) {
             isActive={index === currentIndex}
             title={element.title}
             secondaryText={element.subtitle}
+            ref={cardsRefs[index].ref}
           />
         ))}
       </div>
+      {isSpinStarted && <ArrowIcon className="arrow-bottom" />}
     </div>
   );
 }

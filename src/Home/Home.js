@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import ScanToSpin from "./components/ScanToSpin/ScanToSpin";
 import Carousel from "./components/Carousel/Carousel";
@@ -6,12 +6,14 @@ import Carousel from "./components/Carousel/Carousel";
 import "./Home.scss";
 
 const Home = (props) => {
+  const [isSpinStarted, setIsSpinStarted] = useState(false);
+
   return (
     <section className="pane intro">
-      <section className="top-section">
+      <section className="top-section" style={{ transform: isSpinStarted ? 'translateY(-150%)' : '' }}>
         <ScanToSpin />
       </section>
-      <section className="spin-section">
+      <section className="spin-section" style={{ transform: isSpinStarted ? 'translateY(-50%)' : '' }}>
         <Carousel
           elements={[
             { title: "Hello", subtitle: 'Darkness' },
@@ -28,6 +30,8 @@ const Home = (props) => {
             { title: "Here we go 9", subtitle: 'Please work' },
             { title: "Here we go 10", subtitle: 'Please work' },
           ]}
+          isSpinStarted={isSpinStarted}
+          onSpinStart={() => setIsSpinStarted(true)}
         />
       </section>
     </section>

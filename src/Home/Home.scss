@@ -8,11 +8,13 @@
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  flex: 2;
+  flex: 1;
+  transition: 0.4s ease-out;
 }
 
 .spin-section {
   display: flex;
   align-items: center;
-  flex: 3;
+  flex: 1;
+  transition: 0.4s ease-out;
 }

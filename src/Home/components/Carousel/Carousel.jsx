@@ -4,16 +4,23 @@ import "./Carousel.scss";
 import Card from "../Card/Card";
 
 function Carousel({ elements }) {
+  const elementsCopy = [...elements, ...elements];
   const [currentIndex, setCurrentIndex] = useState(null);
 
   const carouselRef = useRef(null);
+  const wrapperRef = useRef(null);
   const animationRefId = useRef(null);
+
+  const cardWidth = 172 + 8;
+  const carouselOffset = (cardWidth * elementsCopy.length) / 2;
 
   let speed = 0;
   let spinAmount = 0;
 
-  const cardWidth = 172 + 8;
-  const carouselWidthOffest = (elements.length * cardWidth) / 2;
+  const maxSpeed = 160;
+  const minSpeed = 100;
+
+  useEffect(() => {}, [speed]);
 
   const lerp = (start, end, t) => {
     return start + (end - start) * t;
@@ -26,28 +33,26 @@ function Carousel({ elements }) {
       return;
     }
 
-    speed = lerp(speed, 0, 0.011);
-    console.log(speed);
-  };
-
-  const resetCarouselOffest = () => {
-    if (spinAmount > carouselWidthOffest) {
-      spinAmount = 0;
-    }
+    speed = lerp(speed, 0, 0.009);
   };
 
   const spin = () => {
     slowDownSpeed();
-    resetCarouselOffest();
 
     spinAmount += speed;
+
+    if (spinAmount > carouselOffset) {
+      spinAmount = speed;
+    }
 
     carouselRef.current.style.left = `-${spinAmount}px`;
     animationRefId.current = requestAnimationFrame(spin);
   };
 
+  const getRandomSpeed = () => Math.random() * (maxSpeed - minSpeed) + minSpeed;
+
   const handleStartSpin = () => {
-    speed = 200;
+    speed = getRandomSpeed();
     spin();
   };
 
@@ -56,10 +61,19 @@ function Carousel({ elements }) {
   };
 
   return (
-    <div className="carousel-wrapper" onClick={handleStartSpin}>
+    <div
+      className="carousel-wrapper"
+      onClick={handleStartSpin}
+      ref={wrapperRef}
+    >
       <div className="carousel" ref={carouselRef}>
-        {elements.map((element, index) => (
-          <Card key={index} isActive={index === currentIndex} />
+        {elementsCopy.map((element, index) => (
+          <Card
+            key={index}
+            isActive={index === currentIndex}
+            title={element.title}
+            secondaryText={element.subtitle}
+          />
         ))}
       </div>
     </div>

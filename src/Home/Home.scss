@@ -3,3 +3,16 @@
     margin-top: 20px;
   }
 }
+
+.top-section {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex: 2;
+}
+
+.spin-section {
+  display: flex;
+  align-items: center;
+  flex: 3;
+}

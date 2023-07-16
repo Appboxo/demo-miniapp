@@ -108,6 +108,7 @@ function Carousel({ elements, onSpinStart, isSpinStarted }) {
             key={index}
             isActive={index === currentIndex}
             title={element.title}
+            icon={element.icon}
             secondaryText={element.subtitle}
             ref={cardsRefs[index].ref}
           />

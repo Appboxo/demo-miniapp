@@ -1,4 +1,5 @@
 import React, { createRef, useEffect, useRef, useState } from "react";
+import appboxoSDK from "@appboxo/js-sdk";
 
 import { ReactComponent as ArrowIcon } from "../../../assets/arrow.svg";
 
@@ -29,6 +30,20 @@ function Carousel({ elements, onSpinStart, isSpinStarted }) {
 
   const maxSpeed = 160;
   const minSpeed = 100;
+
+  useEffect(() => {
+    appboxoSDK.subscribe((event) => {
+      if (!event.detail) {
+        return;
+      }
+
+      const { type, data } = event.detail;
+
+      if (type === "AppBoxoWebGetNfcRecords") {
+        handleStartSpin();
+      }
+    });
+  }, []);
 
   useEffect(() => {
     if (spinStopped) {
@@ -83,7 +98,7 @@ function Carousel({ elements, onSpinStart, isSpinStarted }) {
   return (
     <div
       className="carousel-wrapper"
-      onClick={handleStartSpin}
+      // onClick={handleStartSpin}
       ref={wrapperRef}
     >
       {isSpinStarted && <ArrowIcon className="arrow" />}

@@ -16,19 +16,16 @@ const Home = (props) => {
       <section className="spin-section" style={{ transform: isSpinStarted ? 'translateY(-50%)' : '' }}>
         <Carousel
           elements={[
-            { title: "Hello", subtitle: 'Darkness' },
-            { title: "Whatever", subtitle: 'Ever' },
-            { title: "Here we go", subtitle: 'Please work' },
-            { title: "Here we go dfs", subtitle: 'Please work' },
-            { title: "Here we go 2", subtitle: 'Please work' },
-            { title: "Here we go 3", subtitle: 'Please work' },
-            { title: "Here we go 4", subtitle: 'Please work' },
-            { title: "Here we go 5", subtitle: 'Please work' },
-            { title: "Here we go 6", subtitle: 'Please work' },
-            { title: "Here we go 7", subtitle: 'Please work' },
-            { title: "Here we go 8", subtitle: 'Please work' },
-            { title: "Here we go 9", subtitle: 'Please work' },
-            { title: "Here we go 10", subtitle: 'Please work' },
+            { title: "Test 1", subtitle: 'Element 1' },
+            { title: "Test 2", subtitle: 'Element 2' },
+            { title: "Test 3", subtitle: 'Element 3' },
+            { title: "Test 4", subtitle: 'Element 4' },
+            { title: "Test 5", subtitle: 'Element 5' },
+            { title: "Test 6", subtitle: 'Element 6' },
+            { title: "Test 7", subtitle: 'Element 7' },
+            { title: "Test 8", subtitle: 'Element 8' },
+            { title: "Test 9", subtitle: 'Element 9' },
+            { title: "Test 10", subtitle: 'Element 10' },
           ]}
           isSpinStarted={isSpinStarted}
           onSpinStart={() => setIsSpinStarted(true)}

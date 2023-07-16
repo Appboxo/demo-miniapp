@@ -27,33 +27,35 @@ function Carousel({ elements, onSpinStart, isSpinStarted }) {
 
   let speed = 0;
   let spinAmount = 0;
+  let randomSlowdownAmount = 0;
 
-  const maxSpeed = 160;
+  const maxSpeed = 180;
   const minSpeed = 100;
 
-  useEffect(() => {
-    appboxoSDK.subscribe((event) => {
-      if (!event.detail) {
-        return;
-      }
+  const maxSlowdownAmount = 0.04;
+  const minSlowdownAmount = 0.007;
 
-      const { type, data } = event.detail;
-
-      if (type === "AppBoxoWebGetNfcRecords") {
-        handleStartSpin();
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    if (spinStopped) {
-      console.log(cardsRefs);
-
-      cardsRefs.map((card) => {
-        console.log(card.ref.current);
-      });
+  appboxoSDK.subscribe((event) => {
+    if (!event.detail) {
+      return;
     }
-  }, [spinStopped]);
+
+    const { type, data } = event.detail;
+
+    if (type === "AppBoxoWebGetNfcRecords") {
+      handleStartSpin();
+    }
+  });
+
+  // useEffect(() => {
+  //   if (spinStopped) {
+  //     console.log(cardsRefs);
+
+  //     cardsRefs.map((card) => {
+  //       console.log(card.ref.current);
+  //     });
+  //   }
+  // }, [spinStopped]);
 
   const lerp = (start, end, t) => {
     return start + (end - start) * t;
@@ -66,11 +68,11 @@ function Carousel({ elements, onSpinStart, isSpinStarted }) {
       return;
     }
 
-    speed = lerp(speed, 0, 0.009);
+    speed = lerp(speed, 0, randomSlowdownAmount);
   };
 
-  const spin = () => {
-    slowDownSpeed();
+  const spin = (randomSlowdownAmount) => {
+    slowDownSpeed(randomSlowdownAmount);
 
     spinAmount += speed;
 
@@ -82,11 +84,17 @@ function Carousel({ elements, onSpinStart, isSpinStarted }) {
     animationRefId.current = requestAnimationFrame(spin);
   };
 
+  const getRandomSlowdownAmount = () =>
+    Math.random() * (maxSlowdownAmount - minSlowdownAmount) + minSlowdownAmount;
+
   const getRandomSpeed = () => Math.random() * (maxSpeed - minSpeed) + minSpeed;
 
   const handleStartSpin = () => {
     speed = getRandomSpeed();
-    spin();
+
+    randomSlowdownAmount = getRandomSlowdownAmount();
+
+    spin(randomSlowdownAmount);
     onSpinStart();
   };
 
@@ -98,7 +106,7 @@ function Carousel({ elements, onSpinStart, isSpinStarted }) {
   return (
     <div
       className="carousel-wrapper"
-      // onClick={handleStartSpin}
+      onClick={handleStartSpin}
       ref={wrapperRef}
     >
       {isSpinStarted && <ArrowIcon className="arrow" />}

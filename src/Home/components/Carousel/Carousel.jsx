@@ -9,7 +9,7 @@ import Card from "../Card/Card";
 function Carousel({ elements, onSpinStart, isSpinStarted }) {
   const elementsCopy = [...elements, ...elements];
   const [currentIndex, setCurrentIndex] = useState(null);
-  const [spinStopped, setSpinStopped] = useState(false);
+  const [spinStopped, setSpinStopped] = useState(true);
 
   const cardsRefs = elementsCopy.map((el) => ({
     ref: createRef(),
@@ -19,8 +19,6 @@ function Carousel({ elements, onSpinStart, isSpinStarted }) {
   const carouselRef = useRef(null);
   const wrapperRef = useRef(null);
   const animationRefId = useRef(null);
-
-  const centerX = window.innerWidth / 2;
 
   const cardWidth = 172 + 8;
   const carouselOffset = (cardWidth * elementsCopy.length) / 2;
@@ -32,20 +30,22 @@ function Carousel({ elements, onSpinStart, isSpinStarted }) {
   const maxSpeed = 180;
   const minSpeed = 100;
 
-  const maxSlowdownAmount = 0.04;
+  const maxSlowdownAmount = 0.01;
   const minSlowdownAmount = 0.007;
 
-  appboxoSDK.subscribe((event) => {
-    if (!event.detail) {
-      return;
-    }
+  useEffect(() => {
+    appboxoSDK.subscribe((event) => {
+      if (!event.detail) {
+        return;
+      }
 
-    const { type, data } = event.detail;
+      const { type, data } = event.detail;
 
-    if (type === "AppBoxoWebGetNfcRecords") {
-      handleStartSpin();
-    }
-  });
+      if (type === "AppBoxoWebGetNfcRecords") {
+        handleStartSpin();
+      }
+    });
+  }, []);
 
   // useEffect(() => {
   //   if (spinStopped) {
@@ -62,7 +62,7 @@ function Carousel({ elements, onSpinStart, isSpinStarted }) {
   };
 
   const slowDownSpeed = () => {
-    if (speed < 1 / 6) {
+    if (speed < 0.1) {
       speed = 0;
       handleStopSpin();
       return;
@@ -74,11 +74,11 @@ function Carousel({ elements, onSpinStart, isSpinStarted }) {
   const spin = (randomSlowdownAmount) => {
     slowDownSpeed(randomSlowdownAmount);
 
-    spinAmount += speed;
-
     if (spinAmount > carouselOffset) {
       spinAmount = speed;
     }
+
+    spinAmount += speed;
 
     carouselRef.current.style.left = `-${spinAmount}px`;
     animationRefId.current = requestAnimationFrame(spin);
@@ -90,23 +90,27 @@ function Carousel({ elements, onSpinStart, isSpinStarted }) {
   const getRandomSpeed = () => Math.random() * (maxSpeed - minSpeed) + minSpeed;
 
   const handleStartSpin = () => {
+    if (isSpinStarted) return;
+
+    onSpinStart(true);
+
     speed = getRandomSpeed();
 
     randomSlowdownAmount = getRandomSlowdownAmount();
 
     spin(randomSlowdownAmount);
-    onSpinStart();
   };
 
   const handleStopSpin = () => {
     cancelAnimationFrame(animationRefId.current);
     setSpinStopped(true);
+    onSpinStart(false);
   };
 
   return (
     <div
       className="carousel-wrapper"
-      onClick={handleStartSpin}
+      // onClick={handleStartSpin}
       ref={wrapperRef}
     >
       {isSpinStarted && <ArrowIcon className="arrow" />}

@@ -19,7 +19,7 @@ const Home = (props) => {
         <Carousel
           elements={SPIN_ELEMENTS}
           isSpinStarted={isSpinStarted}
-          onSpinStart={() => setIsSpinStarted(true)}
+          onSpinStart={(started) => setIsSpinStarted(started)}
         />
       </section>
     </section>

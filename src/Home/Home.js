@@ -6,9 +6,12 @@ import Carousel from "./components/Carousel/Carousel";
 import { SPIN_ELEMENTS } from "../constants";
 
 import "./Home.scss";
+import LoggerContext from "../LoggerContext";
 
 const Home = (props) => {
   const [isSpinStarted, setIsSpinStarted] = useState(false);
+
+  const { updateLogs } = React.useContext(LoggerContext)
 
   return (
     <section className="pane intro">
@@ -20,6 +23,7 @@ const Home = (props) => {
           elements={SPIN_ELEMENTS}
           isSpinStarted={isSpinStarted}
           onSpinStart={(started) => setIsSpinStarted(started)}
+          updateLogs={updateLogs}
         />
       </section>
     </section>

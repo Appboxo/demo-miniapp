@@ -6,22 +6,21 @@ import { ReactComponent as ArrowIcon } from "../../../assets/arrow.svg";
 import "./Carousel.scss";
 import Card from "../Card/Card";
 
-function Carousel({ elements, onSpinStart, isSpinStarted }) {
+function Carousel({ elements, onSpinStart, isSpinStarted, updateLogs }) {
   const elementsCopy = [...elements, ...elements];
+
   const [currentIndex, setCurrentIndex] = useState(null);
   const [spinStopped, setSpinStopped] = useState(true);
 
-  const cardsRefs = elementsCopy.map((el) => ({
-    ref: createRef(),
-    element: el,
-  }));
-
   const carouselRef = useRef(null);
   const wrapperRef = useRef(null);
-  const animationRefId = useRef(null);
+  const animationRef = useRef(null);
+  const winCardRef = useRef(null);
 
-  const cardWidth = 172 + 8;
-  const carouselOffset = (cardWidth * elementsCopy.length) / 2;
+  const cardMargin = 8;
+  const cardWidth = 172;
+  const carouselOffset = ((cardWidth + cardMargin) * elementsCopy.length) / 2;
+  const centerX = window.innerWidth / 2;
 
   let speed = 0;
   let spinAmount = 0;
@@ -43,19 +42,39 @@ function Carousel({ elements, onSpinStart, isSpinStarted }) {
 
       if (type === "AppBoxoWebGetNfcRecords") {
         handleStartSpin();
+        updateLogs({
+          action: "GET_NFC_RECORDS",
+          message: JSON.stringify(event),
+        });
       }
     });
   }, []);
 
-  // useEffect(() => {
-  //   if (spinStopped) {
-  //     console.log(cardsRefs);
+  const centerWinCard = () => {
+    if (winCardRef.current) {
+      winCardRef.current.scrollIntoView({
+        inline: "center",
+        behavior: "smooth",
+      });
+    }
+  };
 
-  //     cardsRefs.map((card) => {
-  //       console.log(card.ref.current);
-  //     });
-  //   }
-  // }, [spinStopped]);
+  const getWinCard = () => {
+    if (!carouselRef.current) return;
+
+    const cards = Array.from(carouselRef.current.children);
+
+    cards.map((card, index) => {
+      const { left, right } = card.getBoundingClientRect();
+
+      if (right + cardMargin > centerX && left < centerX) {
+        setCurrentIndex(index);
+        winCardRef.current = card;
+      }
+    });
+
+    centerWinCard();
+  };
 
   const lerp = (start, end, t) => {
     return start + (end - start) * t;
@@ -80,8 +99,11 @@ function Carousel({ elements, onSpinStart, isSpinStarted }) {
 
     spinAmount += speed;
 
-    carouselRef.current.style.left = `-${spinAmount}px`;
-    animationRefId.current = requestAnimationFrame(spin);
+    if (carouselRef.current) {
+      carouselRef.current.style.left = `-${spinAmount}px`;
+    }
+
+    requestAnimationFrame(() => spin(randomSlowdownAmount));
   };
 
   const getRandomSlowdownAmount = () =>
@@ -93,24 +115,33 @@ function Carousel({ elements, onSpinStart, isSpinStarted }) {
     if (isSpinStarted) return;
 
     onSpinStart(true);
+    setCurrentIndex(null);
 
     speed = getRandomSpeed();
 
     randomSlowdownAmount = getRandomSlowdownAmount();
 
-    spin(randomSlowdownAmount);
+    animationRef.current = requestAnimationFrame(() =>
+      spin(randomSlowdownAmount)
+    );
   };
 
   const handleStopSpin = () => {
-    cancelAnimationFrame(animationRefId.current);
+    if (!animationRef.current) return;
+
     setSpinStopped(true);
     onSpinStart(false);
+    getWinCard();
+
+    cancelAnimationFrame(animationRef.current);
+    animationRef.current = null;
+    winCardRef.current = null;
   };
 
   return (
     <div
       className="carousel-wrapper"
-      // onClick={handleStartSpin}
+      onClick={handleStartSpin}
       ref={wrapperRef}
     >
       {isSpinStarted && <ArrowIcon className="arrow" />}
@@ -122,7 +153,6 @@ function Carousel({ elements, onSpinStart, isSpinStarted }) {
             title={element.title}
             icon={element.icon}
             secondaryText={element.subtitle}
-            ref={cardsRefs[index].ref}
           />
         ))}
       </div>

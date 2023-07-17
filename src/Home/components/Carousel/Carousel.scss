@@ -15,10 +15,12 @@
 .arrow {
     position: absolute;
     top: 0;
+    left: 50%;
 }
 
 .arrow-bottom {
     position: absolute;
     bottom: 0;
+    left: 50%;
     transform: rotate(180deg);
 }

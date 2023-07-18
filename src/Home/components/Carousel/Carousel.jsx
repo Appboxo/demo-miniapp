@@ -127,13 +127,14 @@ function Carousel({ elements, onSpinStart, isSpinStarted, updateLogs }) {
   };
 
   const handleStopSpin = () => {
-    if (!animationRef.current) return;
-
     setSpinStopped(true);
     onSpinStart(false);
     getWinCard();
 
-    cancelAnimationFrame(animationRef.current);
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+    }
+
     animationRef.current = null;
     winCardRef.current = null;
   };

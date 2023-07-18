@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import appboxoSDK from "@appboxo/js-sdk";
 
 import { ReactComponent as ArrowIcon } from "../../../assets/arrow.svg";
@@ -49,6 +49,10 @@ function Carousel({ elements, onSpinStart, isSpinStarted, updateLogs }) {
       }
     });
   }, []);
+
+  useEffect(() => {
+    centerWinCard();
+  }, [spinStopped]);
 
   const centerWinCard = () => {
     if (winCardRef.current) {
@@ -130,9 +134,10 @@ function Carousel({ elements, onSpinStart, isSpinStarted, updateLogs }) {
     setSpinStopped(true);
     onSpinStart(false);
     getWinCard();
+    centerWinCard();
 
     if (animationRef.current) {
-      cancelAnimationFrame(animationRef.current);
+      // cancelAnimationFrame(animationRef.current);
     }
 
     animationRef.current = null;

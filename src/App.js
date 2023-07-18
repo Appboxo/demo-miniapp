@@ -76,14 +76,14 @@ function App() {
       loginStatus,
       setLoginStatus
     }}>
-      {!logsVisibility && (
+      {/* {!logsVisibility && (
         <Button
           type="dashed"
           size="small"
           className="show-logs-button"
           onClick={() => setLogsVisibility(true)}
         >Show Logs</Button>
-      )}
+      )} */}
       <LoggerContext.Provider value={{
         updateLogs
       }}>
@@ -103,7 +103,7 @@ function App() {
           </Router>
         </StoreProvider>
       </LoggerContext.Provider>
-      {logsVisibility && <Logs logs={logs} onClose={() => setLogsVisibility(false)}/>}
+      {logsVisibility && <Logs logs={logs} onClose={() => setLogsVisibility(false)} />}
     </AuthContext.Provider>
   );
 }

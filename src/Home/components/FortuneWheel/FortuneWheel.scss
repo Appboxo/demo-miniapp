@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(to bottom, #48779c, #0c554e);
+}
+
+.wheel {
+  width: clamp(240px, 80vw, 320px);
+  height: clamp(240px, 80vw, 320px);
+  background: url("../../../assets/wheel.png") no-repeat center center;
+  background-size: clamp(240px, 80vw, 320px) clamp(240px, 80vw, 320px);
+}
+
+.spin-button {
+  margin-top: 90px;
+  width: 130px;
+  height: 42px;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  background: #fec855;
+  color: #0c554e;
+  letter-spacing: 0.8px;
+  font-weight: bold;
+  font-size: 16px;
+}

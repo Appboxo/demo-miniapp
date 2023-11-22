@@ -10,7 +10,6 @@ function Carousel({ elements, onSpinStart, isSpinStarted, updateLogs }) {
   const elementsCopy = [...elements, ...elements];
 
   const [currentIndex, setCurrentIndex] = useState(null);
-  const [spinStopped, setSpinStopped] = useState(true);
 
   const carouselRef = useRef(null);
   const wrapperRef = useRef(null);
@@ -49,10 +48,6 @@ function Carousel({ elements, onSpinStart, isSpinStarted, updateLogs }) {
       }
     });
   }, []);
-
-  useEffect(() => {
-    centerWinCard();
-  }, [spinStopped]);
 
   const centerWinCard = () => {
     if (winCardRef.current) {
@@ -131,13 +126,12 @@ function Carousel({ elements, onSpinStart, isSpinStarted, updateLogs }) {
   };
 
   const handleStopSpin = () => {
-    setSpinStopped(true);
     onSpinStart(false);
     getWinCard();
     centerWinCard();
 
     if (animationRef.current) {
-      // cancelAnimationFrame(animationRef.current);
+      cancelAnimationFrame(animationRef.current);
     }
 
     animationRef.current = null;

@@ -15,7 +15,7 @@ export default function FortuneWheel({
   const animationRef = useRef(null);
   const wheelRef = useRef(null);
 
-  const friction = 0.99;
+  const friction = 0.991;
   let angle = 0;
   let angleVelocity = 0;
 
@@ -44,7 +44,7 @@ export default function FortuneWheel({
     onSpinStart(true);
     setIsSpinStopped(false);
 
-    if (!angleVelocity) angleVelocity = rand(0.2, 0.4);
+    if (!angleVelocity) angleVelocity = rand(0.3, 0.5);
 
     animationRef.current = requestAnimationFrame(spin);
   };
@@ -69,7 +69,7 @@ export default function FortuneWheel({
 
     angleVelocity *= friction;
 
-    if (angleVelocity < 0.002) {
+    if (angleVelocity < 0.0012) {
       angleVelocity = 0;
       handleStopSpin();
     }
@@ -86,9 +86,15 @@ export default function FortuneWheel({
     <section className="container">
       <div className="wheel" ref={wheelRef}></div>
 
-      <button className="spin-button" type="button" onClick={handleStartSpin}>
-        SPIN
-      </button>
+      <div className="text-container">
+        <div class="instruction">
+          <b>SCAN TO SPIN</b> or press the button
+        </div>
+
+        <button className="spin-button" type="button" onClick={handleStartSpin}>
+          SPIN
+        </button>
+      </div>
     </section>
   );
 }

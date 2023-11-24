@@ -4,7 +4,9 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: linear-gradient(to bottom, #48779c, #0c554e);
+  background: url("../../../assets/bg.png");
+  background-size: 290% 100%;
+  background-position: 8% 0;
 }
 
 .wheel {
@@ -20,23 +22,25 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 120px;
+  margin-top: 140px;
 }
 
 .instruction {
-  color: #f9f9f9;
+  color: var(--text-color);
   font-size: 16px;
+  text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
 }
 
 .spin-button {
   margin-top: 30px;
-  width: 130px;
-  height: 42px;
+  width: 200px;
+  height: 44px;
   outline: none;
   border: none;
-  border-radius: 8px;
-  background: #fec855;
-  color: #0c554e;
+  border-radius: 12px;
+  background: var(--primary-color);
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1);
+  color: var(--white);
   letter-spacing: 0.8px;
   font-weight: bold;
   font-size: 16px;

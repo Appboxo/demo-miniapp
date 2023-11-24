@@ -1,11 +1,12 @@
-@import '../node_modules/antd/dist/antd.css';
+@import "../node_modules/antd/dist/antd.css";
 
 :root {
-  --primary-color: #000000;
-  --white: #FFFFFF;
-  --secondary-color: #2CBBD7;
+  --primary-color: #413e9a;
+  --text-color: #121212;
+  --white: #ffffff;
+  --secondary-color: #2cbbd7;
   --tertiary-color: #faad14;
-  --text-secondary: #797F8B;
+  --text-secondary: #797f8b;
 }
 
 * {
@@ -17,7 +18,7 @@ body {
   background-color: #fff;
   height: 100vh;
   overflow: auto;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   margin: 0;
 }
 
@@ -41,7 +42,7 @@ p {
 .text-body {
   font-size: 16px;
   font-weight: 400;
-  line-height: 24px; 
+  line-height: 24px;
   color: var(--primary-color);
 }
 
@@ -71,7 +72,7 @@ p {
   &:not(.ant-btn-danger) {
     border-color: var(--secondary-color);
     color: var(--secondary-color);
-  
+
     &:hover,
     &:focus {
       border-color: var(--secondary-color);

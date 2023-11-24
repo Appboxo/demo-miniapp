@@ -13,7 +13,7 @@ import Popup from "./components/Popup/Popup";
 const Home = (props) => {
   const [isSpinStarted, setIsSpinStarted] = useState(false);
   const [isSpinStopped, setIsSpinStopped] = useState(false);
-  const [hasWon, setHasWon] = useState(false);
+  const [winPrize, setWinPrize] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
@@ -39,10 +39,10 @@ const Home = (props) => {
       <FortuneWheel
         isSpinStarted={isSpinStarted}
         onSpinStart={(started) => setIsSpinStarted(started)}
-        setHasWon={setHasWon}
+        setWinPrize={setWinPrize}
         setIsSpinStopped={setIsSpinStopped}
       />
-      <Popup show={showPopup} setShow={setShowPopup} hasWon={hasWon} />
+      <Popup show={showPopup} setShow={setShowPopup} winPrize={winPrize} />
     </section>
   );
 };

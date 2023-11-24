@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import "./Popup.scss";
 
-export default function Popup({ show, setShow, hasWon }) {
+export default function Popup({ show, setShow, winPrize }) {
   useEffect(() => {
     setTimeout(() => {
       setShow(false);
@@ -12,7 +12,10 @@ export default function Popup({ show, setShow, hasWon }) {
   return (
     show && (
       <>
-        <div className="wrapper">{hasWon ? "You won!" : "You lose!"}</div>
+        <div className="wrapper">
+          <div className="win-text">You win</div>
+          <div className="prize">{winPrize?.title ?? "Testing win object"}</div>
+        </div>
       </>
     )
   );

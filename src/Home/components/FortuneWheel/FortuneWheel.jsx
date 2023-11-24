@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 
 import appboxoSDK from "@appboxo/js-sdk";
+import { SPIN_ELEMENTS } from "../../../constants";
 
 import "./FortuneWheel.scss";
 
@@ -10,7 +11,7 @@ export default function FortuneWheel({
   onSpinStart,
   isSpinStarted,
   setIsSpinStopped,
-  setHasWon,
+  setWinPrize,
 }) {
   const animationRef = useRef(null);
   const wheelRef = useRef(null);
@@ -53,9 +54,10 @@ export default function FortuneWheel({
     onSpinStart(false);
     setIsSpinStopped(true);
 
-    const win = Math.random() < 0.5;
+    const winPrize =
+      SPIN_ELEMENTS[Math.floor(Math.random() * SPIN_ELEMENTS.length)];
 
-    setHasWon(win);
+    setWinPrize(winPrize);
 
     if (animationRef.current) {
       cancelAnimationFrame(animationRef.current);
@@ -87,7 +89,7 @@ export default function FortuneWheel({
       <div className="wheel" ref={wheelRef}></div>
 
       <div className="text-container">
-        <div class="instruction">
+        <div className="instruction">
           <b>SCAN TO SPIN</b> or press the button
         </div>
 

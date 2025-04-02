@@ -1,155 +1,156 @@
-import React from 'react';
-import appboxoSdk from '@appboxo/js-sdk'
-import { useHistory } from 'react-router-dom';
-import LoggerContext from '../LoggerContext.js'
-import { Button } from 'antd';
-import NavigationBar from './components/NavigationBar'
-import TabBar from './components/TabBar'
-import Miscellaneous from './components/Miscellaneous'
-import Tracking from './components/Tracking'
-import CustomEvents from './components/CustomEvents'
-import ActionButtons from './components/ActionButtons'
-import LoadingIndicator from './components/LoadingIndicator'
-import QRCodeReader from './components/QRCodeReader'
-import HapticFeedback from './components/Haptic'
-import ActionSheet from './components/ActionSheet'
-import GeoData from './components/GeoData'
-import Alert from './components/Alert'
-import ImageGallery from './components/ImageGallery'
-import Storage from './components/Storage'
-import Clipboard from './components/Clipboard'
-import SystemInfo from './components/SystemInfo'
-import Accelerometer from './components/Accelerometer'
-import Gyroscope from './components/Gyroscope'
-import Compass from './components/Compass'
-import WindowBackground from './components/Background'
-import OnRestore from './components/OnRestore'
-import AppboxoPay from './components/AppboxoPay'
+import React from "react";
+import appboxoSdk from "@appboxo/js-sdk";
+import { useHistory } from "react-router-dom";
+import LoggerContext from "../LoggerContext.js";
+import { Button } from "antd";
+import NavigationBar from "./components/NavigationBar";
+import TabBar from "./components/TabBar";
+import Miscellaneous from "./components/Miscellaneous";
+import Tracking from "./components/Tracking";
+import CustomEvents from "./components/CustomEvents";
+import ActionButtons from "./components/ActionButtons";
+import LoadingIndicator from "./components/LoadingIndicator";
+import QRCodeReader from "./components/QRCodeReader";
+import HapticFeedback from "./components/Haptic";
+import ActionSheet from "./components/ActionSheet";
+import GeoData from "./components/GeoData";
+import Alert from "./components/Alert";
+import ImageGallery from "./components/ImageGallery";
+import Storage from "./components/Storage";
+import Clipboard from "./components/Clipboard";
+import SystemInfo from "./components/SystemInfo";
+import Accelerometer from "./components/Accelerometer";
+import Gyroscope from "./components/Gyroscope";
+import Compass from "./components/Compass";
+import WindowBackground from "./components/Background";
+import OnRestore from "./components/OnRestore";
+import AppboxoPay from "./components/AppboxoPay";
+import PullToRefresh from "./components/PullToRefresh";
 
-import './Features.scss'
-import FileInput from './components/FileInput'
+import "./Features.scss";
+import FileInput from "./components/FileInput";
 
 const FEATURES = [
   {
+    component: PullToRefresh,
+    eventName: "AppBoxoWebAppSetPullToRefresh",
+  },
+  {
     component: NavigationBar,
-    eventName: 'AppBoxoWebAppSetNavigationBar'
+    eventName: "AppBoxoWebAppSetNavigationBar",
   },
   {
     component: TabBar,
-    eventName: 'AppBoxoWebAppSetTabBar'
+    eventName: "AppBoxoWebAppSetTabBar",
   },
   {
     component: Miscellaneous,
-    eventName: 'AppBoxoWebAppOpenMiniApp'
+    eventName: "AppBoxoWebAppOpenMiniApp",
   },
   {
     component: ActionButtons,
-    eventName: 'AppBoxoWebAppSetActionButton'
+    eventName: "AppBoxoWebAppSetActionButton",
   },
   {
     component: LoadingIndicator,
-    eventName: 'AppBoxoWebAppLoadingIndicator'
+    eventName: "AppBoxoWebAppLoadingIndicator",
   },
   {
     component: Tracking,
-    eventName: 'AppBoxoWebAppGetInitData'
+    eventName: "AppBoxoWebAppGetInitData",
   },
   {
     component: CustomEvents,
-    eventName: 'AppBoxoWebAppCustomEvent'
+    eventName: "AppBoxoWebAppCustomEvent",
   },
   {
     component: QRCodeReader,
-    eventName: 'AppBoxoWebAppOpenQRCodeReader'
+    eventName: "AppBoxoWebAppOpenQRCodeReader",
   },
   {
     component: HapticFeedback,
-    eventName: 'AppBoxoWebAppVibrate'
+    eventName: "AppBoxoWebAppVibrate",
   },
   {
     component: ActionSheet,
-    eventName: 'AppBoxoWebAppShowActionSheet'
+    eventName: "AppBoxoWebAppShowActionSheet",
   },
   {
     component: GeoData,
-    eventName: 'AppBoxoWebAppGetGeodata'
+    eventName: "AppBoxoWebAppGetGeodata",
   },
   {
     component: Alert,
-    eventName: 'AppBoxoWebAppOpenMiniApp'
+    eventName: "AppBoxoWebAppOpenMiniApp",
   },
   {
     component: ImageGallery,
-    eventName: 'AppBoxoWebAppShowImages'
+    eventName: "AppBoxoWebAppShowImages",
   },
   {
     component: Storage,
-    eventName: 'AppBoxoWebAppStorageSet'
+    eventName: "AppBoxoWebAppStorageSet",
   },
   {
     component: Clipboard,
-    eventName: 'AppBoxoWebAppSetClipboard'
+    eventName: "AppBoxoWebAppSetClipboard",
   },
   {
     component: SystemInfo,
-    eventName: 'AppBoxoWebAppGetSystemInfo'
+    eventName: "AppBoxoWebAppGetSystemInfo",
   },
   {
     component: Accelerometer,
-    eventName: 'AppBoxoWebAppStartAccelerometer'
+    eventName: "AppBoxoWebAppStartAccelerometer",
   },
   {
     component: Gyroscope,
-    eventName: 'AppBoxoWebAppStartGyroscope'
+    eventName: "AppBoxoWebAppStartGyroscope",
   },
   {
     component: Compass,
-    eventName: 'AppBoxoWebAppStartCompass'
+    eventName: "AppBoxoWebAppStartCompass",
   },
   {
     component: AppboxoPay,
-    eventName: 'AppBoxoWebAppPay'
+    eventName: "AppBoxoWebAppPay",
   },
   {
     component: WindowBackground,
-    eventName: 'AppBoxoWebAppSetBackgroundColor'
+    eventName: "AppBoxoWebAppSetBackgroundColor",
   },
   {
     component: OnRestore,
-    eventName: 'AppBoxoWebAppSetNavigationBar'
+    eventName: "AppBoxoWebAppSetNavigationBar",
   },
   {
     component: FileInput,
-    eventName: 'AppBoxoWebAppSetNavigationBar'
-  }
-]
+    eventName: "AppBoxoWebAppSetNavigationBar",
+  },
+];
 
 const Features = (props) => {
-  const { updateLogs } = React.useContext(LoggerContext)
+  const { updateLogs } = React.useContext(LoggerContext);
   let history = useHistory();
 
   const handleGoBack = () => {
     updateLogs({
-      action: 'REDIRECT',
-      message: 'to home'
-    })
-    history.push('/');
-  }
+      action: "REDIRECT",
+      message: "to home",
+    });
+    history.push("/");
+  };
 
   return (
     <section className="pane features">
       <div>
         <h1>Features</h1>
         {FEATURES.map((feature, index) => {
-          if (appboxoSdk.supports(feature.eventName)) {
-            return (
-              <div className="feature" key={index}>
-                <feature.component />
-              </div>
-            )
-          } else {
-            return null
-          }
+          return (
+            <div className="feature" key={index}>
+              <feature.component />
+            </div>
+          );
         })}
       </div>
       <div>
@@ -163,7 +164,7 @@ const Features = (props) => {
         </Button>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Features
+export default Features;

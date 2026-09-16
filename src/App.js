@@ -11,19 +11,36 @@ import { Button } from 'antd';
 import Account from './Account/Account'
 import Features from './Features/Features'
 import Home from './Home/Home'
+import Widget from './Widget/Widget'
 import AuthContext from './AuthContext'
 import LoggerContext from './LoggerContext'
 import Logs from './components/Logs'
 import StoreProvider from './StoreContext'
 
+const setWidgetChrome = (expanded) => {
+  appboxoSdk.send('AppBoxoWebAppSetNavigationBar', {
+    show: expanded
+  })
+}
+
 function App() {
   const [loginStatus, setLoginStatus] = useState(false)
   const [logsVisibility, setLogsVisibility] = useState(false)
   const [logs, setLogs] = useState([])
+  const [expanded, setExpanded] = useState(true)
 
   const updateLogs = (newLog) => {
-    setLogs([...logs, newLog])
+    setLogs((currentLogs) => [...currentLogs, newLog])
   }
+
+  const applyExpanded = (nextExpanded) => {
+    setExpanded(nextExpanded)
+    setWidgetChrome(nextExpanded)
+  }
+
+  useEffect(() => {
+    document.body.classList.toggle('widget-mode', !expanded)
+  }, [expanded])
 
   useEffect(() => {
     console.log('Getting data')
@@ -57,6 +74,27 @@ function App() {
       color: '#ffffff'
     })
 
+    const expandCollapseListener = (event) => {
+      if (!event.detail) {
+        return
+      }
+
+      const { type, data } = event.detail
+
+      if (type === 'AppBoxoWebAppExpand' || type === 'AppBoxoWebAppCollapse') {
+        if (data && typeof data.expanded === 'boolean') {
+          applyExpanded(data.expanded)
+        }
+        updateLogs({
+          action: type,
+          message: 'event received',
+          data
+        })
+      }
+    }
+
+    appboxoSdk.subscribe(expandCollapseListener)
+
     const currentLogs = [
       {
         action: 'AppBoxoWebAppSetStatusBarColor',
@@ -68,6 +106,11 @@ function App() {
       }
     ]
     setLogs([...logs, ...currentLogs])
+
+    return () => {
+      appboxoSdk.unsubscribe(expandCollapseListener)
+      document.body.classList.remove('widget-mode')
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -76,34 +119,37 @@ function App() {
       loginStatus,
       setLoginStatus
     }}>
-      {!logsVisibility && (
-        <Button
-          type="dashed"
-          size="small"
-          className="show-logs-button"
-          onClick={() => setLogsVisibility(true)}
-        >Show Logs</Button>
-      )}
       <LoggerContext.Provider value={{
         updateLogs
       }}>
-        <StoreProvider>
-          <Router>
-            <Switch>
-              <Route path="/account">
-                <Account />
-              </Route>
-              <Route path="/features">
-                <Features />
-              </Route>
-              <Route path="/">
-                <Home />
-              </Route>
-            </Switch>
-          </Router>
-        </StoreProvider>
+        {!expanded && <Widget onExpand={applyExpanded} />}
+        {expanded && !logsVisibility && (
+          <Button
+            type="dashed"
+            size="small"
+            className="show-logs-button"
+            onClick={() => setLogsVisibility(true)}
+          >Show Logs</Button>
+        )}
+        <div style={{ display: expanded ? 'block' : 'none', height: '100%' }}>
+          <StoreProvider>
+            <Router>
+              <Switch>
+                <Route path="/account">
+                  <Account />
+                </Route>
+                <Route path="/features">
+                  <Features />
+                </Route>
+                <Route path="/">
+                  <Home />
+                </Route>
+              </Switch>
+            </Router>
+          </StoreProvider>
+        </div>
+        {expanded && logsVisibility && <Logs logs={logs} onClose={() => setLogsVisibility(false)}/>}
       </LoggerContext.Provider>
-      {logsVisibility && <Logs logs={logs} onClose={() => setLogsVisibility(false)}/>}
     </AuthContext.Provider>
   );
 }

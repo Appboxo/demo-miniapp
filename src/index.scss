@@ -26,6 +26,16 @@ body {
   margin: 0 auto;
 }
 
+body.widget-mode {
+  padding: 0;
+  overflow: hidden;
+  background-color: transparent;
+}
+
+body.widget-mode #root {
+  max-width: none;
+}
+
 h1 {
   font-size: 20px;
   text-align: center;

@@ -1,5 +1,4 @@
 import React from "react";
-import appboxoSdk from "@appboxo/js-sdk";
 import { useHistory } from "react-router-dom";
 import LoggerContext from "../LoggerContext.js";
 import { Button } from "antd";
@@ -26,11 +25,16 @@ import WindowBackground from "./components/Background";
 import OnRestore from "./components/OnRestore";
 import AppboxoPay from "./components/AppboxoPay";
 import PullToRefresh from "./components/PullToRefresh";
+import ExpandCollapse from "./components/ExpandCollapse";
 
 import "./Features.scss";
 import FileInput from "./components/FileInput";
 
 const FEATURES = [
+  {
+    component: ExpandCollapse,
+    eventName: "AppBoxoWebAppExpand",
+  },
   {
     component: PullToRefresh,
     eventName: "AppBoxoWebAppSetPullToRefresh",

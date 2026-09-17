@@ -16,9 +16,16 @@ import LoggerContext from './LoggerContext'
 import Logs from './components/Logs'
 import StoreProvider from './StoreContext'
 
+const CHROME_BACKGROUND = '#f7f7f7'
+
 const setWidgetChrome = (expanded) => {
+  appboxoSdk.send('AppBoxoWebAppSetStatusBarColor', {
+    color: CHROME_BACKGROUND
+  })
   appboxoSdk.send('AppBoxoWebAppSetNavigationBar', {
-    show: expanded
+    show: expanded,
+    background: CHROME_BACKGROUND,
+    frontColor: '#000000'
   })
 }
 
@@ -75,9 +82,12 @@ function App() {
         })
       })
 
-    // Set status bar color
     appboxoSdk.send('AppBoxoWebAppSetStatusBarColor', {
-      color: '#ffffff'
+      color: CHROME_BACKGROUND
+    })
+    appboxoSdk.send('AppBoxoWebAppSetNavigationBar', {
+      background: CHROME_BACKGROUND,
+      frontColor: '#000000'
     })
 
     const systemInfoFallback = setTimeout(() => {

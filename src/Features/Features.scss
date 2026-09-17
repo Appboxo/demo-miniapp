@@ -34,12 +34,14 @@
 
   .code-block {
     margin-top: 10px;
-    padding: 0.2em 0.4em 0.1em;
+    padding: 14px 16px;
     font-family: var(--font-mono);
-    font-size: 85%;
-    background: rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    border-radius: 3px;
-    word-break: break-all;
+    font-size: 11px;
+    line-height: 1.55;
+    background: #eef0f2;
+    border: 1px solid rgba(15, 15, 15, 0.08);
+    border-radius: 16px;
+    word-break: break-word;
+    white-space: pre-wrap;
   }
 }

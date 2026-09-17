@@ -3,10 +3,10 @@ import { Card, Flex, Footnote1, Headline } from '@appboxo/ui-kit'
 
 import './FeatureCard.scss'
 
-const SUCCESS = ['success', 'expanded', 'enabled', 'completed', 'signed in', 'logged in', 'restored']
-const DANGER = ['failed', 'error', 'rejected', 'collapsed', 'disabled']
+const SUCCESS = ['success', 'expanded', 'enabled', 'completed', 'signed in', 'logged in', 'restored', 'true']
+const DANGER = ['failed', 'error', 'rejected', 'collapsed', 'disabled', 'false']
 const INFO = ['sent', 'refreshing']
-const WARNING = ['idle', 'unknown']
+const WARNING = ['idle', 'unknown', 'not logged in']
 
 const inferTone = (value) => {
   const text = String(value).trim().toLowerCase()

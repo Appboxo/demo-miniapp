@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
 import { SecondaryButton } from '@appboxo/ui-kit'
 import FeatureCard, { StatusLine } from '../../components/FeatureCard'
+import JsonPreview from '../../components/JsonPreview'
 
 const Storage = () => {
   const [saveStatus, setSaveStatus] = useState('')
@@ -37,7 +38,7 @@ const Storage = () => {
       keys: ['username', 'email']
     });
 
-    setSavedData(JSON.stringify(userData))
+    setSavedData(userData)
   }
 
   const removeItem = async () => {
@@ -65,9 +66,11 @@ const Storage = () => {
       <SecondaryButton text="Get saved storage keys" onClick={getKeys} />
       <StatusLine label="Storage keys:" value={storageKeys.join(', ')} />
       <SecondaryButton text="Get saved storage data" onClick={getData} />
-      <StatusLine label="Saved data:">
-        {savedData && <div className="code-block">{savedData}</div>}
-      </StatusLine>
+      {savedData ? (
+        <JsonPreview data={savedData} />
+      ) : (
+        <StatusLine label="Saved data:" />
+      )}
       <SecondaryButton
         className="wrap-button"
         text="Remove username from storage"

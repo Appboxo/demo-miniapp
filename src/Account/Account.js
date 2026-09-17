@@ -7,7 +7,8 @@ import LoginResponse from '../components/LoginResponse.js'
 import AuthContext from '../AuthContext.js'
 import LoggerContext from '../LoggerContext.js'
 
-import { Body1, Flex, PrimaryButton, SecondaryButton, Title2 } from '@appboxo/ui-kit'
+import { Flex, PrimaryButton, SecondaryButton, Title2 } from '@appboxo/ui-kit'
+import { StatusLine } from '../components/FeatureCard'
 
 
 import './Account.scss'
@@ -114,12 +115,13 @@ const Account = () => {
     </>
   ) : (
     <section className="pane account">
-      <div>
+      <Flex vertical gap={12}>
         <Title2 weight="semibold">Account details</Title2>
-        <Body1>
-          Status: <b>{loginStatus ? 'Logged in' : 'Not logged in'}</b>
-        </Body1>
-      </div>
+        <StatusLine
+          label="Status:"
+          value={loginStatus ? 'Logged in' : 'Not logged in'}
+        />
+      </Flex>
       <Flex vertical gap={20}>
         {loginStatus ? (
           <PrimaryButton

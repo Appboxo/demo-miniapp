@@ -1,6 +1,7 @@
 import React from 'react'
 import { QuaternaryButton } from '@appboxo/ui-kit'
 
+import { formatJson } from './JsonPreview'
 import './Logs.scss'
 
 const Logs = ({ onClose, logs }) => {
@@ -32,7 +33,7 @@ const Logs = ({ onClose, logs }) => {
               {log.message}
             </div>
             {log.data != null && (
-              <div className="logs__data">{JSON.stringify(log.data)}</div>
+              <pre className="logs__data">{formatJson(log.data)}</pre>
             )}
           </li>
         ))}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
 import { SecondaryButton } from '@appboxo/ui-kit'
 import FeatureCard, { StatusLine } from '../../components/FeatureCard'
+import JsonPreview from '../../components/JsonPreview'
 
 const Compass = () => {
   const [isStarted, setIsStarted] = useState(false)
@@ -29,7 +30,7 @@ const Compass = () => {
       const { type, data } = event.detail
 
       if (type === 'AppBoxoWebAppOnCompassChange') {
-        setData(JSON.stringify(data))
+        setData(data)
       }
     }
 
@@ -46,9 +47,11 @@ const Compass = () => {
       ) : (
         <SecondaryButton className="wrap-button" text="Start" onClick={startCompasss} />
       )}
-      <StatusLine label="Data:">
-        {data && <div className="code-block">{data}</div>}
-      </StatusLine>
+      {data ? (
+        <JsonPreview data={data} />
+      ) : (
+        <StatusLine label="Data:" />
+      )}
     </FeatureCard>
   )
 }

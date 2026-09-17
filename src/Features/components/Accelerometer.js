@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
 import { SecondaryButton } from '@appboxo/ui-kit'
 import FeatureCard, { StatusLine } from '../../components/FeatureCard'
+import JsonPreview from '../../components/JsonPreview'
 
 const Accelerometer = () => {
   const [isStarted, setIsStarted] = useState(false)
@@ -31,7 +32,7 @@ const Accelerometer = () => {
       const { type, data } = event.detail
 
       if (type === 'AppBoxoWebAppOnAccelerometerChange') {
-        setData(JSON.stringify(data))
+        setData(data)
       }
     }
 
@@ -48,9 +49,11 @@ const Accelerometer = () => {
       ) : (
         <SecondaryButton className="wrap-button" text="Start" onClick={startAccelerometer} />
       )}
-      <StatusLine label="Data:">
-        {data && <div className="code-block">{data}</div>}
-      </StatusLine>
+      {data ? (
+        <JsonPreview data={data} />
+      ) : (
+        <StatusLine label="Data:" />
+      )}
     </FeatureCard>
   )
 }

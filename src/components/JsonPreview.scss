@@ -1,0 +1,43 @@
+.json-preview {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.json-preview__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.json-preview__panel {
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid rgba(15, 15, 15, 0.08);
+  background: #eef0f2;
+}
+
+.json-preview__label {
+  padding: 8px 14px;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3, #8e8e93);
+  background: rgba(255, 255, 255, 0.6);
+  border-bottom: 1px solid rgba(15, 15, 15, 0.06);
+}
+
+.json-preview__json {
+  margin: 0;
+  padding: 14px 16px 16px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #1c1c1e;
+}

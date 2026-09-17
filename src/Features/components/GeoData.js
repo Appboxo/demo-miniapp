@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
 import { SecondaryButton } from '@appboxo/ui-kit'
 import FeatureCard, { StatusLine } from '../../components/FeatureCard'
+import JsonPreview from '../../components/JsonPreview'
 
 const GeoData = () => {
   const [position, setPosition] = useState(null)
@@ -46,7 +47,7 @@ const GeoData = () => {
   const chooseLocation = async () => {
     const data = await appboxoSdk.sendPromise('AppBoxoWebAppChooseLocation');
 
-    setLocation(JSON.stringify(data))
+    setLocation(data)
   };
 
   return (
@@ -56,9 +57,11 @@ const GeoData = () => {
       <SecondaryButton text="Open location" onClick={openLocation} />
       <StatusLine label="Status:" value={openStatus} />
       <SecondaryButton text="Choose location" onClick={chooseLocation} />
-      <StatusLine label="Location:">
-        {location && <div className="code-block">{location}</div>}
-      </StatusLine>
+      {location ? (
+        <JsonPreview data={location} />
+      ) : (
+        <StatusLine label="Location:" />
+      )}
     </FeatureCard>
   )
 }

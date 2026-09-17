@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button, Alert, message } from 'antd'
+import { SecondaryButton, Tip, Toast } from '@appboxo/ui-kit'
+import FeatureCard from '../../components/FeatureCard'
 
 const Tracking = () => {
   const [error, setError] = useState(null)
@@ -35,37 +36,28 @@ const Tracking = () => {
         }
       })
 
-      message.success('Successfully sent!');
+      Toast.info('Successfully sent!')
     } catch (error) {
       setError(error)
     }
     setIsLoading(false)
   }
 
-  const handleClose = () => {
-    setError(null)
-  };
-
   return (
-    <Card
-      title="Transaction tracking"
-    >
-      {error && <Alert
-        message="Error sending"
-        description={`${JSON.stringify(error)}`}
-        type="error"
-        closable
-        afterClose={handleClose}
-      />}
-
-      <Button
+    <FeatureCard title="Transaction tracking">
+      {error && (
+        <Tip
+          emphasisPrefix="Error sending"
+          text={JSON.stringify(error)}
+        />
+      )}
+      <SecondaryButton
         className="wrap-button"
-        size="large"
-        block
         loading={isLoading}
+        text={isLoading ? 'Sending...' : 'Send transaction tracking event'}
         onClick={handleTransactionTracking}
-      >{isLoading ? 'Sending...' : 'Send transaction tracking event'}</Button>
-    </Card>
+      />
+    </FeatureCard>
   )
 }
 

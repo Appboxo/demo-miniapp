@@ -1,6 +1,7 @@
 import React from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button } from 'antd'
+import { SecondaryButton, SubTitle } from '@appboxo/ui-kit'
+import FeatureCard from '../../components/FeatureCard'
 
 const LoadingIndicator = () => {
   const showLoadingIndicatorWithTimeout = () => {
@@ -22,23 +23,21 @@ const LoadingIndicator = () => {
   }
 
   return (
-    <Card
-      title="Loading indicator"
-    >
-      <Button
-        size="large"
-        block
+    <FeatureCard title="Loading indicator">
+      <SecondaryButton
+        className="wrap-button"
+        text="Show loading indicator and hide it after 10 seconds"
         onClick={showLoadingIndicatorWithTimeout}
+      />
+      <SecondaryButton
         className="wrap-button"
-      >Show loading indicator and hide it after 10 seconds</Button>
-      <Button
-        size="large"
-        block
+        text="Show loading indicator without hiding it"
         onClick={showLoadingIndicator}
-        className="wrap-button"
-      >Show loading indicator without hiding it</Button>
-      <p>Loading indicator will show an alert to close it after 30 seconds if no changing event is dispatched</p>
-    </Card>
+      />
+      <SubTitle color="var(--text-3, #8e8e93)">
+        Loading indicator will show an alert to close it after 30 seconds if no changing event is dispatched
+      </SubTitle>
+    </FeatureCard>
   )
 }
 

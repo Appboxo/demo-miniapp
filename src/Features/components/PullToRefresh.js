@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import appboxoSdk from "@appboxo/js-sdk";
-import { Card, Button, Typography } from "antd";
-const { Text } = Typography;
+import { SecondaryButton } from "@appboxo/ui-kit";
+import FeatureCard, { StatusLine } from "../../components/FeatureCard";
 
 const PullToRefresh = () => {
   const [refreshStatus, setRefreshStatus] = useState("idle");
@@ -17,11 +17,9 @@ const PullToRefresh = () => {
     if (type === "AppBoxoWebAppStartPullToRefresh") {
       setRefreshStatus("refreshing");
 
-      // Simulate refresh action
       setTimeout(() => {
         setRefreshStatus("completed");
         setLastRefreshTime(new Date().toLocaleTimeString());
-        // Notify the container that refresh is complete
         appboxoSdk.send("AppBoxoWebAppStopPullToRefresh");
       }, 1500);
     }
@@ -50,32 +48,14 @@ const PullToRefresh = () => {
   };
 
   return (
-    <Card title="Pull To Refresh">
-      <Button
-        size="large"
-        block
-        onClick={enablePullToRefresh}
-        style={{ marginBottom: 10 }}
-      >
-        Enable Pull To Refresh
-      </Button>
-      <Button
-        size="large"
-        block
-        onClick={disablePullToRefresh}
-        style={{ marginBottom: 10 }}
-      >
-        Disable Pull To Refresh
-      </Button>
-      <Text type="secondary">Status: </Text>
-      <Text type="warning">{refreshStatus}</Text>
+    <FeatureCard title="Pull To Refresh">
+      <SecondaryButton text="Enable Pull To Refresh" onClick={enablePullToRefresh} />
+      <SecondaryButton text="Disable Pull To Refresh" onClick={disablePullToRefresh} />
+      <StatusLine label="Status:" value={refreshStatus} />
       {lastRefreshTime && (
-        <div style={{ marginTop: 10 }}>
-          <Text type="secondary">Last refreshed at: </Text>
-          <Text type="warning">{lastRefreshTime}</Text>
-        </div>
+        <StatusLine label="Last refreshed at:" value={lastRefreshTime} />
       )}
-    </Card>
+    </FeatureCard>
   );
 };
 

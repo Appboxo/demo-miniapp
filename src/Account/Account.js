@@ -7,7 +7,7 @@ import LoginResponse from '../components/LoginResponse.js'
 import AuthContext from '../AuthContext.js'
 import LoggerContext from '../LoggerContext.js'
 
-import { Button } from 'antd'
+import { Body1, Flex, PrimaryButton, SecondaryButton, Title2 } from '@appboxo/ui-kit'
 
 
 import './Account.scss'
@@ -115,33 +115,28 @@ const Account = () => {
   ) : (
     <section className="pane account">
       <div>
-        <h1>Account details</h1>
-        <div className="account__email">
+        <Title2 weight="semibold">Account details</Title2>
+        <Body1>
           Status: <b>{loginStatus ? 'Logged in' : 'Not logged in'}</b>
-        </div>
+        </Body1>
       </div>
-      <div>
+      <Flex vertical gap={20}>
         {loginStatus ? (
-          <Button
-            type="danger"
-            size="large"
+          <PrimaryButton
+            text="Logout"
             onClick={handleLogout}
-            block
-          >Logout</Button>
+          />
         ) : (
-          <Button
-            type="primary"
-            size="large"
+          <PrimaryButton
+            text="Login"
             onClick={handleLogin}
-            block
-          >Login</Button>
+          />
         )}
-        <Button
-          size="large"
-          block
+        <SecondaryButton
+          text="Back"
           onClick={handleGoBack}
-        >Back</Button>
-      </div>
+        />
+      </Flex>
       {isLoading && <Preloader />}
     </section>
   )

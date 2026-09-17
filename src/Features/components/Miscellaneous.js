@@ -1,6 +1,7 @@
 import React from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button } from 'antd'
+import { SecondaryButton } from '@appboxo/ui-kit'
+import FeatureCard from '../../components/FeatureCard'
 
 const AIRALO_ID = 'app94302'
 
@@ -12,15 +13,9 @@ const Miscellaneous = () => {
   }
 
   return (
-    <Card
-      title="Miscellaneous"
-    >
-      <Button
-        size="large"
-        block
-        onClick={openAiralo}
-      >Open miniapp Airalo</Button>
-    </Card>
+    <FeatureCard title="Miscellaneous">
+      <SecondaryButton text="Open miniapp Airalo" onClick={openAiralo} />
+    </FeatureCard>
   )
 }
 

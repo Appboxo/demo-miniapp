@@ -1,6 +1,6 @@
 import React from 'react'
 import classnames from 'classnames'
-import { Button } from 'antd'
+import { SecondaryButton } from '@appboxo/ui-kit'
 import { ReactComponent as SuccessIcon } from '../components/svgs/success-icon.svg'
 import { ReactComponent as ErrorIcon } from '../components/svgs/error-icon.svg'
 
@@ -18,13 +18,11 @@ const LoginResponse = ({ isSuccessful, onTryAgain, onContinue }) => {
           </h3>
         </div>
       </div>
-      <Button
+      <SecondaryButton
         className="button"
-        size="large"
+        text={isSuccessful ? 'Continue' : 'Try again'}
         onClick={isSuccessful ? onContinue : onTryAgain}
-      >
-        {isSuccessful ? 'Continue' : 'Try again'}
-      </Button>
+      />
     </div>
   )
 }

@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button, message } from 'antd'
+import { SecondaryButton, Toast } from '@appboxo/ui-kit'
+import FeatureCard, { StatusLine } from '../../components/FeatureCard'
 
 const CustomEvents = () => {
   const [data, setData] = useState(null)
@@ -27,50 +28,57 @@ const CustomEvents = () => {
         message: 'Hey, this is coming from custom event!'
       }
     }).then(() => {
-      message.success('Successfully confirmed!');
+      Toast.info('Successfully confirmed!')
     }).catch(() => {
-      message.error('Confirmation rejected!');
+      Toast.error('Confirmation rejected!')
     })
   }
 
-  appboxoSdk.subscribe(event => {
-    if (!event.detail) {
-      return;
+  useEffect(() => {
+    const listener = (event) => {
+      if (!event.detail) {
+        return
+      }
+
+      const { type, data: eventData } = event.detail
+
+      if (type === 'AppBoxoWebAppCustomEvent') {
+        setData(eventData)
+      }
     }
 
-    const { type, data } = event.detail;
-
-    if (type === 'AppBoxoWebAppCustomEvent') {
-      setData(data)
+    appboxoSdk.subscribe(listener)
+    return () => {
+      appboxoSdk.unsubscribe(listener)
     }
-  });
+  }, [])
 
   return (
-    <Card
-      title="Sending custom events"
-    >
-      <Button
-        size="large"
-        block
+    <FeatureCard title="Sending custom events">
+      <SecondaryButton
+        className="wrap-button"
+        text="Send custom event to open notification"
         onClick={handleSendWithNoBody}
+      />
+      <SecondaryButton
         className="wrap-button"
-      >Send custom event to open notification</Button>
-      <Button
-        size="large"
-        block
+        text="Send custom event to open notification with message"
         onClick={handleSend}
+      />
+      <SecondaryButton
         className="wrap-button"
-      >Send custom event to open notification with message</Button>
-      <Button
-        size="large"
-        block
+        text="Send custom event to open confirmation"
         onClick={handleSendWithPromise}
-        className="wrap-button"
-      >Send custom event to open confirmation</Button>
-      <p>Custom event received on the minapp: </p>
-      <p>event type: <strong>{data && data.type ? ` ${data.type}` : 'No type received'}</strong></p>
-      <p>event payload: <strong>{data && data.payload ? ` ${JSON.stringify(data.payload)}` : 'No payload received'}</strong></p>
-    </Card>
+      />
+      <StatusLine
+        label="Event type:"
+        value={data && data.type ? data.type : ''}
+      />
+      <StatusLine
+        label="Event payload:"
+        value={data && data.payload ? JSON.stringify(data.payload) : ''}
+      />
+    </FeatureCard>
   )
 }
 

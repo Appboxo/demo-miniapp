@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button, Typography } from 'antd'
-const { Text } = Typography;
+import { SecondaryButton } from '@appboxo/ui-kit'
+import FeatureCard, { StatusLine } from '../../components/FeatureCard'
 
 const LIST = [
   {
@@ -63,17 +63,10 @@ const ActionSheet = () => {
   }
 
   return (
-    <Card
-      title="Action sheet"
-    >
-      <Button
-        size="large"
-        block
-        onClick={showActionSheet}
-      >Show action sheet</Button>
-      <Text type="secondary">Selected action sheet item: </Text>
-      <Text type="warning">{response}</Text>
-    </Card>
+    <FeatureCard title="Action sheet">
+      <SecondaryButton text="Show action sheet" onClick={showActionSheet} />
+      <StatusLine label="Selected action sheet item:" value={response} />
+    </FeatureCard>
   )
 }
 

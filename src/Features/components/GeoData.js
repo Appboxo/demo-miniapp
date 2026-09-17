@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button, Typography, Divider } from 'antd'
-const { Text } = Typography
+import { SecondaryButton } from '@appboxo/ui-kit'
+import FeatureCard, { StatusLine } from '../../components/FeatureCard'
 
 const GeoData = () => {
   const [position, setPosition] = useState(null)
@@ -50,34 +50,16 @@ const GeoData = () => {
   };
 
   return (
-    <Card
-      title="Geoposition"
-    >
-      <Button
-        size="large"
-        block
-        onClick={requestGeoposition}
-      >Request qeo position</Button>
-      <Text type="secondary">Your geo position: </Text>
-      <Text type="warning">{formatPosition()}</Text>
-      <Divider />
-      <Button
-        size="large"
-        block
-        onClick={openLocation}
-      >Open location</Button>
-      <Text type="secondary">Status: {openStatus}</Text>
-      <Divider />
-      <Button
-        size="large"
-        block
-        onClick={chooseLocation}
-      >Choose location</Button>
-      <Text type="secondary">Location: </Text>
-      {location && <div className="code-block">
-        {location}
-      </div>}
-    </Card>
+    <FeatureCard title="Geoposition">
+      <SecondaryButton text="Request qeo position" onClick={requestGeoposition} />
+      <StatusLine label="Your geo position:" value={formatPosition()} />
+      <SecondaryButton text="Open location" onClick={openLocation} />
+      <StatusLine label="Status:" value={openStatus} />
+      <SecondaryButton text="Choose location" onClick={chooseLocation} />
+      <StatusLine label="Location:">
+        {location && <div className="code-block">{location}</div>}
+      </StatusLine>
+    </FeatureCard>
   )
 }
 

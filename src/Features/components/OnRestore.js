@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Typography } from 'antd'
-
-const { Text } = Typography
+import FeatureCard, { StatusLine } from '../../components/FeatureCard'
 
 const OnRestore = () => {
   const [data, setData] = useState(null)
@@ -27,14 +25,12 @@ const OnRestore = () => {
   }, [])
 
   return (
-    <Card
-      title="Miniapp on restore"
-    >
-      <Text type="secondary">Status: </Text>
-      {data && <div className="code-block">
-        {data}
-      </div>}
-    </Card>
+    <FeatureCard title="Miniapp on restore">
+      <StatusLine label="Status:" value={data ? 'Restored' : ''} />
+      {data && (
+        <StatusLine label="When:" value={data.replace('Miniapp is restored on: ', '')} />
+      )}
+    </FeatureCard>
   )
 }
 

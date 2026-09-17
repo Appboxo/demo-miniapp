@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import LoggerContext from "../LoggerContext.js";
-import { Button } from "antd";
+import { SecondaryButton, Title2 } from "@appboxo/ui-kit";
 import NavigationBar from "./components/NavigationBar";
 import TabBar from "./components/TabBar";
 import Miscellaneous from "./components/Miscellaneous";
@@ -29,6 +29,9 @@ import ExpandCollapse from "./components/ExpandCollapse";
 
 import "./Features.scss";
 import FileInput from "./components/FileInput";
+import CloseMiniApp from "./components/CloseMiniApp";
+import DownloadFile from "./components/DownloadFile";
+import Share from "./components/Share";
 
 const FEATURES = [
   {
@@ -50,6 +53,10 @@ const FEATURES = [
   {
     component: Miscellaneous,
     eventName: "AppBoxoWebAppOpenMiniApp",
+  },
+  {
+    component: CloseMiniApp,
+    eventName: "AppBoxoWebAppCloseMiniApp",
   },
   {
     component: ActionButtons,
@@ -131,6 +138,14 @@ const FEATURES = [
     component: FileInput,
     eventName: "AppBoxoWebAppSetNavigationBar",
   },
+  {
+    component: DownloadFile,
+    eventName: "AppBoxoWebAppDownloadFile",
+  },
+  {
+    component: Share,
+    eventName: "AppBoxoWebAppShare",
+  },
 ];
 
 const Features = (props) => {
@@ -147,8 +162,8 @@ const Features = (props) => {
 
   return (
     <section className="pane features">
-      <div>
-        <h1>Features</h1>
+      <div className="features__scroll">
+        <Title2 weight="semibold">Features</Title2>
         {FEATURES.map((feature, index) => {
           return (
             <div className="feature" key={index}>
@@ -157,15 +172,11 @@ const Features = (props) => {
           );
         })}
       </div>
-      <div>
-        <Button
+      <div className="features__footer">
+        <SecondaryButton
+          text="Go back"
           onClick={handleGoBack}
-          size="large"
-          className="button-back"
-          block
-        >
-          Go back
-        </Button>
+        />
       </div>
     </section>
   );

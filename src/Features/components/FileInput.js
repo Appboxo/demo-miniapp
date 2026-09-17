@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react'
-import { Card, Button, Typography } from 'antd'
-
-const {Text} = Typography
+import { Body2, SecondaryButton } from '@appboxo/ui-kit'
+import FeatureCard, { StatusLine } from '../../components/FeatureCard'
 
 const FileInput = () => {
   const [filesNames, setFilesNames] = useState([])
@@ -19,24 +18,15 @@ const FileInput = () => {
   }
 
   return (
-    <Card
-      title="File"
-    >
+    <FeatureCard title="File">
       <input type='file' onChange={onChangeFile} ref={inputEl} multiple hidden />
-      <Button
-        size="large"
-        block
-        onClick={openInput}
-      >Open Files</Button>
-      <Text type="secondary">Response: </Text>
-      <div>
-        {
-          !!filesNames?.length &&
-          filesNames.map((name, i) => <div><Text type="warning" key={i}>{name}</Text></div>
-          )
-        }
-      </div>
-    </Card>
+      <SecondaryButton text="Open Files" onClick={openInput} />
+      <StatusLine label="Response:">
+        {!!filesNames.length && filesNames.map((name, i) => (
+          <Body2 key={i} color="var(--tertiary-color)">{name}</Body2>
+        ))}
+      </StatusLine>
+    </FeatureCard>
   )
 }
 

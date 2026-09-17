@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button, Typography } from 'antd'
+import { SecondaryButton } from '@appboxo/ui-kit'
 import { useObserver } from "mobx-react"
+import FeatureCard, { StatusLine } from '../../components/FeatureCard'
 import LoggerContext from '../../LoggerContext'
 import { StoreContext, TABS } from '../../StoreContext'
-
-const { Text } = Typography;
 
 const TAB_BADGES = [
   {
@@ -46,13 +45,11 @@ const TabBar = () => {
       })
 
       if (data.tabId) {
-        // Store active tab to preserve active tab value
         window.localStorage.setItem('activeTabId', data.tabId)
 
         const active = TABS.find(item => item.tabId === data.tabId)
         store.activeTabbarTabName = active.tabName
 
-        // Remove badge preserving the other ones
         if (store.isTabbarBadgesShown && store.activeTabWithBadges.length) {
           const restBadges = store.activeTabWithBadges.filter(id => id !== data.tabId)
           store.activeTabWithBadges = restBadges
@@ -144,56 +141,30 @@ const TabBar = () => {
   }
 
   return useObserver(() => (
-    <Card
-      title="TabBar"
-    >
+    <FeatureCard title="TabBar">
       {!store.isTabbarInitialized ? (
-        <Button
+        <SecondaryButton
           className="wrap-button"
-          size="large"
-          block
+          text="Initialize native bottom tab bar"
           onClick={initTabBar}
-        >Initialize native bottom tab bar</Button>
+        />
       ) : !store.isTabbarShown ? (
-        <Button
-          size="large"
-          block
-          onClick={() => handleVisibility(true)}
-        >Show tab bar</Button>
+        <SecondaryButton text="Show tab bar" onClick={() => handleVisibility(true)} />
       ) : (
         <>
-          <Button
-            size="large"
-            block
-            onClick={() => handleVisibility(false)}
-          >Hide tab bar</Button>
+          <SecondaryButton text="Hide tab bar" onClick={() => handleVisibility(false)} />
           {store.isTabbarLightTheme ? (
-            <Button
-              size="large"
-              block
-              onClick={handleChangeToDark}
-            >Change to dark theme</Button>
+            <SecondaryButton text="Change to dark theme" onClick={handleChangeToDark} />
           ) : (
-            <Button
-              size="large"
-              block
-              onClick={handleChangeToLight}
-            >Change to light theme</Button>
+            <SecondaryButton text="Change to light theme" onClick={handleChangeToLight} />
           )}
-          <Button
-            size="large"
-            block
-            onClick={handleShowTabItemBadges}
-          >Show tab item badges</Button>
+          <SecondaryButton text="Show tab item badges" onClick={handleShowTabItemBadges} />
           {store.isTabbarShown && (
-            <>
-              <Text type="secondary">Active tab name: </Text>
-              <Text type="warning">{store.activeTabbarTabName || 'Home'}</Text>
-            </>
+            <StatusLine label="Active tab name:" value={store.activeTabbarTabName || 'Home'} />
           )}
         </>
       )}
-    </Card>
+    </FeatureCard>
   ))
 }
 

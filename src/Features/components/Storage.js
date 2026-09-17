@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button, Typography, Divider } from 'antd'
-
-const { Text } = Typography
+import { SecondaryButton } from '@appboxo/ui-kit'
+import FeatureCard, { StatusLine } from '../../components/FeatureCard'
 
 const Storage = () => {
   const [saveStatus, setSaveStatus] = useState('')
@@ -56,53 +55,28 @@ const Storage = () => {
   }
 
   return (
-    <Card
-      title="Storage"
-    >
-      <Button
+    <FeatureCard title="Storage">
+      <SecondaryButton
         className="wrap-button"
-        size="large"
-        block
+        text="Save username and email to storage"
         onClick={save}
-      >Save username and email to storage</Button>
-      <Text type="secondary">Status: </Text>
-      <Text type="warning">{saveStatus}</Text>
-      <Divider />
-      <Button
-        size="large"
-        block
-        onClick={getKeys}
-      >Get saved storage keys</Button>
-      <Text type="secondary">Storage keys: </Text>
-      <Text type="warning">{storageKeys.join(', ')}</Text>
-      <Divider />
-      <Button
-        size="large"
-        block
-        onClick={getData}
-      >Get saved storage data</Button>
-      <Text type="secondary">Saved data: </Text>
-      {savedData && <div className="code-block">
-        {savedData}
-      </div>}
-      <Divider />
-      <Button
+      />
+      <StatusLine label="Status:" value={saveStatus} />
+      <SecondaryButton text="Get saved storage keys" onClick={getKeys} />
+      <StatusLine label="Storage keys:" value={storageKeys.join(', ')} />
+      <SecondaryButton text="Get saved storage data" onClick={getData} />
+      <StatusLine label="Saved data:">
+        {savedData && <div className="code-block">{savedData}</div>}
+      </StatusLine>
+      <SecondaryButton
         className="wrap-button"
-        size="large"
-        block
+        text="Remove username from storage"
         onClick={removeItem}
-      >Remove username from storage</Button>
-      <Text type="secondary">Status: </Text>
-      <Text type="warning">{removeStatus}</Text>
-      <Divider />
-      <Button
-        size="large"
-        block
-        onClick={clearStorage}
-      >Clear storage</Button>
-      <Text type="secondary">Status: </Text>
-      <Text type="warning">{clearStatus}</Text>
-    </Card>
+      />
+      <StatusLine label="Status:" value={removeStatus} />
+      <SecondaryButton text="Clear storage" onClick={clearStorage} />
+      <StatusLine label="Status:" value={clearStatus} />
+    </FeatureCard>
   )
 }
 

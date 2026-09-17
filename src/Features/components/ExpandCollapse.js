@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button, Typography } from 'antd'
+import { SecondaryButton } from '@appboxo/ui-kit'
+import FeatureCard, { StatusLine } from '../../components/FeatureCard'
 import LoggerContext from '../../LoggerContext.js'
-
-const { Text } = Typography
 
 const ExpandCollapse = () => {
   const { updateLogs } = React.useContext(LoggerContext)
@@ -29,6 +28,14 @@ const ExpandCollapse = () => {
         })
       }
     }
+
+    appboxoSdk.sendPromise('AppBoxoWebAppGetSystemInfo')
+      .then((systemInfo) => {
+        if (typeof systemInfo?.expanded === 'boolean') {
+          setExpanded(systemInfo.expanded)
+        }
+      })
+      .catch(() => {})
 
     appboxoSdk.subscribe(expandCollapseListener)
     return () => {
@@ -73,22 +80,11 @@ const ExpandCollapse = () => {
   }
 
   return (
-    <Card
-      title="Widget mode"
-    >
-      <Button
-        size="large"
-        block
-        onClick={handleCollapse}
-      >Collapse</Button>
-      <Button
-        size="large"
-        block
-        onClick={handleExpand}
-      >Expand</Button>
-      <Text type="secondary">Status: </Text>
-      <Text type="warning">{expanded ? 'expanded' : 'collapsed'}</Text>
-    </Card>
+    <FeatureCard title="Widget mode">
+      <SecondaryButton text="Collapse" onClick={handleCollapse} />
+      <SecondaryButton text="Expand" onClick={handleExpand} />
+      <StatusLine label="Status:" value={expanded ? 'expanded' : 'collapsed'} />
+    </FeatureCard>
   )
 }
 

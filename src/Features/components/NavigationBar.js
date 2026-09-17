@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button } from 'antd'
+import { SecondaryButton } from '@appboxo/ui-kit'
+import FeatureCard from '../../components/FeatureCard'
 import LoggerContext from '../../LoggerContext.js'
 
 const NavigationBar = () => {
@@ -85,36 +86,17 @@ const NavigationBar = () => {
   }
 
   return (
-    <Card
-      title="NavigationBar"
-    >
-      <Button
-        size="large"
-        block
-        onClick={showDarkNavBar}
-      >Show dark navigation bar</Button>
-      <Button
-        size="large"
-        block
-        onClick={showLightNavBar}
-      >Show light navigation bar</Button>
-      <Button
-        size="large"
-        block
+    <FeatureCard title="NavigationBar">
+      <SecondaryButton text="Show dark navigation bar" onClick={showDarkNavBar} />
+      <SecondaryButton text="Show light navigation bar" onClick={showLightNavBar} />
+      <SecondaryButton
         className="wrap-button"
+        text="Show navigation bar with transparent background"
         onClick={handleTransparentNavbar}
-      >Show navigation bar with transparent background</Button>
-      <Button
-        size="large"
-        block
-        onClick={changeNavBarTitle}
-      >Change navigation bar title</Button>
-      <Button
-        size="large"
-        block
-        onClick={hideNavBar}
-      >Hide navigation bar</Button>
-    </Card>
+      />
+      <SecondaryButton text="Change navigation bar title" onClick={changeNavBarTitle} />
+      <SecondaryButton text="Hide navigation bar" onClick={hideNavBar} />
+    </FeatureCard>
   )
 }
 

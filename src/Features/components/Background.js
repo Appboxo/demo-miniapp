@@ -1,6 +1,7 @@
 import React from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button } from 'antd'
+import { SecondaryButton } from '@appboxo/ui-kit'
+import FeatureCard from '../../components/FeatureCard'
 
 const WindowBackground = () => {
   const changeBackground = () => {
@@ -10,16 +11,13 @@ const WindowBackground = () => {
   }
 
   return (
-    <Card
-      title="Background color"
-    >
-      <Button
+    <FeatureCard title="Background color">
+      <SecondaryButton
         className="wrap-button"
-        size="large"
-        block
+        text="Change window background"
         onClick={changeBackground}
-      >Change window background</Button>
-    </Card>
+      />
+    </FeatureCard>
   )
 }
 

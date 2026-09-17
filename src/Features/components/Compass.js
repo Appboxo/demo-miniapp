@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button, Typography } from 'antd'
-
-const { Text } = Typography
+import { SecondaryButton } from '@appboxo/ui-kit'
+import FeatureCard, { StatusLine } from '../../components/FeatureCard'
 
 const Compass = () => {
   const [isStarted, setIsStarted] = useState(false)
@@ -41,25 +40,16 @@ const Compass = () => {
   }, [])
 
   return (
-    <Card
-      title="Compass"
-    >
-      {isStarted ? <Button
-        className="wrap-button"
-        size="large"
-        block
-        onClick={stopCompass}
-      >Stop</Button> : <Button
-        className="wrap-button"
-        size="large"
-        block
-        onClick={startCompasss}
-      >Start</Button>}
-      <Text type="secondary">Data: </Text>
-      {data && <div className="code-block">
-        {data}
-      </div>}
-    </Card>
+    <FeatureCard title="Compass">
+      {isStarted ? (
+        <SecondaryButton className="wrap-button" text="Stop" onClick={stopCompass} />
+      ) : (
+        <SecondaryButton className="wrap-button" text="Start" onClick={startCompasss} />
+      )}
+      <StatusLine label="Data:">
+        {data && <div className="code-block">{data}</div>}
+      </StatusLine>
+    </FeatureCard>
   )
 }
 

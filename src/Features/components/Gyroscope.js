@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button, Typography } from 'antd'
-
-const { Text } = Typography
+import { SecondaryButton } from '@appboxo/ui-kit'
+import FeatureCard, { StatusLine } from '../../components/FeatureCard'
 
 const Gyroscope = () => {
   const [isStarted, setIsStarted] = useState(false)
@@ -43,26 +42,17 @@ const Gyroscope = () => {
   }, [])
 
   return (
-    <Card
-      title="Gyroscope"
-    >
-      {isStarted ? <Button
-        className="wrap-button"
-        size="large"
-        block
-        onClick={stopGyroscope}
-      >Stop</Button> : <Button
-        className="wrap-button"
-        size="large"
-        block
-        onClick={startGyroscope}
-      >Start</Button>}
-      <Text type="secondary">Data: </Text>
-      {data && <div className="code-block">
-        {data}
-      </div>}
-    </Card>
+    <FeatureCard title="Gyroscope">
+      {isStarted ? (
+        <SecondaryButton className="wrap-button" text="Stop" onClick={stopGyroscope} />
+      ) : (
+        <SecondaryButton className="wrap-button" text="Start" onClick={startGyroscope} />
+      )}
+      <StatusLine label="Data:">
+        {data && <div className="code-block">{data}</div>}
+      </StatusLine>
+    </FeatureCard>
   )
 }
 
-export default Gyroscope 
+export default Gyroscope

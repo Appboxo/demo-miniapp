@@ -1,6 +1,7 @@
 import React from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button } from 'antd'
+import { SecondaryButton } from '@appboxo/ui-kit'
+import FeatureCard from '../../components/FeatureCard'
 import { StoreContext } from '../../StoreContext'
 
 const ActionButtons = () => {
@@ -14,16 +15,13 @@ const ActionButtons = () => {
   }
 
   return (
-    <Card
-      title="Action buttons"
-    >
-      <Button
+    <FeatureCard title="Action buttons">
+      <SecondaryButton
         className="wrap-button"
-        size="large"
-        block
+        text="Toggle action buttons' theme"
         onClick={toggleActionButtonTheme}
-      >Toggle action buttons' theme</Button>
-    </Card>
+      />
+    </FeatureCard>
   )
 }
 

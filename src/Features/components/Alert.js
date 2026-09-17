@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button, Typography } from 'antd'
-
-const { Text } = Typography
+import { SecondaryButton } from '@appboxo/ui-kit'
+import FeatureCard, { StatusLine } from '../../components/FeatureCard'
 
 const ALERT_BUTTONS = [
   {
@@ -26,23 +25,15 @@ const Alert = () => {
       buttons: ALERT_BUTTONS
     })
 
-    // Selected button
     const selectedButton = ALERT_BUTTONS.find(item => item.id === data.id)
     setResponse(selectedButton.text)
   }
 
   return (
-    <Card
-      title="Alert"
-    >
-      <Button
-        size="large"
-        block
-        onClick={showAlert}
-      >Show alert</Button>
-      <Text type="secondary">Response: </Text>
-      <Text type="warning">{response}</Text>
-    </Card>
+    <FeatureCard title="Alert">
+      <SecondaryButton text="Show alert" onClick={showAlert} />
+      <StatusLine label="Response:" value={response} />
+    </FeatureCard>
   )
 }
 

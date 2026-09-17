@@ -1,5 +1,27 @@
-.intro {
-  .ant-btn + .ant-btn {
-    margin-top: 20px;
-  }
+.home {
+  padding-top: 8px;
+}
+
+.home__title {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.home__wordmark {
+  display: block;
+  width: 148px;
+  height: auto;
+}
+
+.home__chip {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--fill-2, #eaeced);
+}
+
+.home__chip--in {
+  background: #e8f6ee;
 }

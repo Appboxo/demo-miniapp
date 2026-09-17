@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button, Typography } from 'antd'
-const { Text } = Typography;
+import { SecondaryButton } from '@appboxo/ui-kit'
+import FeatureCard, { StatusLine } from '../../components/FeatureCard'
 
 const IMAGES = [
   'https://images.unsplash.com/photo-1586854399870-334a91a284e8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80',
@@ -40,17 +40,10 @@ const ImageGallery = () => {
   }
 
   return (
-    <Card
-      title="Image gallery"
-    >
-      <Button
-        size="large"
-        block
-        onClick={showGallery}
-      >Show image gallery</Button>
-      <Text type="secondary">Result: </Text>
-      <Text type="warning">{response}</Text>
-    </Card>
+    <FeatureCard title="Image gallery">
+      <SecondaryButton text="Show image gallery" onClick={showGallery} />
+      <StatusLine label="Result:" value={response} />
+    </FeatureCard>
   )
 }
 

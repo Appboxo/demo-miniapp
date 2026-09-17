@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button, Typography } from 'antd'
-const { Text } = Typography
+import { SecondaryButton } from '@appboxo/ui-kit'
+import FeatureCard, { StatusLine } from '../../components/FeatureCard'
 
 const SystemInfo = () => {
   const [systemInfo, setSystemInfo] = useState('')
@@ -13,19 +13,12 @@ const SystemInfo = () => {
   };
 
   return (
-    <Card
-      title="System information"
-    >
-      <Button
-        size="large"
-        block
-        onClick={getSystemInfo}
-      >Get system info</Button>
-      <Text type="secondary">System data: </Text>
-      {systemInfo && <div className="code-block">
-        {systemInfo}
-      </div>}
-    </Card>
+    <FeatureCard title="System information">
+      <SecondaryButton text="Get system info" onClick={getSystemInfo} />
+      <StatusLine label="System data:">
+        {systemInfo && <div className="code-block">{systemInfo}</div>}
+      </StatusLine>
+    </FeatureCard>
   )
 }
 

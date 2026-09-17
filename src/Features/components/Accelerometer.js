@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button, Typography } from 'antd'
-
-const { Text } = Typography
+import { SecondaryButton } from '@appboxo/ui-kit'
+import FeatureCard, { StatusLine } from '../../components/FeatureCard'
 
 const Accelerometer = () => {
   const [isStarted, setIsStarted] = useState(false)
@@ -43,25 +42,16 @@ const Accelerometer = () => {
   }, [])
 
   return (
-    <Card
-      title="Accelerometer"
-    >
-      {isStarted ? <Button
-        className="wrap-button"
-        size="large"
-        block
-        onClick={stopAccelerometer}
-      >Stop</Button> : <Button
-        className="wrap-button"
-        size="large"
-        block
-        onClick={startAccelerometer}
-      >Start</Button>}
-      <Text type="secondary">Data: </Text>
-      {data && <div className="code-block">
-        {data}
-      </div>}
-    </Card>
+    <FeatureCard title="Accelerometer">
+      {isStarted ? (
+        <SecondaryButton className="wrap-button" text="Stop" onClick={stopAccelerometer} />
+      ) : (
+        <SecondaryButton className="wrap-button" text="Start" onClick={startAccelerometer} />
+      )}
+      <StatusLine label="Data:">
+        {data && <div className="code-block">{data}</div>}
+      </StatusLine>
+    </FeatureCard>
   )
 }
 

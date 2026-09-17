@@ -2,6 +2,8 @@ import React from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
 import LoggerContext from '../LoggerContext'
 
+import mark from '../assets/boxo-mark.png'
+
 import './Widget.scss'
 
 const Widget = ({ onExpand }) => {
@@ -49,7 +51,7 @@ const Widget = ({ onExpand }) => {
       <div className="widget__content">
         <div className="widget__copy">
           <div className="widget__brand">
-            <span className="widget__mark" aria-hidden="true">B</span>
+            <img className="widget__mark" src={mark} alt="" />
             <span className="widget__eyebrow">Boxo Widget</span>
           </div>
           <h2 className="widget__title">Boxo</h2>

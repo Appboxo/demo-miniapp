@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button, Typography } from 'antd'
-const { Text } = Typography;
+import { SecondaryButton } from '@appboxo/ui-kit'
+import FeatureCard, { StatusLine } from '../../components/FeatureCard'
 
 const AppboxoPay = () => {
   const [response, setResponse] = useState('')
@@ -36,17 +36,10 @@ const AppboxoPay = () => {
   }
 
   return (
-    <Card
-      title="AppboxoPay"
-    >
-      <Button
-        size="large"
-        block
-        onClick={showGallery}
-      >Call AppboxoPay</Button>
-      <Text type="secondary">Result: </Text>
-      <Text type="warning">{response}</Text>
-    </Card>
+    <FeatureCard title="AppboxoPay">
+      <SecondaryButton text="Call AppboxoPay" onClick={showGallery} />
+      <StatusLine label="Result:" value={response} />
+    </FeatureCard>
   )
 }
 

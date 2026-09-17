@@ -1,29 +1,87 @@
-@import '../node_modules/antd/dist/antd.css';
-
 :root {
   --primary-color: #000000;
   --secondary-color: #2CBBD7;
   --tertiary-color: #faad14;
+  --font-sans: 'Montserrat', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   font-size: 14px;
-  background-color: #fff;
-  height: 100vh;
-  overflow: auto;
-  font-family: 'Noto Sans', sans-serif;
-  padding: 80px 20px 60px;
+  background-color: var(--fill-white, #f7f7f7);
+  overflow: hidden;
+  font-family: var(--font-sans);
+  padding: 24px 16px 40px;
   margin: 0;
 }
 
+html,
+body,
+#root,
+#root button,
+#root input {
+  font-family: var(--font-sans);
+}
+
 #root {
+  --primary-6: #0f0f0f;
+  --primary-7: #000000;
+  --button-primary-background: #0f0f0f;
+  --button-primary-clicked-background: #000000;
+  --button-radius: 999px;
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  max-width: 500px;
+  max-width: 430px;
   margin: 0 auto;
+  overflow: hidden;
+}
+
+.app-main {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main--hidden {
+  display: none;
+}
+
+#root .arco-button {
+  border-radius: var(--button-radius, 999px) !important;
+}
+
+#root .arco-button.arco-button-size-huge {
+  height: 0.72rem !important;
+}
+
+#root .arco-button.arco-button-size-huge .arco-button-text {
+  font-size: 0.28rem !important;
+}
+
+#root .arco-button.arco-button-type-primary {
+  background: var(--button-primary-background, #0f0f0f) !important;
+  color: #ffffff !important;
+}
+
+#root .arco-button.arco-button-type-primary-active {
+  background: var(--button-primary-clicked-background, #000000) !important;
+}
+
+#root .arco-button.arco-button-type-default {
+  background: var(--button-default-background, var(--fill-2, #eaeced)) !important;
+  color: var(--button-default-text-color, var(--text-5, #0f0f0f)) !important;
 }
 
 body.widget-mode {
@@ -46,46 +104,16 @@ p {
   line-height: 24px;
 }
 
-.ant-btn {
-  border-radius: 1rem;
-
-  &.ant-btn-primary {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color) !important;
-    color: #ffffff !important;
-
-    &:hover,
-    &:focus {
-      background-color: var(--primary-color);
-      border-color: var(--primary-color);
-    }
-  }
-
-  &:not(.ant-btn-danger) {
-    border-color: var(--secondary-color);
-    color: var(--secondary-color);
-  
-    &:hover,
-    &:focus {
-      border-color: var(--secondary-color);
-      color: var(--secondary-color);
-    }
-  }
-}
-
-.ant-btn-lg {
-  height: 46px;
-}
-
 .pane {
   position: relative;
-  height: 100%;
+  flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   h1 {
-    margin: 0 auto 60px;
+    margin: 0 auto 24px;
   }
 
   .center {
@@ -99,8 +127,7 @@ p {
 }
 
 .show-logs-button {
-  position: absolute;
-  top: 82px;
-  left: 20px;
-  z-index: 100;
+  flex-shrink: 0;
+  width: auto !important;
+  margin-bottom: 16px;
 }

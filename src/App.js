@@ -6,8 +6,7 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
-import { Button } from 'antd';
-
+import { QuaternaryButton } from '@appboxo/ui-kit'
 import Account from './Account/Account'
 import Features from './Features/Features'
 import Home from './Home/Home'
@@ -25,9 +24,12 @@ const setWidgetChrome = (expanded) => {
 
 function App() {
   const [loginStatus, setLoginStatus] = useState(false)
-  const [logsVisibility, setLogsVisibility] = useState(false)
+  const [logsVisibility, setLogsVisibility] = useState(() => (
+    typeof window !== 'undefined' &&
+    new URLSearchParams(window.location.search).get('debug') === '1'
+  ))
   const [logs, setLogs] = useState([])
-  const [expanded, setExpanded] = useState(true)
+  const [expanded, setExpanded] = useState(null)
 
   const updateLogs = (newLog) => {
     setLogs((currentLogs) => [...currentLogs, newLog])
@@ -35,11 +37,15 @@ function App() {
 
   const applyExpanded = (nextExpanded) => {
     setExpanded(nextExpanded)
-    setWidgetChrome(nextExpanded)
   }
 
   useEffect(() => {
+    if (typeof expanded !== 'boolean') {
+      return
+    }
+
     document.body.classList.toggle('widget-mode', !expanded)
+    setWidgetChrome(expanded)
   }, [expanded])
 
   useEffect(() => {
@@ -74,6 +80,35 @@ function App() {
       color: '#ffffff'
     })
 
+    const systemInfoFallback = setTimeout(() => {
+      setExpanded((current) => (current === null ? true : current))
+    }, 800)
+
+    appboxoSdk.sendPromise('AppBoxoWebAppGetSystemInfo')
+      .then((systemInfo) => {
+        clearTimeout(systemInfoFallback)
+        updateLogs({
+          action: 'AppBoxoWebAppGetSystemInfo',
+          message: 'response received',
+          data: systemInfo
+        })
+
+        if (typeof systemInfo?.expanded === 'boolean') {
+          applyExpanded(systemInfo.expanded)
+        } else {
+          applyExpanded(true)
+        }
+      })
+      .catch((error) => {
+        clearTimeout(systemInfoFallback)
+        updateLogs({
+          action: 'AppBoxoWebAppGetSystemInfo',
+          message: 'request failed',
+          data: error
+        })
+        applyExpanded(true)
+      })
+
     const expandCollapseListener = (event) => {
       if (!event.detail) {
         return
@@ -103,11 +138,16 @@ function App() {
       {
         action: 'AppBoxoWebAppGetInitData',
         message: 'request sent'
+      },
+      {
+        action: 'AppBoxoWebAppGetSystemInfo',
+        message: 'request sent'
       }
     ]
     setLogs([...logs, ...currentLogs])
 
     return () => {
+      clearTimeout(systemInfoFallback)
       appboxoSdk.unsubscribe(expandCollapseListener)
       document.body.classList.remove('widget-mode')
     }
@@ -120,18 +160,19 @@ function App() {
       setLoginStatus
     }}>
       <LoggerContext.Provider value={{
-        updateLogs
+        updateLogs,
+        openLogs: () => setLogsVisibility(true)
       }}>
-        {!expanded && <Widget onExpand={applyExpanded} />}
-        {expanded && !logsVisibility && (
-          <Button
-            type="dashed"
-            size="small"
+        {expanded === false && <Widget onExpand={applyExpanded} />}
+        {expanded === true && !logsVisibility && (
+          <QuaternaryButton
             className="show-logs-button"
+            text="Show Logs"
+            inline
             onClick={() => setLogsVisibility(true)}
-          >Show Logs</Button>
+          />
         )}
-        <div style={{ display: expanded ? 'block' : 'none', height: '100%' }}>
+        <div className={`app-main${expanded === true ? '' : ' app-main--hidden'}`}>
           <StoreProvider>
             <Router>
               <Switch>
@@ -148,7 +189,7 @@ function App() {
             </Router>
           </StoreProvider>
         </div>
-        {expanded && logsVisibility && <Logs logs={logs} onClose={() => setLogsVisibility(false)}/>}
+        {expanded === true && logsVisibility && <Logs logs={logs} onClose={() => setLogsVisibility(false)}/>}
       </LoggerContext.Provider>
     </AuthContext.Provider>
   );

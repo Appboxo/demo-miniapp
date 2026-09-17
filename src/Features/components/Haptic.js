@@ -1,6 +1,7 @@
 import React from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button } from 'antd'
+import { SecondaryButton } from '@appboxo/ui-kit'
+import FeatureCard from '../../components/FeatureCard'
 
 const Haptic = () => {
   const vibrate = (style) => {
@@ -10,25 +11,11 @@ const Haptic = () => {
   }
 
   return (
-    <Card
-      title="Haptic feedback"
-    >
-      <Button
-        size="large"
-        block
-        onClick={() => vibrate('light')}
-      >Light vibrate</Button>
-      <Button
-        size="large"
-        block
-        onClick={() => vibrate('medium')}
-      >Medium vibrate</Button>
-      <Button
-        size="large"
-        block
-        onClick={() => vibrate('heavy')}
-      >Heavy vibrate</Button>
-    </Card>
+    <FeatureCard title="Haptic feedback">
+      <SecondaryButton text="Light vibrate" onClick={() => vibrate('light')} />
+      <SecondaryButton text="Medium vibrate" onClick={() => vibrate('medium')} />
+      <SecondaryButton text="Heavy vibrate" onClick={() => vibrate('heavy')} />
+    </FeatureCard>
   )
 }
 

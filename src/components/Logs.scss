@@ -1,18 +1,46 @@
 .logs {
-  background-color: rgba(0, 0, 0, .6);
+  background-color: rgba(0, 0, 0, 0.78);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1;
-  overflow: auto;
-  padding: 20px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 16px 16px 24px;
+}
 
-  ul {
-    margin-top: 90px;
-    color: white;
-    font-family: monospace;
-    font-size: 12px;
-  }
+.logs__header {
+  flex-shrink: 0;
+}
+
+.logs__list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  color: #f4f4f5;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.45;
+  -webkit-overflow-scrolling: touch;
+}
+
+.logs__item {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.logs__action {
+  color: #7ee0ef;
+}
+
+.logs__data {
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.58);
+  word-break: break-all;
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
-import { Card, Button, Typography, Divider } from 'antd'
-const { Text } = Typography
+import { SecondaryButton } from '@appboxo/ui-kit'
+import FeatureCard, { StatusLine } from '../../components/FeatureCard'
 
 const Clipboard = () => {
   const [clipboard, setClipboard] = useState('')
@@ -22,25 +22,12 @@ const Clipboard = () => {
   }
 
   return (
-    <Card
-      title="System clipboard"
-    >
-      <Button
-        size="large"
-        block
-        onClick={getClipboard}
-      >Get clipboard data</Button>
-      <Text type="secondary">Clipboard: </Text>
-      <Text type="warning">{clipboard}</Text>
-      <Divider />
-      <Button
-        size="large"
-        block
-        onClick={setClipboardData}
-      >Set clipboard</Button>
-      <Text type="secondary">Status: </Text>
-      <Text type="warning">{status}</Text>
-    </Card>
+    <FeatureCard title="System clipboard">
+      <SecondaryButton text="Get clipboard data" onClick={getClipboard} />
+      <StatusLine label="Clipboard:" value={clipboard} />
+      <SecondaryButton text="Set clipboard" onClick={setClipboardData} />
+      <StatusLine label="Status:" value={status} />
+    </FeatureCard>
   )
 }
 

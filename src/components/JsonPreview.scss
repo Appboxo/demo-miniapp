@@ -6,9 +6,33 @@
 }
 
 .json-preview__fields {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px 12px;
+}
+
+@media (min-width: 300px) {
+  .json-preview__fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.json-preview__field {
+  min-width: 0;
+}
+
+.json-preview__field--wide {
+  grid-column: 1 / -1;
+}
+
+.json-preview__field .status-line {
   flex-direction: column;
-  gap: 8px;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.json-preview__field .status-badge {
+  max-width: 100%;
 }
 
 .json-preview__panel {

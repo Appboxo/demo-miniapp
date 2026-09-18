@@ -71,13 +71,22 @@ const JsonPreview = ({ data }) => {
     <div className="json-preview">
       {fields.length > 0 && (
         <div className="json-preview__fields">
-          {fields.map(([key, value]) => (
-            <StatusLine
-              key={key}
-              label={`${prettyKey(key)}:`}
-              value={formatValue(value)}
-            />
-          ))}
+          {fields.map(([key, value]) => {
+            const text = formatValue(value)
+            const wide = text.length > 22 || typeof value === 'object'
+
+            return (
+              <div
+                key={key}
+                className={`json-preview__field${wide ? ' json-preview__field--wide' : ''}`}
+              >
+                <StatusLine
+                  label={`${prettyKey(key)}:`}
+                  value={text}
+                />
+              </div>
+            )
+          })}
         </div>
       )}
       <div className="json-preview__panel">

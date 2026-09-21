@@ -15,21 +15,10 @@ import AuthContext from './AuthContext'
 import LoggerContext from './LoggerContext'
 import Logs from './components/Logs'
 import StoreProvider from './StoreContext'
-
-const CHROME_BACKGROUND = '#f7f7f7'
-
-const setWidgetChrome = (expanded) => {
-  appboxoSdk.send('AppBoxoWebAppSetStatusBarColor', {
-    color: CHROME_BACKGROUND
-  })
-  appboxoSdk.send('AppBoxoWebAppSetNavigationBar', {
-    show: expanded,
-    background: CHROME_BACKGROUND,
-    frontColor: '#000000'
-  })
-}
+import { ThemeContext, applyNativeChrome } from './theme'
 
 function App() {
+  const { isDark } = React.useContext(ThemeContext)
   const [loginStatus, setLoginStatus] = useState(false)
   const [logsVisibility, setLogsVisibility] = useState(() => (
     typeof window !== 'undefined' &&
@@ -52,8 +41,8 @@ function App() {
     }
 
     document.body.classList.toggle('widget-mode', !expanded)
-    setWidgetChrome(expanded)
-  }, [expanded])
+    applyNativeChrome(isDark, { expanded })
+  }, [expanded, isDark])
 
   useEffect(() => {
     console.log('Getting data')
@@ -82,13 +71,7 @@ function App() {
         })
       })
 
-    appboxoSdk.send('AppBoxoWebAppSetStatusBarColor', {
-      color: CHROME_BACKGROUND
-    })
-    appboxoSdk.send('AppBoxoWebAppSetNavigationBar', {
-      background: CHROME_BACKGROUND,
-      frontColor: '#000000'
-    })
+    applyNativeChrome(isDark)
 
     const systemInfoFallback = setTimeout(() => {
       setExpanded((current) => (current === null ? true : current))

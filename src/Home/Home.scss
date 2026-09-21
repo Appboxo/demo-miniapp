@@ -14,6 +14,10 @@
   height: auto;
 }
 
+#root.arco-theme-dark .home__wordmark {
+  filter: invert(1);
+}
+
 .home__chip {
   display: inline-flex;
   align-self: flex-start;
@@ -24,4 +28,9 @@
 
 .home__chip--in {
   background: #e8f6ee;
+}
+
+#root.arco-theme-dark .home__chip--in {
+  background: var(--success-2, #193c25);
+  color: var(--success-6, #4ebc73);
 }

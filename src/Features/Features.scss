@@ -38,9 +38,10 @@
     font-family: var(--font-mono);
     font-size: 11px;
     line-height: 1.55;
-    background: #eef0f2;
-    border: 1px solid rgba(15, 15, 15, 0.08);
+    background: var(--fill-2, #eef0f2);
+    border: 1px solid var(--line-1, rgba(15, 15, 15, 0.08));
     border-radius: 16px;
+    color: var(--text-5, #1c1c1e);
     word-break: break-word;
     white-space: pre-wrap;
   }

@@ -39,6 +39,26 @@
   color: #8a6a00;
 }
 
+#root.arco-theme-dark .status-badge--success {
+  background: var(--success-2, #193c25);
+  color: var(--success-6, #4ebc73);
+}
+
+#root.arco-theme-dark .status-badge--danger {
+  background: var(--danger-2, #521017);
+  color: var(--danger-6, #ff3347);
+}
+
+#root.arco-theme-dark .status-badge--info {
+  background: var(--info-1, #162d48);
+  color: var(--text-5, #ffffff);
+}
+
+#root.arco-theme-dark .status-badge--warning {
+  background: var(--warning-2, #4f3e12);
+  color: var(--warning-6, #f6c339);
+}
+
 .status-badge--data {
   font-weight: 500;
   font-family: var(--font-mono);

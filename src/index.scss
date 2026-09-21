@@ -18,10 +18,17 @@ body {
 body {
   font-size: 14px;
   background-color: var(--fill-white, #f7f7f7);
+  color: var(--text-5, #0f0f0f);
   overflow: hidden;
   font-family: var(--font-sans);
   padding: 24px 16px 40px;
   margin: 0;
+}
+
+html.theme-dark,
+html.theme-dark body {
+  background-color: #000000;
+  color: #ffffff;
 }
 
 html,
@@ -70,9 +77,20 @@ body,
   font-size: 0.28rem !important;
 }
 
+#root.arco-theme-dark {
+  --primary-6: #ffffff;
+  --primary-7: #e5e5e5;
+  --button-primary-background: #ffffff;
+  --button-primary-clicked-background: #dcdcdc;
+}
+
 #root .arco-button.arco-button-type-primary {
   background: var(--button-primary-background, #0f0f0f) !important;
   color: #ffffff !important;
+}
+
+#root.arco-theme-dark .arco-button.arco-button-type-primary {
+  color: #0f0f0f !important;
 }
 
 #root .arco-button.arco-button-type-primary-active {
@@ -84,7 +102,8 @@ body,
   color: var(--button-default-text-color, var(--text-5, #0f0f0f)) !important;
 }
 
-body.widget-mode {
+body.widget-mode,
+html.theme-dark body.widget-mode {
   padding: 0;
   overflow: hidden;
   background-color: transparent;

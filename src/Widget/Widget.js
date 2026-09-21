@@ -1,6 +1,7 @@
 import React from 'react'
 import appboxoSdk from '@appboxo/js-sdk'
 import LoggerContext from '../LoggerContext'
+import { ThemeContext } from '../theme'
 
 import mark from '../assets/boxo-mark.png'
 
@@ -8,6 +9,7 @@ import './Widget.scss'
 
 const Widget = ({ onExpand }) => {
   const { updateLogs } = React.useContext(LoggerContext) || {}
+  const { isDark } = React.useContext(ThemeContext) || {}
 
   const handleOpen = async () => {
     if (updateLogs) {
@@ -46,7 +48,7 @@ const Widget = ({ onExpand }) => {
   }
 
   return (
-    <section className="widget">
+    <section className={`widget ${isDark ? 'widget--dark' : 'widget--light'}`}>
       <div className="widget__glow" aria-hidden="true" />
       <div className="widget__content">
         <div className="widget__copy">

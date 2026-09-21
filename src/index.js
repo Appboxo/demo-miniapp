@@ -1,12 +1,12 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import setRootPixel from '@arco-design/mobile-react/tools/flexible';
-import ContextProvider from '@arco-design/mobile-react/esm/context-provider';
 import '@arco-design/mobile-react/dist/style.css';
 import '@appboxo/ui-kit/styles.css';
 import '@appboxo/ui-kit/themes/default/theme.css';
 import './index.scss';
 import App from './App';
+import ThemeRoot from './theme';
 import * as serviceWorker from './serviceWorker';
 import appboxoSdk from '@appboxo/js-sdk'
 
@@ -28,9 +28,9 @@ appboxoSdk.sendPromise('AppBoxoWebAppGetMiniappSettings').then(data => {
 
 const root = createRoot(document.getElementById('root'));
 root.render(
-  <ContextProvider>
+  <ThemeRoot>
     <App />
-  </ContextProvider>
+  </ThemeRoot>
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -13,7 +13,8 @@
     left: 20px;
     right: 20px;
     bottom: 30px;
-    background-color: #fff;
+    background-color: var(--fill-1, #fff);
+    color: var(--text-5, #0f0f0f);
     border-radius: 20px;
     padding: 30px 26px;
     text-align: center;

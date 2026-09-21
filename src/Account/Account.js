@@ -122,7 +122,7 @@ const Account = () => {
           value={loginStatus ? 'Logged in' : 'Not logged in'}
         />
       </Flex>
-      <Flex vertical gap={20}>
+      <Flex vertical gap={12}>
         {loginStatus ? (
           <PrimaryButton
             text="Logout"
